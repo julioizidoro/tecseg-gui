@@ -1,0 +1,74 @@
+<br /><br />
+<div class="page-header">
+  <div class="container-fluid">
+    <h3>
+      Treinamentos
+      <br />
+    </h3>
+    <form [formGroup]="formulario">
+
+        <div class="row">
+              <div class="form-group col-xs-2">
+                <label for="datainicio">Data Inicio</label>
+                <input type="date" class="form-control" id="datainicio" placeholder="Data Inicial"
+                formControlName="dataInicio" >
+              </div>
+
+              <div class="form-group col-xs-2">
+                <label for="datafinal">Data Final</label>
+                <input type="date" class="form-control" id="datafinal" placeholder="Data Final"
+                formControlName="dataFinal" >
+              </div>
+
+
+              <div class="form-group col-xs-2" >
+                <br/>
+                <br/>
+                <button type="button" style="float:right;" class="btn btn-success" >
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  Pesquisar</button>
+                  <button type="button" style="margin-left:1%;" class="btn btn-success"  title="Limpar a pesquisa">
+                      <i class="fa fa-ban" aria-hidden="true" ></i>
+                      Limpar</button>
+          </div>
+        </div>
+
+
+    </form>
+
+    <div class="container-fluid" style="width:80%;">
+
+        <button type="button" style="float:right;" class="btn btn-success" routerLink="/cadasocontrole">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          Novo</button>
+        <br/><br/>
+        <div class="table-responsive">
+         <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Loja</th>
+                    <th>Instrutor</th>
+                    <th>Situação</th>
+                  </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let treinamento of treinamentos" >
+                    <td>{{ treinamento.nome}}</td>
+                    <td>{{ treinamento.data | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ treinamento.loja }}</td>
+                    <td>{{ treinamento.instrutor }}</td>
+                    <td>{{ treinamento.situacao }}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+</div>
+
+        </div>
+  </div>
+
+</div>

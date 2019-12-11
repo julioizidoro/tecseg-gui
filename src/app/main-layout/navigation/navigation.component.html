@@ -1,0 +1,208 @@
+<!--Main Navigation-->
+<header>
+
+    <!-- Sidebar -->
+    <div class="sidebar-fixed position-fixed"  style="overflow-y: auto;">
+        <div class="list-group list-group-flush pt-5">
+            <a routerLink="" class="list-group-item list-group-item-action waves-effect">
+                <mdb-icon fas icon="chart-pie" class="mr-3"></mdb-icon>Dashboard
+            </a>
+            <mdb-navbar SideClass="navbar navbar-1 navbar-light lighten-2 p-0 box border-bottom" [containerInside]="false">
+                <!-- Navbar brand -->
+                <mdb-navbar-brand>
+                    <a  class="list-group-item list-group-item-action waves-effect mt-1" href="#">
+                        <mdb-icon fas icon="file" class="mr-3"></mdb-icon><span>Cadastros</span>
+                    </a>
+                </mdb-navbar-brand>
+                <links>
+                    <ul class="navbar-nav mr-auto">
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="/consfuncionario">Funcionários</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                                routerLink="">Função</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="">Loja</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="">Tipo de Exame</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="">Acesso</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="">Usuários</a>
+                        </li>
+                    </ul>
+                </links>
+            </mdb-navbar>
+            <mdb-navbar SideClass="navbar navbar-1 navbar-light lighten-2 p-0 box border-bottom" [containerInside]="false">
+                <!-- Navbar brand -->
+                <mdb-navbar-brand>
+                    <a  class="list-group-item list-group-item-action waves-effect mt-1" href="#">
+                        <mdb-icon fas icon="folder-open" class="mr-3"></mdb-icon><span>Aso´s</span>
+                    </a>
+                </mdb-navbar-brand>
+                <links>
+                    <ul class="navbar-nav mr-auto">
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               routerLink="/consasoagenda">Agendamento</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               routerLink="/consasocontrole">Controle</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               routerLink="">Relatórios</a>
+                        </li>
+                    </ul>
+                </links>
+            </mdb-navbar>
+            <mdb-navbar SideClass="navbar navbar-1 navbar-light lighten-2 p-0 box border-bottom" [containerInside]="false">
+                <!-- Navbar brand -->
+                <mdb-navbar-brand>
+                    <a  class="list-group-item list-group-item-action waves-effect mt-1" href="#">
+                        <mdb-icon fas icon="graduation-cap" class="mr-3"></mdb-icon><span>Cursos</span>
+                    </a>
+                </mdb-navbar-brand>
+                <links>
+                    <ul class="navbar-nav mr-auto">
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               routerLink="">Lista</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               routerLink="">Relatórios</a>
+                        </li>
+                    </ul>
+                </links>
+            </mdb-navbar>
+        </div>
+
+    </div>
+    <!-- Sidebar -->
+
+    <!--Navbar-->
+    <mdb-navbar [containerInside]="false" SideClass="navbar navbar-dark pink darken-4 navbar-expand-lg">
+        <!-- Collapsible content -->
+        <links>
+            <ul class="navbar-nav">
+
+            </ul>
+            <ul class="navbar-nav mr-auto ml-4">
+                <div class="text-left ">
+                    <img src='../../../assets/img/logo.png' width="75" height="50"   />
+            </div>
+            </ul>
+
+
+           <!-- Informações do usuário -->
+      <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item dropdown btn-group" dropdown>
+              <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light text-white" mdbWavesEffect>
+                <label>{{ usuario.nome}}</label>
+               <img src='../../../assets/img/001.jpg' width=40 height=40> 
+              </a>
+              <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
+                <a class="dropdown-item" (click)="mudarsenha.show()" mdbWavesEffect>Alterar senha</a>
+                <a class="dropdown-item" (click)="abrirModalAlterarFoto()">Alterar foto</a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <label class="ml-1 mb-0" (click)="logof()">Sair</label>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </links>
+
+    </mdb-navbar>
+    <!--/.Navbar-->
+
+</header>
+
+<div mdbModal #alterarfoto="mdb-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="heading lead">Alterar foto</p>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" (change)="onChange($event)" />
+                <label class="custom-file-label" for="customFile" id="customFileLabel">Selecionar arquivo</label>
+                
+            </div>
+            <div style="margin-top: 10px;"> 
+                <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!file">
+                    Upload
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--Main Navigation-->
+
+<div mdbModal #mudarsenha="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Alterar Senha</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="mudarsenha.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+            <form [formGroup]="formulario">
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" class="form-control" id="senhaatual" 
+                        formControlName="senhaatual"   >
+                    <label for="senhaatual">Senha atual</label>
+                </div>
+                <div class="md-form mb-5">
+                    <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                    <input type="password" class="form-control" id="novasenha" 
+                        formControlName="novasenha"   >
+                    <label for="novasenha">Nova atual</label>
+
+               </div>
+               <div class="md-form mb-5">
+                <mdb-icon fas icon="lock" class="prefix grey-text"></mdb-icon>
+                <input type="password" class="form-control" id="confirmanovasenha" 
+                    formControlName="confirmanovasenha"   >
+                <label for="confirmanovasenha">Confirma nova atual</label>
+
+           </div>
+          </form>
+      </div>
+      <div class="modal-footer justify-content-center">
+            <button type="button" color="success" class="btn btn-primary"  (click)=" confirmarModalMudarSenha()">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                Confirmar
+            </button>
+            <button type="button" class="btn btn-danger"   (click)="cancelarModalMudarSenha()">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                Cacnelar
+            </button>
+        </div>
+  </div>
+</div>
+
+
+
+<!-- altear foto-->

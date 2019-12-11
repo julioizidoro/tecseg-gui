@@ -1,0 +1,29 @@
+<form [formGroup]="formulario">
+  <div class="mt-5">
+      <div class="col-md-12 flex-center">
+          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 bg-white p-5 border-login mt-5">
+                <div class="text-center mt-2">
+                    <img src='../../../assets/img/logo.png' width="150" height="100"  />
+                </div>
+                <br/>
+              <div class="md-form form-sm">
+                  <mdb-icon far icon="envelope"></mdb-icon>
+                  <input mdbInputDirective type="text" id="form30" class="form-control"
+                         formControlName="login" placeholder="Usuário">
+              </div>
+  
+              <div class="md-form form-sm">
+                  <mdb-icon fas icon="lock"></mdb-icon>
+                  <input mdbInputDirective type="password" id="form31" class="form-control"
+                         formControlName="senha" placeholder="Senha">
+              </div>
+  
+              <div class="text-center mt-2">
+                  <button class="btn btn-success waves-light" mdbWavesEffect type="submit" (click)= "logar()"  >Entrar
+                      <mdb-icon fas icon="sign-in-alt" class="ml-1"></mdb-icon>
+                  </button>
+              </div>
+          </div>
+      </div>
+  </div>
+  </form>
