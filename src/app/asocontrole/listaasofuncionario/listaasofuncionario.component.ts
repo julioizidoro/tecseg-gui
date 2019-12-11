@@ -22,24 +22,17 @@ export class ListaasofuncionarioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.funcionarioSelecionado = new Funcionario();
-    this.funcionarioSelecionado.funcao = new Funcao();
-    this.funcionarioSelecionado.loja = new Loja();
-    let id;
-    this.activeRrouter.params.subscribe(params => {
-      id = params.id;
-      if (id != null) {
-        this.asoControleService.getFuncionarioId(id).subscribe(
-          resposta => {
-            this.listaAso = resposta as any;
-            this.funcionarioSelecionado = this.listaAso[0].funcionario;
-          },
-          err => {
-            console.log(err.error.erros.join(' '));
-          }
-        );
+    let aso = this.asoControleService.getAso();
+    this.funcionarioSelecionado = aso.funcionario;
+    this.asoControleService.getFuncionarioId(this.funcionarioSelecionado.idfuncionario).subscribe(
+      resposta => {
+        this.listaAso = resposta as any;
+        this.funcionarioSelecionado = this.listaAso[0].funcionario;
+      },
+        err => {
+          console.log(err.error.erros.join(' '));
       }
-    });
+    );
   }
 
   getSituacao(situacao: boolean) {

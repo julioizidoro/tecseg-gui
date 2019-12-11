@@ -10,6 +10,7 @@ import { LojaService } from 'src/app/loja/loja.service';
 import { FuncaoService } from 'src/app/funcao/funcao.service';
 import { AsocontroleService } from '../asocontrole.service';
 import { AsotipoService } from '../asotipo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consasocontrole',
@@ -37,6 +38,7 @@ export class ConsasocontroleComponent implements OnInit {
     private funcaoService: FuncaoService,
     private asocontroleService: AsocontroleService,
     private asotipoService: AsotipoService,
+    private router: Router,
   ) {
     this.consultar();
   }
@@ -297,9 +299,6 @@ pesquisarLimpar() {
   this.consultar();
 }
 
-gerarImagem(asoImagem: Asocontrole) {
-
-}
 
 /*gerarPDF() {
   const pdf = new jsPDF('portrait', 'mm', 'a4', false );
@@ -323,6 +322,23 @@ gerarImagem(asoImagem: Asocontrole) {
   
   pdf.save('a4.pdf');
 }*/
+
+novo(aso: Asocontrole) {
+  this.asocontroleService.setAso(aso);
+  this.asocontroleService.setOp('n');
+  this.router.navigate(['/cadasocontrole']);
+}
+
+editar(aso: Asocontrole) {
+  this.asocontroleService.setAso(aso);
+  this.asocontroleService.setOp('e');
+  this.router.navigate(['/cadasocontrole']);
+}
+
+listarFuncionario(aso: Asocontrole) {
+  this.asocontroleService.setAso(aso);
+  this.router.navigate(['/listaaso']);
+}
 
 
 

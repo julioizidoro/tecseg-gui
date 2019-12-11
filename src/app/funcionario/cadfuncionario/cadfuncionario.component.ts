@@ -45,81 +45,57 @@ export class CadfuncionarioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.setorSelecionado = new Setor();
-    this.setorSelecionado.idsetor = 1;
-    this.setorSelecionado.nome = 'Não cadastrado';
+    this.funcionario = this.funcionarioService.getFuncionario();
     this.carregarComboBox();
-    this.funcaoSelecionada = new Funcao();
-    this.funcaoSelecionada.cbo = '';
-    this.formulario = this.formBuilder.group({
-      idfuncionario: [null],
-      nome: [null, Validators.required],
-      dataadmissao: [null, Validators.required],
-      situacao: ['Ativo', Validators.required],
-      funcao: [null, Validators.required],
-      loja: [null, Validators.required],
-      cpf: ['',   [ Validators.required, Validacoes.ValidaCpf]],
-      rg: [null],
-      uf: [null],
-      datanascimento: [null],
-      pis: [null],
-      ctps: [null],
-      serie: [null],
-      setor: [this.setorSelecionado, Validators.required],
-    });
-    let id;
-    this.activeRrouter.params.subscribe(params => {
-      id = params.id;
-      if (id != null) {
-        this.funcionarioService.getFuncionarioId(id).subscribe(
-          resposta => {
-            this.funcionario = resposta as Funcionario;
-            if (this.funcionario == null) {
-              this.funcaoSelecionada = new Funcao();
-              this.formulario = this.formBuilder.group({
-                idfuncionario: [null],
-                nome: [null, Validators.required],
-                dataadmissao: [null, Validators.required],
-                situacao: ['Ativo', Validators.required],
-                funcao: [null, Validators.required],
-                loja: [null, Validators.required],
-                cpf: ['',  [ Validators.required, Validacoes.ValidaCpf]],
-                rg: [null],
-                uf: [null],
-                datanascimento: [null],
-                pis: [null],
-                ctps: [null],
-                serie: [null],
-                setor: [null, Validators.required],
-              });
-            } else {
-              this.funcaoSelecionada = this.funcionario.funcao;
-              this.setorSelecionado = this.funcionario.setor;
-              this.formulario = this.formBuilder.group({
-                idfuncionario: [this.funcionario.idfuncionario],
-                nome: [this.funcionario.nome, Validators.required],
-                dataadmissao: [this.funcionario.dataadmissao, Validators.required],
-                situacao: [this.funcionario.situacao, Validators.required],
-                funcao: [this.funcionario.funcao, Validators.required],
-                loja: [this.funcionario.loja, Validators.required],
-                cpf: [this.funcionario.cpf,   [ Validators.required, Validacoes.ValidaCpf]],
-                rg: [this.funcionario.rg],
-                uf: [this.funcionario.uf],
-                datanascimento: [this.funcionario.datanascimento],
-                pis: [this.funcionario.pis],
-                ctps: [this.funcionario.ctps],
-                serie: [this.funcionario.serie],
-                setor: [this.funcionario.setor, Validators.required]
-              });
-            }
-          },
-          err => {
-            console.log(err.error.erros.join(' '));
-          }
-        );
-      }
-    });
+    if ( this.funcionario ==  null) {
+      this.setorSelecionado = new Setor();
+      this.setorSelecionado.idsetor = 1;
+      this.setorSelecionado.nome = 'Não cadastrado';
+      this.funcaoSelecionada = new Funcao();
+      this.funcaoSelecionada.cbo = '';
+      this.formulario = this.formBuilder.group({
+        idfuncionario: [null],
+        nome: [null, Validators.required],
+        dataadmissao: [null, Validators.required],
+        situacao: ['Ativo', Validators.required],
+        funcao: [null, Validators.required],
+        loja: [null, Validators.required],
+        cpf: ['',   [ Validators.required, Validacoes.ValidaCpf]],
+        rg: [null],
+        uf: [null],
+        datanascimento: [null],
+        pis: [null],
+        ctps: [null],
+        serie: [null],
+        setor: [this.setorSelecionado, Validators.required],
+      });
+    } else {
+      this.setorSelecionado = this.funcionario.setor;
+      console.log(this.funcionario.setor);
+    
+      this.funcaoSelecionada = this.funcionario.funcao;
+      this.lojaSelecionada = this.funcionario.loja;
+      this.formulario = this.formBuilder.group({
+        idfuncionario: [this.funcionario.idfuncionario],
+        nome: [this.funcionario.nome, Validators.required],
+        dataadmissao: [this.funcionario.dataadmissao, Validators.required],
+        situacao: [this.funcionario.situacao, Validators.required],
+        funcao: [this.funcionario.funcao, Validators.required],
+        loja: [this.funcionario.loja, Validators.required],
+        cpf: [this.funcionario.cpf,   [ Validators.required, Validacoes.ValidaCpf]],
+        rg: [this.funcionario.rg],
+        uf: [this.funcionario.uf],
+        datanascimento: [this.funcionario.datanascimento],
+        pis: [this.funcionario.pis],
+        ctps: [this.funcionario.ctps],
+        serie: [this.funcionario.serie],
+        setor: [this.funcionario.setor, Validators.required]
+      });
+      
+    }
+    
   }
+  
 
   carregarComboBox() {
     this.funcaoService.listar().subscribe(resposta => {

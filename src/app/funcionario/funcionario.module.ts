@@ -9,6 +9,8 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { LojaService } from '../loja/loja.service';
 import { FuncionarioService } from './funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
+import { AccordionModule } from 'ngx-bootstrap';
+import { routing } from 'src/app.routing';
 
 @NgModule({
   declarations: [CadfuncionarioComponent, ConsfuncionarioComponent],
@@ -19,6 +21,8 @@ import { FuncaoService } from '../funcao/funcao.service';
     DropdownModule,
     FormsModule,
     TextMaskModule,
+    AccordionModule.forRoot(),
+    routing,
   ],
   providers:[
     FuncionarioService,

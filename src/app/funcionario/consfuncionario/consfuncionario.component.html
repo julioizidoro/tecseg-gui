@@ -101,12 +101,12 @@
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                       style="border: none;"> {{f.situacao}} </td>
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a style="color: green;margin-left: 10%;" (click)="copiarCodigoBarras(fluxo.contas)">
+                      <a style="color: green;margin-left: 10%;" (click)="editar(f)">
                         <i class="far fa-edit" title="Editar"></i>
                     </a>
 
 
-                        <a *ngIf="habilitarConsulta" style="color: green; margin-left: 10%;" (click)="copiarCodigoBarras(fluxo.contas)">
+                        <a *ngIf="habilitarConsulta" style="color: green; margin-left: 10%;" (click)="selecionarFuncionario(f)">
                           <i class="fas fa-check" title="Selecionar"></i>
                       </a>
         

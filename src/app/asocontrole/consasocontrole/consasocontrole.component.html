@@ -93,9 +93,9 @@
               <tr *ngFor="let aso of asoControles" 
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a [routerLink]="['/cadasoagenda', aso.idasocontrole, 'asocontrole' ]" ><img src="{{aso.situacao}}" width='40%'></a></td>
+                      <a (click)="editar(aso)" ><img src="{{aso.situacao}}" width='40%'></a></td>
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a [routerLink]="['/listaaso', aso.funcionario.idfuncionario ]" >{{ aso.funcionario.nome}}</a></td>
+                      <a (click)="listarFuncionario(aso)" >{{ aso.funcionario.nome}}</a></td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ aso.funcionario.funcao.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
@@ -105,7 +105,7 @@
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                       style="border: none;"> {{ aso.dataexame | date: 'dd/MM/yyyy' }}</td>
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                      style="border: none;"><a [routerLink]="['/cadasocontrole', aso.funcionario.idfuncionario ]" >{{ aso.datavencimento | date: 'dd/MM/yyyy' }}</a></td>
+                      style="border: none;"><a (click)="novo(aso)" >{{ aso.datavencimento | date: 'dd/MM/yyyy' }}</a></td>
                   
                 </tr>
             </tbody>

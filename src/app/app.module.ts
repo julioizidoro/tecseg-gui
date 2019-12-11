@@ -24,7 +24,8 @@ import { TreinamentoModule } from './treinamento/treinamento.module';
 import { routing } from 'src/app.routing';
 import { AuthService } from './usuario/login/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AccordionModule } from 'ngx-bootstrap';
+import { FuncaoModule } from './funcao/funcao.module';
 
 
 registerLocaleData(br, 'pt-BR');
@@ -42,6 +43,7 @@ registerLocaleData(br, 'pt-BR');
     AgmCoreModule.forRoot({
       apiKey: ''
     }),
+    AccordionModule.forRoot(),
     DropdownModule,
     ReactiveFormsModule,
     FormsModule,
@@ -59,6 +61,7 @@ registerLocaleData(br, 'pt-BR');
     TreinamentoModule,
     AsoagendaModule,
     AsocontroleModule,
+    FuncaoModule,
 
   ],
   providers: [

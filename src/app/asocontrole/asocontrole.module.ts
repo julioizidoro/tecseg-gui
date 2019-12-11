@@ -11,6 +11,7 @@ import { AsocontroleService } from './asocontrole.service';
 import { FuncionarioService } from '../funcionario/funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
 import { AsotipoService } from './asotipo.service';
+import { routing } from 'src/app.routing';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { AsotipoService } from './asotipo.service';
     DropdownModule,
     FormsModule,
     TextMaskModule,
+    routing,
   ],
   exports: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent],
   providers: [

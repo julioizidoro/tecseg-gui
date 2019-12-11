@@ -9,7 +9,26 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AsocontroleService {
 
+  private aso: Asocontrole;
+  private op: String;
+
   constructor( private httpClient: HttpClient ) { }
+
+  getAso() {
+    return this.aso;
+  }
+
+  setAso(aso: Asocontrole) {
+    this.aso = aso;
+  }
+
+  getOp() {
+    return this.op;
+  }
+
+  setOp(op: String) {
+    this.op = op;
+  }
 
   listar(): Observable<Asocontrole> {
     return this.httpClient.get<Asocontrole>(env.baseApiUrl + 'asocontrole');

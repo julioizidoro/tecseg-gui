@@ -9,6 +9,8 @@ import { CadasocontroleComponent } from './app/asocontrole/cadasocontrole/cadaso
 import { ListaasofuncionarioComponent } from './app/asocontrole/listaasofuncionario/listaasofuncionario.component';
 import { ConsasoagendaComponent } from './app/asoagenda/consasoagenda/consasoagenda.component';
 import { CadasoagendaComponent } from './app/asoagenda/cadasoagenda/cadasoagenda.component';
+import { CadfuncaoComponent } from './app/funcao/cadfuncao/cadfuncao.component';
+import { ConsfuncaoComponent } from './app/funcao/consfuncao/consfuncao.component';
 
 
 const APP_ROUTER: Routes = [
@@ -17,15 +19,15 @@ const APP_ROUTER: Routes = [
   { path: 'consfuncionario', component: ConsfuncionarioComponent },
   { path: 'consfuncionario/:habilita/:rota', component: ConsfuncionarioComponent },
   { path: 'consfuncionario/:asos', component: ConsfuncionarioComponent },
-  { path: 'cadfuncionario/:id', component: CadfuncionarioComponent },
   { path: 'cadfuncionario', component: CadfuncionarioComponent },
   { path: 'consasocontrole', component: ConsasocontroleComponent },
-  { path: 'cadasocontrole/:id', component: CadasocontroleComponent },
   { path: 'listaaso/:id', component: ListaasofuncionarioComponent },
   { path: 'cadasocontrole', component: CadasocontroleComponent },
   { path: 'consasoagenda', component: ConsasoagendaComponent },
   { path: 'cadasoagenda/:id/:rota', component: CadasoagendaComponent },
   { path: 'cadasoagenda/:rota', component: CadasoagendaComponent },
+  { path: 'cadfuncao', component: CadfuncaoComponent },
+  { path: 'consfuncao', component: ConsfuncaoComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

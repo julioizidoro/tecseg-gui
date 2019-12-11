@@ -23,7 +23,7 @@ export class CadasocontroleComponent implements OnInit {
   formularioAsoControle: FormGroup;
   tipos: Asotipo[];
   tipoSelecionado: Asotipo;
-  asoControles: Asocontrole;
+  aso: Asocontrole;
   lastAsoControles: Asocontrole;
   funcoes: Funcao[];
   funcaoSelecionada: Funcao;
@@ -40,54 +40,59 @@ export class CadasocontroleComponent implements OnInit {
     private asocontroleService: AsocontroleService
   ) { }
 
+  
+
   ngOnInit() {
-    this.funcionarioSelecionado = new Funcionario();
-    this.funcionarioSelecionado.nome = 'Nome do funcioário';
-    this.funcaoSelecionada = new Funcao();
-    this.funcaoSelecionada.nome = 'Função';
-    this.funcionarioSelecionado.loja = new Loja();
-    this.funcionarioSelecionado.loja.nome = 'Loja';
     this.carregarComboBox();
+    let op = this.asocontroleService.getOp();
+    if ( op = 'n') {
+      this.novoAso();
+    } else if ( op = 'e') {
+      this.editarAaso();
+    }
+  }
 
+
+  editarAaso() {
+    this.aso = this.asocontroleService.getAso();
+    this.funcionarioSelecionado = this.asocontroleService.getAso().funcionario;
+    this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
     this.formularioAsoControle = this.formBuilder.group({
-      idasocontrole: [null],
-      dataexame: [null],
-      datavencimento: [null],
-      finalizado: [null],
-      observacao: [null],
-      exame: [null],
-      asotipo: [null],
-      funcionario: [null],
-      funcao: [null],
+      idasocontrole: this.aso.idasocontrole,
+      dataexame: this.aso.dataexame,
+      datavencimento: this.aso.datavencimento,
+      finalizado: this.aso.funcionario,
+      observacao: this.aso.observacao,
+      exame: this.aso.exame,
+      asotipo: this.aso.asotipo,
+      funcionario: this.funcionarioSelecionado,
+      funcao: this.funcaoSelecionada,
     });
+  }
 
-    let id;
-    this.activeRrouter.params.subscribe(params => {
-      id = params.id;
-      if (id != null) {
-        this.funcionarioService.getFuncionarioId(id).subscribe(
-          resposta => {
-            this.funcionarioSelecionado = resposta as Funcionario;
-            this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
-            this.formularioAsoControle = this.formBuilder.group({
-              idasocontrole: [null],
-              dataexame: [null],
-              datavencimento: [null],
-              finalizado: [null],
-              observacao: [null],
-              exame: [null],
-              asotipo: [null],
-              funcionario: [null],
-              funcao: this.funcaoSelecionada,
-            });
-          },
-          err => {
-            console.log(err.error.erros.join(' '));
-          }
-        );
-      }
-    });
-
+  novoAso() {
+    this.funcionarioSelecionado = this.asocontroleService.getAso().funcionario;
+    if ( this.funcionarioSelecionado == null ) {
+      this.funcionarioSelecionado = new Funcionario();
+      this.funcionarioSelecionado.nome = 'Nome do funcioário';
+      this.funcaoSelecionada = new Funcao();
+      this.funcaoSelecionada.nome = 'Função';
+      this.funcionarioSelecionado.loja = new Loja();
+      this.funcionarioSelecionado.loja.nome = 'Loja';
+    } else {
+      this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
+      this.formularioAsoControle = this.formBuilder.group({
+        idasocontrole: [null],
+        dataexame: [null],
+        datavencimento: [null],
+        finalizado: [null],
+        observacao: [null],
+        exame: [null],
+        asotipo: [null],
+        funcionario: this.funcionarioSelecionado,
+        funcao: this.funcaoSelecionada,
+      });
+    }
   }
 
   carregarComboBox() {
@@ -108,31 +113,32 @@ export class CadasocontroleComponent implements OnInit {
   }
 
   salvar() {
-    this.asoControles = this.formularioAsoControle.value;
-    this.asoControles.funcionario = this.funcionarioSelecionado;
-    if (this.asoControles.asotipo.idasotipo === 5) {
-      this.asoControles.funcionario.situacao = 'Inativo';
-    } else if ( this.asoControles.asotipo.idasotipo === 4) {
-      this.asoControles.funcionario.situacao = 'Ativo';
+    this.asocontroleService.setAso(null);
+    this.asocontroleService.setOp('');
+    this.aso = this.formularioAsoControle.value;
+    this.aso.funcionario = this.funcionarioSelecionado;
+    if (this.aso.asotipo.idasotipo === 5) {
+      this.aso.funcionario.situacao = 'Inativo';
+    } else if ( this.aso.asotipo.idasotipo === 4) {
+      this.aso.funcionario.situacao = 'Ativo';
     }
     const idfuncao = this.funcionarioSelecionado.funcao.idfuncao;
-    this.asoControles.funcionario.funcao = this.funcaoSelecionada;
-    this.asocontroleService.getLast(this.asoControles.funcionario.idfuncionario).subscribe(resposta => {
+    this.aso.funcionario.funcao = this.funcaoSelecionada;
+    this.asocontroleService.getLast(this.aso.funcionario.idfuncionario).subscribe(resposta => {
       this.lastAsoControles = resposta as any;
-      console.log(this.asoControles);
-      if (this.asoControles.funcionario.funcao.idfuncao !== idfuncao) {
-        this.asoControles.funcionario.funcao = this.funcaoSelecionada;
-        this.funcionarioService.atualizar(this.asoControles.funcionario).subscribe(resposta1 => {
-          this.asoControles.funcionario = resposta1 as any;
+      if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
+        this.aso.funcionario.funcao = this.funcaoSelecionada;
+        this.funcionarioService.atualizar(this.aso.funcionario).subscribe(resposta1 => {
+          this.aso.funcionario = resposta1 as any;
         });
       }
-      this.asocontroleService.salvar(this.asoControles).subscribe(resposta2 => {
-        this.asoControles = resposta2 as any;
+      this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
+        this.aso = resposta2 as any;
         if ( this.lastAsoControles != null ) {
-          this.lastAsoControles.funcionario = this.asoControles.funcionario;
+          this.lastAsoControles.funcionario = this.aso.funcionario;
           this.lastAsoControles.finalizado = true;
           this.asocontroleService.atualizar(this.lastAsoControles).subscribe( resposta3 => {
-            this.asoControles = resposta3 as any;
+            this.aso = resposta3 as any;
           });
         }
       });
@@ -147,6 +153,8 @@ export class CadasocontroleComponent implements OnInit {
   }
 
   cancelar() {
+    this.asocontroleService.setOp('');
+    this.asocontroleService.setAso(null);
     this.router.navigate(['/consasocontrole']);
   }
 

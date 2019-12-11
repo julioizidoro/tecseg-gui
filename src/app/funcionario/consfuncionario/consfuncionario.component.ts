@@ -73,7 +73,8 @@ export class ConsfuncionarioComponent implements OnInit {
   }
 
   editar(funcionario: Funcionario) {
-    this.router.navigate([ '/cadfuncionario' ,   funcionario.idfuncionario ]);
+    this.funcionarioService.setFuncionario(funcionario);
+    this.router.navigate([ '/cadfuncionario']);
   }
 
   pesquisar() {
