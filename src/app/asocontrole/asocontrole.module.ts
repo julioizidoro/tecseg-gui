@@ -12,6 +12,8 @@ import { FuncionarioService } from '../funcionario/funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
 import { AsotipoService } from './asotipo.service';
 import { routing } from 'src/app.routing';
+import { AgmCoreModule } from '@agm/core';
+import { AccordionModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -19,6 +21,10 @@ import { routing } from 'src/app.routing';
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: ''
+    }),
+    AccordionModule.forRoot(),
     ReactiveFormsModule,
     DropdownModule,
     FormsModule,

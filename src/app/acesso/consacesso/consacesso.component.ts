@@ -30,7 +30,6 @@ export class ConsacessoComponent implements OnInit {
     this.acessoService.listar().subscribe(
       resposta => {
         this.acessos = resposta as any;
-        console.log(this.acessos[0].nomeusuario);
       }
     );
   }

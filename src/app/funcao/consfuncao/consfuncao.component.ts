@@ -69,4 +69,8 @@ export class ConsfuncaoComponent implements OnInit {
     };
   }
 
+  pesquisarLimpar() {
+    this.consultar();
+  }
+
 }
