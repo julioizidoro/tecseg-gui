@@ -18,5 +18,6 @@ export class Funcionario {
   ctps: string;
   serie: string;
   setor: Setor;
+  matricula: number;
 
 }

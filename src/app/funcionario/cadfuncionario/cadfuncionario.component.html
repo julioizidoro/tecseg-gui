@@ -25,13 +25,23 @@
             </app-campo-control-erro>
         </div>
 
-      <div class="form-group col-md-3 col-sm-12">
+      <div class="form-group col-md-2 col-sm-12">
           <label for="datanascimento">Data Nascimento</label>
           <input type="date" class="form-control" id="datanascimento" placeholder="Data Nascimento"
             formControlName="datanascimento" >
         </div>
 
-        <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('cpf')">
+        <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('matricula')">
+          <label for="matricula">Matrícula</label>
+          <input type="text" class="form-control" id="matricula" placeholder="RG"
+            formControlName="matricula">
+            <app-campo-control-erro
+              [mostrarErro]="verificarValidTouched('matricula')"
+              msgErro="No. da matricula é obrigatório.">
+            </app-campo-control-erro>
+        </div>
+
+        <div class="form-group col-md-2 col-sm-12" [ngClass]="aplicaCssErro('cpf')">
           <label for="cpf">CPF</label>
           <input type="text" class="form-control" id="cpf" placeholder="CPF" [textMask]="{mask: maskCPF}" placeholder="000.000.000-00"  
           (blur)="consultarCPF()" formControlName="cpf">
