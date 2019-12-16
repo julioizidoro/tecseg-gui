@@ -67,13 +67,13 @@ export class CadfuncionarioComponent implements OnInit {
         pis: [null],
         ctps: [null],
         serie: [null],
-        setor: [this.setorSelecionado, Validators.required],
-        matricula: [null, Validators.required].
+        sexo: [null],
+        matricula: [null, Validators.required],
+        setor: [null, Validators.required],
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
-      console.log(this.funcionario.setor);
-    
+      console.log(this.setorSelecionado);
       this.funcaoSelecionada = this.funcionario.funcao;
       this.lojaSelecionada = this.funcionario.loja;
       this.formulario = this.formBuilder.group({
@@ -90,8 +90,9 @@ export class CadfuncionarioComponent implements OnInit {
         pis: [this.funcionario.pis],
         ctps: [this.funcionario.ctps],
         serie: [this.funcionario.serie],
+        sexo: [this.funcionario.sexo],
+        matricula: [this.funcionario.matricula, Validators.required],
         setor: [this.funcionario.setor, Validators.required],
-        matricula: [this.funcionario.matricula, Validators.required]
       });
       
     }
@@ -146,10 +147,10 @@ export class CadfuncionarioComponent implements OnInit {
       this.funcionarioService.atualizar(this.funcionario).subscribe(resposta => {
         this.funcionario = resposta as any;
         this.funcionarioService.setFuncionario(null);
-        this.formulario.reset();
-        this.router.navigate(['/consfuncionario']);
+        this.formulario.reset();      
       });
     }
+    this.router.navigate(['/consfuncionario']);
   }
 
   cancelar() {

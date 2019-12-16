@@ -17,7 +17,7 @@ export class Funcionario {
   pis: string;
   ctps: string;
   serie: string;
-  setor: Setor;
+  sexo: string;
   matricula: number;
-
+  setor: Setor;
 }

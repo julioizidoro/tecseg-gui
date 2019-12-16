@@ -25,7 +25,7 @@
             </app-campo-control-erro>
         </div>
 
-      <div class="form-group col-md-2 col-sm-12">
+      <div class="form-group col-md-3 col-sm-12">
           <label for="datanascimento">Data Nascimento</label>
           <input type="date" class="form-control" id="datanascimento" placeholder="Data Nascimento"
             formControlName="datanascimento" >
@@ -33,7 +33,7 @@
 
         <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('matricula')">
           <label for="matricula">Matrícula</label>
-          <input type="text" class="form-control" id="matricula" placeholder="RG"
+          <input type="text" class="form-control" id="matricula" placeholder="Matrícula"
             formControlName="matricula">
             <app-campo-control-erro
               [mostrarErro]="verificarValidTouched('matricula')"
@@ -121,7 +121,7 @@
 
         
 
-        <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('funcao')">
+        <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('funcao')">
             <label for="funcao">Função</label>
             <select class="form-control" formControlName="funcao"  [compareWith]="compararFuncao" (change)="setFuncao()">
                 <option *ngFor="let funcao of funcoes" [ngValue]="funcao"> {{ funcao.nome }}</option>
@@ -138,18 +138,19 @@
               [value]="funcaoSelecionada.cbo">
         </div>
 
-        <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('setor')">
-          <label for="setor">Setor</label>
-          <select class="form-control" formControlName="setor"  [compareWith]="compararSetor" (change)="setSetor()">
-              <option *ngFor="let setor of setores" [ngValue]="setor"> {{ setor.nome }}</option>
-           </select>
-           <app-campo-control-erro
-           [mostrarErro]="verificarValidTouched('setor')"
-           msgErro="Setor é obrigatório.">
-         </app-campo-control-erro>
-      </div>
+        
+      <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('setor')">
+        <label for="setor">Setor</label>
+        <select class="form-control" formControlName="setor"  [compareWith]="compararSetor" (change)="setSetor()">
+            <option *ngFor="let setor of setores" [ngValue]="setor"> {{ setor.nome }}</option>
+         </select>
+         <app-campo-control-erro
+         [mostrarErro]="verificarValidTouched('setor')"
+         msgErro="Setor é obrigatório.">
+       </app-campo-control-erro>
+    </div>
 
-        <div class="form-group col-md-8 col-sm-12" [ngClass]="aplicaCssErro('loja')">
+        <div class="form-group col-md-7 col-sm-12" [ngClass]="aplicaCssErro('loja')">
             <label for="loja">Loja</label>
             <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
                 <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
@@ -160,18 +161,30 @@
            </app-campo-control-erro>
         </div>
 
-        <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
-          <label for="situacao">Situacao</label>
-          <select class="form-control" formControlName="situacao">
-              <option value="Ativo">Ativo</option>
-              <option value="Afastado">Afastado</option>
-              <option value="Inativo">Inativo</option>
+        <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
+          <label for="sexo">Sexo</label>
+          <select class="form-control" formControlName="sexo">
+              <option value="M">Masculino</option>
+              <option value="F">Frminino</option>
           </select>
           <app-campo-control-erro
-          [mostrarErro]="verificarValidTouched('situacao')"
-          msgErro="Situação é obrigatório.">
+          [mostrarErro]="verificarValidTouched('sexo')"
+          msgErro="Sexo é obrigatório.">
         </app-campo-control-erro>
       </div>
+
+      <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
+        <label for="situacao">Situação</label>
+        <select class="form-control" formControlName="situacao">
+            <option value="Ativo">Ativo</option>
+            <option value="Afastado">Afastado</option>
+            <option value="Inativo">Inativo</option>
+        </select>
+        <app-campo-control-erro
+        [mostrarErro]="verificarValidTouched('situacao')"
+        msgErro="Situação é obrigatório.">
+      </app-campo-control-erro>
+    </div>
 
        
 

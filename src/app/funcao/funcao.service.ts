@@ -15,8 +15,8 @@ export class FuncaoService {
     return this.funcao;
   }
 
-  setFuncao(fucnao: Funcao) {
-    this.funcao = this.funcao;
+  setFuncao(funcao: Funcao) {
+    this.funcao = funcao;
   }
 
   listar(): Observable<Funcao> {
