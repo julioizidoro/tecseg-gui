@@ -17,7 +17,7 @@ import { TreinamentoService } from './treinamento.service';
     DropdownModule,
     FormsModule,
     TextMaskModule,
-  ], 
+  ],
   providers: [
     TreinamentoService,
   ]

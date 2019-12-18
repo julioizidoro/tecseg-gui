@@ -94,11 +94,8 @@ export class CadfuncionarioComponent implements OnInit {
         matricula: [this.funcionario.matricula, Validators.required],
         setor: [this.funcionario.setor, Validators.required],
       });
-      
     }
-    
   }
-  
 
   carregarComboBox() {
     this.funcaoService.listar().subscribe(resposta => {
@@ -147,7 +144,7 @@ export class CadfuncionarioComponent implements OnInit {
       this.funcionarioService.atualizar(this.funcionario).subscribe(resposta => {
         this.funcionario = resposta as any;
         this.funcionarioService.setFuncionario(null);
-        this.formulario.reset();      
+        this.formulario.reset();
       });
     }
     this.router.navigate(['/consfuncionario']);
