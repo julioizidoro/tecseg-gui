@@ -53,5 +53,9 @@ export class FuncionarioService {
   getFuncionarioFuncaoLoja(idloja: number, idfuncao: number, nome: string, situacao: string): Observable<Funcionario> {
     return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/' + idloja + '/' + idfuncao + '/' + nome + '/' + situacao);
   }
+
+  exportarSalutar(): Observable<any> {
+    return this.httpClient.get<any>(env.baseApiUrl + 'funcionarios/salutar' );
+  }
 }
 

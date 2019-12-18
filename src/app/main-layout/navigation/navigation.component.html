@@ -64,6 +64,10 @@
                             <a class="nav-item list-group-item list-group-item-action waves-effect"
                                routerLink="">Relatórios</a>
                         </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               (click)="exportarSalutar()" href="" >Exportar Salutar</a>
+                        </li>
                     </ul>
                 </links>
             </mdb-navbar>
@@ -145,6 +149,9 @@
             <div style="margin-top: 10px;"> 
                 <button type="button" class="btn btn-primary" (click)="onUpload()" [disabled]="!file">
                     Upload
+                </button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="mudarsenha.hide()">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         </div>

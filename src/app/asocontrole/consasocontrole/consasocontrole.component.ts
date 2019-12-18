@@ -305,7 +305,7 @@ pesquisarLimpar() {
   pdf.setFontType('bold');
   pdf.setFontSize(20);
   pdf.text('Lista de Asos Vencidos', 65, 15);
-  
+
   pdf.setFillColor(50, 50, 50);
   pdf.rect(10, 20, 80, 8, 'S');
   pdf.rect(90, 20, 30, 8, 'S');
@@ -319,7 +319,7 @@ pesquisarLimpar() {
   pdf.setFontSize(10);
   //pdf.setTextColor(255, 255, 255);
   pdf.text(this.asoControles[0].funcionario.nome, 12, 25);
-  
+
   pdf.save('a4.pdf');
 }*/
 

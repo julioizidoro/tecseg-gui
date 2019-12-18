@@ -1,3 +1,4 @@
+import { FuncionarioService } from './../../funcionario/funcionario.service';
 import { UsuarioService } from './../../usuario/usuario.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Usuario } from 'src/app/usuario/model/usuario';
@@ -5,6 +6,7 @@ import { AuthService } from 'src/app/usuario/login/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { parse } from 'querystring';
 
 
 @Component({
@@ -28,6 +30,7 @@ export class NavigationComponent implements OnInit {
       private router: Router,
       private formBuilder: FormBuilder,
       private usuarioService: UsuarioService,
+      private funcionarioService: FuncionarioService,
   ) {
     this.clicked = this.clicked === undefined ? false : true;
   }
@@ -98,42 +101,54 @@ export class NavigationComponent implements OnInit {
   }
 
   onChange(event) {
-    console.log(event);
-    const selectedFiles = <FileList>event.srcElement.files;
+    const selectedFiles = event.srcElement.files as FileList;
     this.file = selectedFiles[0];
     document.getElementById('customFileLabel').innerHTML = selectedFiles[0].name;
  }
 
  onUpload() {
-   let fileName = this.file.name;
-   let nome = '';
-   for (let i = fileName.length - 1; i > 0; i--) {
-     if (fileName[i] !== '.' ) {
-        nome = fileName[i] + nome;
-     } else {
-       i = -100;
-     }
-   }
-   const id = this.usuario.idusuario;
-   fileName = id.toString() + '.' + nome;
-    this.usuarioService.upload(this.file, fileName).subscribe(
-       resposta => {
-         const uri = resposta as any;
-         this.usuario.urlfoto = 'https://pictureuser.s3.us-east-2.amazonaws.com/' + fileName;
-         this.usuarioService.update(this.usuario).subscribe(
-          resposta1 => {
-            this.usuario = resposta1 as any;
-            this.showModalAlterarFotoOnClick.hide();
-          },
-          err1 => {
-            console.log(err1.error.erros.join(' '));
-           }
-          );
-       },
-       err => {
-        console.log(err.error.erros.join(' '));
-       }
-    );
- }
+  let filename = this.file.name;
+  let nome = '';
+  for (let i = filename.length - 1; i > 0; i--) {
+    if (filename[i] !== '.' ) {
+       nome = filename[i] + nome;
+    } else {
+      i = -100;
+    }
+  }
+  const id = this.usuario.idusuario;
+  filename = id.toString() + '.' + nome;
+  this.usuarioService.upload(this.file, filename).subscribe(
+      resposta => {
+        const uri = resposta as any;
+        this.usuario.urlfoto = 'https://pictureuser.s3.us-east-2.amazonaws.com/' + filename;
+        this.usuarioService.update(this.usuario).subscribe(
+         resposta1 => {
+           this.usuario = resposta1 as any;
+           this.showModalAlterarFotoOnClick.hide();
+         },
+         err1 => {
+           console.log(err1.error.erros.join(' '));
+          }
+         );
+      },
+      err => {
+       console.log(err.error.erros.join(' '));
+      }
+   );
+}
 
+exportarSalutar() {
+  this.funcionarioService.exportarSalutar().subscribe(
+    reposta => {
+      const uri = reposta as any;
+      const url = 'https://tecseg-img.s3.us-east-2.amazonaws.com/Formulario+Funcionarios.xls';
+      window.location.href = url;
+      return url;
+    },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
+  }
 }

@@ -40,14 +40,13 @@ export class CadasocontroleComponent implements OnInit {
     private asocontroleService: AsocontroleService
   ) { }
 
-  
 
   ngOnInit() {
     this.carregarComboBox();
-    let op = this.asocontroleService.getOp();
-    if ( op = 'n') {
+    const op = this.asocontroleService.getOp();
+    if ( op === 'n') {
       this.novoAso();
-    } else if ( op = 'e') {
+    } else if ( op === 'e') {
       this.editarAaso();
     }
   }
@@ -71,7 +70,12 @@ export class CadasocontroleComponent implements OnInit {
   }
 
   novoAso() {
-    this.funcionarioSelecionado = this.asocontroleService.getAso().funcionario;
+    const aso = this.asocontroleService.getAso();
+    if (aso != null) {
+      this.funcionarioSelecionado = this.asocontroleService.getAso().funcionario;
+    } else {
+      this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
+    }
     if ( this.funcionarioSelecionado == null ) {
       this.funcionarioSelecionado = new Funcionario();
       this.funcionarioSelecionado.nome = 'Nome do funcioário';
@@ -115,6 +119,7 @@ export class CadasocontroleComponent implements OnInit {
   salvar() {
     this.asocontroleService.setAso(null);
     this.asocontroleService.setOp('');
+    this.funcionarioService.setFuncionario(null);
     this.aso = this.formularioAsoControle.value;
     this.aso.funcionario = this.funcionarioSelecionado;
     if (this.aso.asotipo.idasotipo === 5) {
@@ -142,6 +147,7 @@ export class CadasocontroleComponent implements OnInit {
           });
         }
       });
+      this.formularioAsoControle.reset();
       this.router.navigate(['/consasocontrole']);
     },
     err => {
@@ -155,6 +161,8 @@ export class CadasocontroleComponent implements OnInit {
   cancelar() {
     this.asocontroleService.setOp('');
     this.asocontroleService.setAso(null);
+    this.funcionarioService.setFuncionario(null);
+    this.formularioAsoControle.reset();
     this.router.navigate(['/consasocontrole']);
   }
 
