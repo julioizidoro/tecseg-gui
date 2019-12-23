@@ -22,7 +22,7 @@ export class ConsacessoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usuario = this.authService.usuario;
+    this.usuario = this.authService.getUsuario();
     this.consultar();
   }
 

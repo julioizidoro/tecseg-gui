@@ -14,7 +14,7 @@ export class AuthService {
 
   private usuairoAutenticado = false;
   mostrarMenuEmitter = new EventEmitter<boolean>();
-  usuario: Usuario;
+  private usuario: Usuario;
   senhaCripto: string;
 
 
@@ -23,7 +23,13 @@ export class AuthService {
     private usuarioService: UsuarioService,
   ) { }
 
- 
+    getUsuario() {
+      return this.usuario
+    }
+
+    setUsuario(usuario: Usuario){
+      this.usuario = usuario;
+    }
 
     fazerLogin(usuario: Usuario) {
       this.usuarioService.logar(usuario.login, usuario.senha).subscribe(

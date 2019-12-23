@@ -21,11 +21,11 @@ import { AgmCoreModule } from '@agm/core';
 import { RouterModule } from '@angular/router';
 import { NavigationModule } from './main-layout/navigation/navigation.module';
 import { TreinamentoModule } from './treinamento/treinamento.module';
-import { routing } from 'src/app.routing';
 import { AuthService } from './usuario/login/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'ngx-bootstrap';
 import { FuncaoModule } from './funcao/funcao.module';
+import { routing } from './app.routing';
 
 
 registerLocaleData(br, 'pt-BR');

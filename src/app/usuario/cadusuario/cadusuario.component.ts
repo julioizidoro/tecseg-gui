@@ -35,7 +35,7 @@ export class CadusuarioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usuarioLogado = this.authService.usuario;
+    this.usuarioLogado = this.authService.getUsuario();
     const usuario = this.usuarioService.getUsuario();
     this.listarAcesso();
     if (usuario != null) {

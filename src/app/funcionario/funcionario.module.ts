@@ -10,7 +10,7 @@ import { LojaService } from '../loja/loja.service';
 import { FuncionarioService } from './funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
 import { AccordionModule } from 'ngx-bootstrap';
-import { routing } from 'src/app.routing';
+import { routing } from '../app.routing';
 
 @NgModule({
   declarations: [CadfuncionarioComponent, ConsfuncionarioComponent],

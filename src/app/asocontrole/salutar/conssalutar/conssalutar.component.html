@@ -1,0 +1,170 @@
+<br /><br />
+<div class="page-header">
+  <div class="container-fluid">
+    <h3>
+      Consulta Planilhas Salutar
+    </h3>
+    <hr />
+  </div>
+  <form [formGroup]="formulario">
+    <div class="container-fluid" style="width:100%;">
+      <div class="w-100">
+        <button type="button" style="float:right;" class="btn btn-success font-weight-light" (click)="gerar" >
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <a class="ml-2">Gerar</a>
+        </button>
+      </div>
+      <br><br>
+      <div class="w-100">
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen">
+            <div class="row">
+              
+              <div class="form-group col-md-6">
+                <label for="pesquisanome">Nome</label>
+                <input type="text" class="form-control" id="pesquisanome" placeholder="Nome" formControlName="nome">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="loja">Loja</label>
+                <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
+                    <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
+                 </select>  
+            </div>
+        
+        
+
+              <div class="form-group col-md-12 text-right">
+                <button type="button" class="btn btn-primary" (click)="pesquisar()" >
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Pesquisar
+                </button>
+                <button type="submit" class="btn btn-danger" style="margin-left:1%;"
+                    (click)="limpar()" >
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    Limpar
+                </button>
+            </div>
+
+
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+
+
+
+      <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data Emissão</th>
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Usuário</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Usuário</th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let s of salutar" 
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                      {{ s.dataemissao}}</td>
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ d.loja.nome}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ s.usuario.nome }}</td>
+                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">
+                        <a style="color: green;margin-left: 10%;" (click)="excluir(s)">
+                            <i class="far fa-trash" title="Excluir"></i>
+                        </a>
+                    </td>                  
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+  </form>
+</div>
+
+<!-- Gerar Planilha -->
+
+<div mdbModal #gerarSalutar="mdb-modal" class="modal fade" id="gerarSalutar" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Lançamentos Fluxo Caixa</h4>
+
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="sformulario">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                            <label for="dataemissao">Data Emissão</label>
+                            <input type="date" class="form-control" id="dataemissao" formControlName="dataemissao" readonly>
+                        </div>
+
+                        
+                        <div class="form-group col-md-3">
+                            <label for="loja">Loja</label>
+                            <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
+                                <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
+                             </select>  
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                            <label for="usuario">Usuário</label>
+                            <input type="text"  class="form-control" id="usuario"
+                                formControlName="usuario.nome" readonly>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                            <label for="uri">Uri</label>
+                            <input type="text"  class="form-control" id="uri"
+                                formControlName="uri" >
+                        </div>
+
+
+
+                       
+                    </div>
+
+
+
+                </form>
+            </div>
+            <div>
+                <div class="w-100 text-right">
+                    <button type="button" class="btn btn-primary" (click)="salvar()">
+                      <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                      Salvar
+                    </button>
+                    <button type="submit" class="btn btn-danger" style="margin-left:1%;" (click)="cancelar()">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                      Cancelar
+                    </button>
+                  
+                  </div>
+                  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

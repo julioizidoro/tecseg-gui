@@ -11,13 +11,15 @@ import { AsocontroleService } from './asocontrole.service';
 import { FuncionarioService } from '../funcionario/funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
 import { AsotipoService } from './asotipo.service';
-import { routing } from 'src/app.routing';
 import { AgmCoreModule } from '@agm/core';
 import { AccordionModule } from 'ngx-bootstrap';
+import { ConssalutarComponent } from './salutar/conssalutar/conssalutar.component';
+import { SalutarService } from './salutar.service';
+import { routing } from '../app.routing';
 
 
 @NgModule({
-  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent],
+  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -36,6 +38,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     AsocontroleService,
     FuncaoService,
     AsotipoService,
+    SalutarService,
   ],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
 })

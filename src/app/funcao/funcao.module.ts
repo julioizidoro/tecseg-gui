@@ -8,7 +8,7 @@ import { TextMaskModule } from 'angular2-text-mask';
 import { AccordionModule } from 'ngx-bootstrap';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { routing } from 'src/app.routing';
+import { routing } from '../app.routing';
 
 @NgModule({
   declarations: [CadfuncaoComponent, ConsfuncaoComponent],

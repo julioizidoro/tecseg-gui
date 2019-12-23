@@ -32,7 +32,7 @@ export class AppComponent {
       mostrar => this.logado = mostrar
     );
     if (this.logado === true) {
-      this.usuario = this.authService.usuario;
+      this.usuario = this.authService.getUsuario();
     }
   }
 

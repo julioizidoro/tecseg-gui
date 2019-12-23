@@ -29,7 +29,7 @@ export class ConsusuarioComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       nome: [null],
     });
-    this.usuario = this.authService.usuario;
+    this.usuario = this.authService.getUsuario();
     this.consultar();
   }
 

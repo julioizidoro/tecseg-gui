@@ -37,7 +37,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
     this.setFormulario();
-    this.usuario = this.authService.usuario;
+    this.usuario = this.authService.getUsuario();
   }
 
   setClicked(val: boolean): void {
@@ -75,7 +75,7 @@ export class NavigationComponent implements OnInit {
           this.usuarioService.salvar(this.usuario).subscribe(
               resposta1 => {
                 this.usuario = resposta1 as any;
-                this.authService.usuario = this.usuario;
+                this.authService.setUsuario(this.usuario);
               },
               err1 => {
                 console.log(err1.error.erros.join(' '));
