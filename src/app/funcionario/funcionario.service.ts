@@ -57,5 +57,14 @@ export class FuncionarioService {
   exportarSalutar(): Observable<any> {
     return this.httpClient.get<any>(env.baseApiUrl + 'funcionarios/salutar' );
   }
+
+  getLoja(id: number): Observable<Funcionario> {
+    return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/lojasalutar/' +  id);
+  }
+
+  getLojaData(id: number, datainicial: Date, datafinal: Date): Observable<Funcionario> {
+    return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/lojasalutar/' +  id + '/' + datainicial + '/' + datafinal);
+  }
+
 }
 

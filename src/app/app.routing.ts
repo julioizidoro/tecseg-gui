@@ -12,6 +12,7 @@ import { ConsasoagendaComponent } from './asoagenda/consasoagenda/consasoagenda.
 import { CadasoagendaComponent } from './asoagenda/cadasoagenda/cadasoagenda.component';
 import { CadfuncaoComponent } from './funcao/cadfuncao/cadfuncao.component';
 import { ConsfuncaoComponent } from './funcao/consfuncao/consfuncao.component';
+import { CadsalutarComponent } from './asocontrole/salutar/cadsalutar/cadsalutar.component';
 
 
 const APP_ROUTER: Routes = [
@@ -30,6 +31,7 @@ const APP_ROUTER: Routes = [
   { path: 'cadfuncao', component: CadfuncaoComponent },
   { path: 'consfuncao', component: ConsfuncaoComponent },
   { path: 'conssalutar', component: ConssalutarComponent },
+  { path: 'cadsalutar', component: CadsalutarComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

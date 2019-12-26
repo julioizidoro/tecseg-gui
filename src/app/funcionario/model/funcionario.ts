@@ -20,4 +20,5 @@ export class Funcionario {
   sexo: string;
   matricula: number;
   setor: Setor;
+  datasituacao: Date;
 }

@@ -16,10 +16,11 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { ConssalutarComponent } from './salutar/conssalutar/conssalutar.component';
 import { SalutarService } from './salutar.service';
 import { routing } from '../app.routing';
+import { CadsalutarComponent } from './salutar/cadsalutar/cadsalutar.component';
 
 
 @NgModule({
-  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent],
+  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -33,7 +34,7 @@ import { routing } from '../app.routing';
     TextMaskModule,
     routing,
   ],
-  exports: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent],
+  exports: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent],
   providers: [
     AsocontroleService,
     FuncaoService,
