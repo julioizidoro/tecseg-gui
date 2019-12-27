@@ -7,9 +7,10 @@ export class Usuario {
     datanascimento: Date;
     login: string;
     senha: string;
+    sexo: string;
     email: string;
     fonecelular: string;
     situacao: boolean;
-    urlfoto: string;
     acesso: Acesso;
+    urlfoto: string;
 }
