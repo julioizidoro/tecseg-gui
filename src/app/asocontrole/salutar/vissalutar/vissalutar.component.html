@@ -1,0 +1,112 @@
+<br /><br />
+<div class="page-header">
+  <div class="container-fluid">
+    <h3>
+      Visualizar Planilhas Salutar
+    </h3>
+    <hr />
+  </div>
+    <div class="container-fluid" style="width:100%;">
+      <div class="w-100">
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group heading="Nova Planilha" [isOpen]="isFirstOpen">
+            <div class="row">
+              
+                <div class="form-group col-md-6 col-sm-12" >
+                    <label for="cbo">Nome</label>
+                    <input type="text" class="form-control" id="cbo" placeholder="Nome" readonly="false"
+                      [value]="salutar.nome">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-12" >
+                    <label for="cbo">Loja</label>
+                    <input type="text" class="form-control" id="cbo" placeholder="Loja" readonly="false"
+                      [value]="salutar.loja.nome">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12" >
+                    <label for="admitidos">Admitidos</label>
+                    <input type="number" class="form-control" id="admitidos" placeholder="Admitidos" readonly="false"
+                      [value]="salutar.admitidos">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12" >
+                    <label for="ativos">Ativos</label>
+                    <input type="number" class="form-control" id="ativos" placeholder="Ativos" readonly="false"
+                      [value]="salutar.ativos">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12" >
+                    <label for="afastados">Afastados</label>
+                    <input type="number" class="form-control" id="afastados" placeholder="Afastados" readonly="false"
+                      [value]="salutar.afastados">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12" >
+                    <label for="demitidos">Demitidos</label>
+                    <input type="number" class="form-control" id="demitidos" placeholder="Demitidos" readonly="false"
+                      [value]="salutar.inativos">
+                </div>
+
+                <div class="form-group col-md-2 col-sm-12" >
+                    <label for="total">Total</label>
+                    <input type="number" class="form-control" id="total" placeholder="Total" readonly="false"
+                      [value]="salutar.total">
+                </div>
+
+              <div  class="form-group col-md-12 text-right">
+                <button type="button" class="btn btn-success" (click)="exportarExcel()"  > 
+                    <i class="far fa-file-excel" aria-hidden="true"></i>
+                    Excel
+                </button>
+                <button type="submit" class="btn btn-danger" style="margin-left:1%;"
+                    (click)="cancelar()" >
+                    <i class="fas fa-door-closed" aria-hidden="true"></i>
+                    Fechar
+                </button>
+            </div>
+
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+
+
+
+      <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Função</th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">CBO</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sf of salutarFuncionario"
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                        {{sf.funcionario.nome}}</td>
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{sf.funcao.nome}}</td>
+                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{sf.funcao.cbo}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{sf.funcionario.loja.nome}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                         {{ sf.datasituacao | date: 'dd/MM/yyyy' }}</td>
+                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                      style="border: none;"> {{sf.situacao}} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+</div>
+
+

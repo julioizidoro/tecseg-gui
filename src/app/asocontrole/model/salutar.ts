@@ -9,7 +9,7 @@ export class Salutar {
     dataemissao: Date;
     admitidos: number;
     afastados: number;
-    demitidos: number;
+    inativos: number;
     ativos: number;
     total: number
     loja: Loja;

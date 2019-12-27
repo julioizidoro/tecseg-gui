@@ -13,6 +13,7 @@ import { CadasoagendaComponent } from './asoagenda/cadasoagenda/cadasoagenda.com
 import { CadfuncaoComponent } from './funcao/cadfuncao/cadfuncao.component';
 import { ConsfuncaoComponent } from './funcao/consfuncao/consfuncao.component';
 import { CadsalutarComponent } from './asocontrole/salutar/cadsalutar/cadsalutar.component';
+import { VissalutarComponent } from './asocontrole/salutar/vissalutar/vissalutar.component';
 
 
 const APP_ROUTER: Routes = [
@@ -23,7 +24,7 @@ const APP_ROUTER: Routes = [
   { path: 'consfuncionario/:asos', component: ConsfuncionarioComponent },
   { path: 'cadfuncionario', component: CadfuncionarioComponent },
   { path: 'consasocontrole', component: ConsasocontroleComponent },
-  { path: 'listaaso/:id', component: ListaasofuncionarioComponent },
+  { path: 'listaaso', component: ListaasofuncionarioComponent },
   { path: 'cadasocontrole', component: CadasocontroleComponent },
   { path: 'consasoagenda', component: ConsasoagendaComponent },
   { path: 'cadasoagenda/:id/:rota', component: CadasoagendaComponent },
@@ -32,6 +33,7 @@ const APP_ROUTER: Routes = [
   { path: 'consfuncao', component: ConsfuncaoComponent },
   { path: 'conssalutar', component: ConssalutarComponent },
   { path: 'cadsalutar', component: CadsalutarComponent },
+  { path: 'vissalutar', component: VissalutarComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

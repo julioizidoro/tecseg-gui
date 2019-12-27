@@ -53,7 +53,7 @@ export class CadsalutarComponent implements OnInit {
       todos: [true],
       admitidos: [null],
       afastados: [null],
-      demitidos: [null],
+      inativos: [null],
       ativos: [null],
     });
   }
@@ -72,14 +72,14 @@ export class CadsalutarComponent implements OnInit {
     this.salutar.admitidos =0;
     this.salutar.ativos =0;
     this.salutar.afastados=0;
-    this.salutar.demitidos=0;
+    this.salutar.inativos=0;
     this.salutar.total=0;
     let dataincio = this.formulario.get('datainicial').value;
     let datafinal = this.formulario.get('datafinal').value;
     let todos = this.formulario.get('todos').value;
     let admitidos = this.formulario.get('admitidos').value;
     let afastados = this.formulario.get('afastados').value;
-    let demitidos = this.formulario.get('demitidos').value;
+    let inativos = this.formulario.get('inativos').value;
     let ativos = this.formulario.get('ativos').value;
     let adicionar: boolean = false;
     if ((dataincio != null) && (datafinal != null) && (this.salutar.loja != null)) {
@@ -121,8 +121,8 @@ export class CadsalutarComponent implements OnInit {
                   adicionar = true;
                 }
               }
-              if (demitidos) {
-                if (f.situacao === 'demitido') {
+              if (inativos) {
+                if (f.situacao === 'Inativo') {
                   adicionar = true;
                 }
               }
@@ -145,7 +145,7 @@ export class CadsalutarComponent implements OnInit {
    } else if (sf.situacao == 'Afastado') {
      this.salutar.afastados = this.salutar.afastados + 1
    } else if (sf.situacao == 'Inativo') {
-     this.salutar.demitidos = this.salutar.demitidos + 1;
+     this.salutar.inativos = this.salutar.inativos + 1;
    }
    this.salutar.total = this.salutar.total + 1;
   }
@@ -156,7 +156,7 @@ export class CadsalutarComponent implements OnInit {
     if (this.formulario.get('todos').value === true) {
       this.formulario.get('admitidos').setValue(false);
       this.formulario.get('afastados').setValue(false);
-      this.formulario.get('demitidos').setValue(false);
+      this.formulario.get('inativos').setValue(false);
       this.formulario.get('ativos').setValue(false);
     }
   }
@@ -166,7 +166,7 @@ export class CadsalutarComponent implements OnInit {
       this.formulario.get('todos').setValue(false);
     } else if (this.formulario.get('afastados').value === true) {
       this.formulario.get('todos').setValue(false);
-    } else if (this.formulario.get('demitidos').value === true) {
+    } else if (this.formulario.get('inativos').value === true) {
       this.formulario.get('todos').setValue(false);
     } else if (this.formulario.get('Ativos').value === true) {
       this.formulario.get('todos').setValue(false);
@@ -220,7 +220,7 @@ export class CadsalutarComponent implements OnInit {
       todos: [true],
       admitidos: [null],
       afastados: [null],
-      demitidos: [null],
+      inativos: [null],
       ativos: [null],
     });
     this.salutarFuncionario =[];

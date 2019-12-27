@@ -17,10 +17,11 @@ import { ConssalutarComponent } from './salutar/conssalutar/conssalutar.componen
 import { SalutarService } from './salutar.service';
 import { routing } from '../app.routing';
 import { CadsalutarComponent } from './salutar/cadsalutar/cadsalutar.component';
+import { VissalutarComponent } from './salutar/vissalutar/vissalutar.component';
 
 
 @NgModule({
-  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent],
+  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent, VissalutarComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),

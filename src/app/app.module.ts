@@ -26,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'ngx-bootstrap';
 import { FuncaoModule } from './funcao/funcao.module';
 import { routing } from './app.routing';
+import { AfastamentoModule } from './afastamento/afastamento.module';
 
 
 registerLocaleData(br, 'pt-BR');
@@ -62,7 +63,7 @@ registerLocaleData(br, 'pt-BR');
     AsoagendaModule,
     AsocontroleModule,
     FuncaoModule,
-
+    AfastamentoModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

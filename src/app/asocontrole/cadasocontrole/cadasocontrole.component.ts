@@ -42,8 +42,26 @@ export class CadasocontroleComponent implements OnInit {
 
 
   ngOnInit() {
+    this.formularioAsoControle = this.formBuilder.group({
+      idasocontrole: [null],
+      dataexame: [null],
+      datavencimento: [null],
+      finalizado: [null],
+      observacao: [null],
+      exame: [null],
+      asotipo: [null],
+      funcionario: this.funcionarioSelecionado,
+      funcao: this.funcaoSelecionada,
+    });
+    this.funcionarioSelecionado = new Funcionario();
+      this.funcionarioSelecionado.nome = 'Nome do funcioário';
+      this.funcaoSelecionada = new Funcao();
+      this.funcaoSelecionada.nome = 'Função';
+      this.funcionarioSelecionado.loja = new Loja();
+      this.funcionarioSelecionado.loja.nome = 'Loja';
     this.carregarComboBox();
     const op = this.asocontroleService.getOp();
+    console.log(op);
     if ( op === 'n') {
       this.novoAso();
     } else if ( op === 'e') {
@@ -85,17 +103,6 @@ export class CadasocontroleComponent implements OnInit {
       this.funcionarioSelecionado.loja.nome = 'Loja';
     } else {
       this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
-      this.formularioAsoControle = this.formBuilder.group({
-        idasocontrole: [null],
-        dataexame: [null],
-        datavencimento: [null],
-        finalizado: [null],
-        observacao: [null],
-        exame: [null],
-        asotipo: [null],
-        funcionario: this.funcionarioSelecionado,
-        funcao: this.funcaoSelecionada,
-      });
     }
   }
 
@@ -122,10 +129,19 @@ export class CadasocontroleComponent implements OnInit {
     this.funcionarioService.setFuncionario(null);
     this.aso = this.formularioAsoControle.value;
     this.aso.funcionario = this.funcionarioSelecionado;
+    let salvarFunc : boolean = false
     if (this.aso.asotipo.idasotipo === 5) {
       this.aso.funcionario.situacao = 'Inativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
     } else if ( this.aso.asotipo.idasotipo === 4) {
       this.aso.funcionario.situacao = 'Ativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
+    } else if ( this.aso.asotipo.idasotipo === 1) {
+      this.aso.funcionario.situacao = 'Ativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
     }
     const idfuncao = this.funcionarioSelecionado.funcao.idfuncao;
     this.aso.funcionario.funcao = this.funcaoSelecionada;
@@ -139,6 +155,13 @@ export class CadasocontroleComponent implements OnInit {
       }
       this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
         this.aso = resposta2 as any;
+        if ( salvarFunc ) {
+          this.funcionarioService.salvar(this.aso.funcionario).subscribe (
+            resposta4 => {
+              this.aso.funcionario = resposta4 as any;
+            }
+          )
+        }
         if ( this.lastAsoControles != null ) {
           this.lastAsoControles.funcionario = this.aso.funcionario;
           this.lastAsoControles.finalizado = true;

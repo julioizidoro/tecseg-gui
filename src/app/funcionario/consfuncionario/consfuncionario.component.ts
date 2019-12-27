@@ -7,6 +7,7 @@ import { FuncionarioService } from '../funcionario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LojaService } from 'src/app/loja/loja.service';
 import { FuncaoService } from 'src/app/funcao/funcao.service';
+import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 
 @Component({
   selector: 'app-consfuncionario',
@@ -32,7 +33,9 @@ export class ConsfuncionarioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
     private funcaoService: FuncaoService,
-    private activeRrouter: ActivatedRoute) {
+    private activeRrouter: ActivatedRoute,
+    private asoControleService: AsocontroleService
+    ) {
       this.consultar();
     }
 
@@ -172,6 +175,10 @@ export class ConsfuncionarioComponent implements OnInit {
     if ( this.rotaAnterior === 'asoagenda') {
       this.router.navigate([ '/cadasoagenda' ]);
     } else if ( this.rotaAnterior === 'asocontrole') {
+      this.asoControleService.setOp('n');
+      this.router.navigate([ '/cadasocontrole']);
+    } else {
+      this.asoControleService.setOp('n');
       this.router.navigate([ '/cadasocontrole']);
     }
   }
@@ -181,4 +188,6 @@ export class ConsfuncionarioComponent implements OnInit {
       return true;
     } else return false;
   }
+
+  
 }
