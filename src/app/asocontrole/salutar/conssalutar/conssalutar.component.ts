@@ -70,8 +70,8 @@ export class ConssalutarComponent implements OnInit {
   }
 
   pesquisar() {
-    let dataInicial = this.formulario.get('datainicial').value;
-    let dataFinal = this.formulario.get('datafinal').value;
+    const dataInicial = this.formulario.get('datainicial').value;
+    const dataFinal = this.formulario.get('datafinal').value;
     this.lojaSelecionada = this.formulario.get('loja').value;
     if ((dataInicial != null) && (dataFinal != null) && (this.lojaSelecionada != null)) {
       this.salutarService.pesquisarLojaData(this.lojaSelecionada, dataInicial, dataFinal).subscribe(resposta => {
@@ -116,69 +116,38 @@ exportarExcel(salutar : Salutar) {
   this.salutarService.listarSalutarFuncionario(salutar).subscribe (
     resposta => {
       listasf = resposta as any;
-    }
-  )
   this.listaExportar=[];
-
-  
-  for (let sf of listasf) {
+  for (this.sf of listasf) {
     this.exportar =  new ExportarSalutar();
-    this.exportar.codigoUnidade = sf.
-    this.exportar.matricula = this.imovel.matricula;
-    this.exportar.nomeproprietario = this.imovel.nomeproprietario;
-    this.exportar.cpfcasan = this.imovel.cpfcasan;
-    this.exportar.locatario = this.imovel.locatario;
-    this.exportar.cpflocatario = this.imovel.cpflocatario;
-    this.exportar.situacaolink = this.imovel.situacaolink;
-    this.exportar.proprietariocasan = this.imovel.proprietariocasan;
-    this.exportar.usuarioatual = this.imovel.usuarioatual;
-    this.exportar.situacao = this.imovel.situacao;
-    this.exportar.descricaosituacao = this.imovel.descricaosituacao;
-    if (this.imovel.listaFatura != null) {
-      for (let i =0;i<this.imovel.listaFatura.length;i++){
-        if (i===0){
-          this.exportar.ref1 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor1 = this.imovel.listaFatura[i].valor;
-        }else if (i==1) {
-          this.exportar.ref2 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor2 = this.imovel.listaFatura[i].valor;
-        }else if (i==2) {
-          this.exportar.ref3 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor3 = this.imovel.listaFatura[i].valor;
-        }else if (i==3) {
-          this.exportar.ref4 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor4 = this.imovel.listaFatura[i].valor;
-        }else if (i==4) {
-          this.exportar.ref5 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor5 = this.imovel.listaFatura[i].valor;
-        }else if (i==5) {
-          this.exportar.ref6 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor6 = this.imovel.listaFatura[i].valor;
-        }else if (i==6) {
-          this.exportar.ref7 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor7 = this.imovel.listaFatura[i].valor;
-        }else if (i==7) {
-          this.exportar.ref8 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor8 = this.imovel.listaFatura[i].valor;
-        }else if (i==8) {
-          this.exportar.ref9 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor9 = this.imovel.listaFatura[i].valor;
-        }else if (i==9) {
-          this.exportar.ref10 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor10 = this.imovel.listaFatura[i].valor;
-        }else if (i==10) {
-          this.exportar.ref10 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor10 = this.imovel.listaFatura[i].valor;
-        }else if (i==11) {
-          this.exportar.ref12 = this.imovel.listaFatura[i].referencia;
-          this.exportar.valor12 = this.imovel.listaFatura[i].valor;
-        }
-      }
-    } 
-    if (this.exportar != null){
-      this.listaExportar.push(this.exportar);
+    this.exportar.codigoUnidade = this.sf.salutar.loja.codigosalutar;
+    this.exportar.nomeUnidade = this.sf.salutar.loja.razaosicual;
+    this.exportar.codigosetor = this.sf.setor.idsetor;
+    this.exportar.nomesetor = this.sf.setor.nome;
+    this.exportar.codigocargo = this.sf.funcao.idfuncao;
+    this.exportar.nomecargo = this.sf.funcao.nome;
+    this.exportar.matricula = this.sf.funcionario.idfuncionario;
+    this.exportar.codigofuncionario = this.sf.funcionario.idfuncionario;
+    this.exportar.Nomefuncionario = this.sf.funcionario.nome;
+    this.exportar.dtNascimento = this.sf.funcionario.datanascimento;
+    this.exportar.sexo = this.sf.funcionario.sexo;
+    if (this.sf.situacao === 'Admissao') {
+     this.exportar.situacao = 'S'; 
+    } else if (this.sf.situacao === 'Atibo') {
+      this.exportar.situacao = 'S';
+    } else if (this.sf.situacao === 'Afastado') {
+      this.exportar.situacao = 'A';
+    } else if (this.sf.situacao === 'demitido') {
+      this.exportar.situacao = 'N';
     }
-    
+    this.exportar.dtAdmissao = this.sf.funcionario.dataadmissao;
+    this.exportar.pispasep = this.sf.funcionario.pis;
+    this.exportar.contratacao = '1';
+    this.exportar.ufrg = '';
+    this.exportar.cpf = this.sf.funcionario.cpf;
+    this.exportar.ctps = this.sf.funcionario.ctps;
+    this.exportar.cbo = this.sf.funcao.cbo;
+    this.exportar.serieCTPS = this.sf.funcionario.serie;
+    this.listaExportar.push(this.exportar);
   }
   
   //https://stackoverflow.com/questions/39177183/how-to-export-json-to-csv-or-excel-angular-2
@@ -187,7 +156,10 @@ exportarExcel(salutar : Salutar) {
   const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
   const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
   //this.saveAsExcelFile(excelBuffer, "consulta-ecasan");
-  XLSX.writeFile(workbook, this.toExportFileName("consulta-ecsan"));
+  XLSX.writeFile(workbook, this.toExportFileName("salutar_" + salutar.loja.idloja));
+}
+)
+
   
 }
 
@@ -200,6 +172,14 @@ private saveAsExcelFile(buffer: any, fileName: string): void {
 
 toExportFileName(excelFileName: string): string {
   return `${excelFileName}_export_${new Date().getTime()}.xlsx`;
+}
+
+deletar(salutar: Salutar) {
+  this.salutarService.deletar(salutar).subscribe (
+    resposta => {
+      resposta as any;
+    }
+  )  
 }
 
 }

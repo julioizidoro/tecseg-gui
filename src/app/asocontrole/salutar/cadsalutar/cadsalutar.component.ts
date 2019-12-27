@@ -144,7 +144,7 @@ export class CadsalutarComponent implements OnInit {
      this.salutar.ativos = this.salutar.ativos + 1;
    } else if (sf.situacao == 'Afastado') {
      this.salutar.afastados = this.salutar.afastados + 1
-   } else if (sf.situacao == 'demitido') {
+   } else if (sf.situacao == 'Inativo') {
      this.salutar.demitidos = this.salutar.demitidos + 1;
    }
    this.salutar.total = this.salutar.total + 1;
@@ -157,6 +157,7 @@ export class CadsalutarComponent implements OnInit {
       this.formulario.get('admitidos').setValue(false);
       this.formulario.get('afastados').setValue(false);
       this.formulario.get('demitidos').setValue(false);
+      this.formulario.get('ativos').setValue(false);
     }
   }
 
@@ -167,13 +168,14 @@ export class CadsalutarComponent implements OnInit {
       this.formulario.get('todos').setValue(false);
     } else if (this.formulario.get('demitidos').value === true) {
       this.formulario.get('todos').setValue(false);
+    } else if (this.formulario.get('Ativos').value === true) {
+      this.formulario.get('todos').setValue(false);
     }
   }
 
   iniciar() {
     this.gerarListaFuncionarios();
     this.iniciou = true;
-
   }
 
   salvar() {

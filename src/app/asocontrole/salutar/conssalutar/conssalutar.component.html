@@ -78,7 +78,7 @@
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ s.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      {{ s.dataemissao}}</td>
+                      {{ s.dataemissao | date: 'dd/MM/yyyy'}}</td>
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ s.loja.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
@@ -88,10 +88,10 @@
                         <a style="color: green;margin-left: 10%;" (click)="excluir(s)">
                             <i class="far fa-edit" title="Editar"></i>
                         </a>
-                        <a style="color: red;margin-left: 10%;" (click)="excluir(s)">
+                        <a style="color: red;margin-left: 10%;" (click)="deletar(s)">
                           <i class="fas fa-trash-alt" title="Excluir"></i>
                       </a>
-                      <a style="color: green;margin-left: 10%;" (click)="excluir(s)">
+                      <a style="color: green;margin-left: 10%;" (click)="exportarExcel(s)">
                         <i class="far fa-file-excel" title="Planilha Excel"></i>
                     </a>
                     </td>                  

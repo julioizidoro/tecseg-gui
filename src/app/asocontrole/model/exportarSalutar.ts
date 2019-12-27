@@ -4,8 +4,10 @@ export class ExportarSalutar {
     nomeUnidade: string;
     codigosetor: number;
     nomesetor: string;
-    codigocargo: string;
+    codigocargo: number;
     nomecargo: string;
+    matricula: number;
+    codigofuncionario: number;
     Nomefuncionario;
     dtNascimento: Date;
     sexo: string;
@@ -19,7 +21,7 @@ export class ExportarSalutar {
     ctps: string;
     cbo: string;
     dtemissaocartprof: Date;
-    serieCTPS: String;
+    serieCTPS: string;
     estadoCobrancaUnidade;
     cepCobrancaUnidade: string;
     complementoEnderecoCobrancaUnidade: string;

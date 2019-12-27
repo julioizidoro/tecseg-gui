@@ -53,6 +53,10 @@ export class SalutarService {
     return this.httpClient.post<any>(env.baseApiUrl + 'salutar/salvar', salutar);
   }
 
+  deletar(salutar: Salutar): Observable<any> {
+    return this.httpClient.post<any>(env.baseApiUrl + 'salutar/deletar', salutar);
+  }
+
   listarSalutarFuncionario(salutar: Salutar): Observable<Salutarfuncionario> {
     return this.httpClient.get<Salutarfuncionario>(env.baseApiUrl + 'salutarfuncionario/listar/' + salutar.idsalutar);
   }
