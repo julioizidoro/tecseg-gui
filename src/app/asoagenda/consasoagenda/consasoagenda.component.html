@@ -2,94 +2,116 @@
 <div class="page-header">
   <div class="container-fluid">
     <h3>
-      Agendamento de Aso's
-      <br />
+      Consulta Agendamento de Exames
     </h3>
-    <form [formGroup]="formulario">
-      <div class="container-fluid" style="width:100%;">
-        <div class="w-100">
-            <accordion [closeOthers]="oneAtATime">
-                <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="pesquisanome">Nome</label>
-                            <input type="text" class="form-control" id="pesquisanome" placeholder="Nome" formControlName="nome">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="loja">Loja</label>
-                            <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
-                                <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
-                             </select>  
-                        </div>
-                        
-                        <div class="form-group col-md-3" col-sm-12>
-                            <label for="situacao">Situação</label>
-                            <select class="form-control" formControlName="situacao">
-                                <option value="Agendar">Agendar</option>
-                                <option value="Agendado">Agendado</option>
-                                <option value="Cancelado">Cancelado</option>
-                                <option value="Finalizado">Finalizado</option>
-                            </select>
-                        </div>
-                       
-                        <div class="form-group col-md-12 text-right">
-                            <button type="button" style="float:right;" class="btn btn-success" (click)="pesquisar()">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                                Pesquisar
-                              </button>
-                              <button type="button" style="margin-left:1%;" class="btn btn-success" (click)="pesquisarLimpar()" title="Limpar a pesquisa">
-                                    <i class="fa fa-ban" aria-hidden="true" ></i>
-                                    Limpar
-                              </button>
-                        </div>
-                    </div>
-                </accordion-group>
-            </accordion>
-        </div>
-        <div class="w-100">
-            <button type="button" style="float:right;" class="btn btn-success" (click)="novo()" >
-              <i class="fa fa-plus" aria-hidden="true"></i>
-              Novo
-            </button>
-        </div>
-        <table class="table table-striped" >
+    <hr />
+  </div>
+  <form [formGroup]="formulario">
+    <div class="container-fluid" style="width:100%;">
+      <div class="w-100">
+        <button type="button" style="float:right;" class="btn btn-success font-weight-light" 
+          (click)="novo()" >
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <a class="ml-2">Agendar</a>
+        </button>
+      </div>
+      <br><br>
+      <div class="w-100">
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen">
+            <div class="row">
+              
+              <div class="form-group col-md-6">
+                <label for="pesquisanome">Nome</label>
+                <input type="text" class="form-control" id="pesquisanome" placeholder="Nome" formControlName="nome">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="loja">Loja</label>
+                <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
+                    <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
+                 </select>  
+            </div>
+            
+            <div class="form-group col-md-3" col-sm-12>
+                <label for="situacao">Situação</label>
+                <select class="form-control" formControlName="situacao">
+                    <option value="Agendar">Agendar</option>
+                    <option value="Agendado">Agendado</option>
+                    <option value="Cancelado">Cancelado</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+            </div>
+           
+           
+
+              <div class="form-group col-md-12 text-right">
+                <button type="button" class="btn btn-primary" (click)="pesquisar()">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Pesquisar
+                </button>
+                <button type="submit" class="btn btn-danger" style="margin-left:1%;"
+                    (click)="pesquisarLimpar()">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    Limpar
+                </button>
+            </div>
+
+
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+
+
+
+      <div class="table-responsive-lg">
+        <table class="table table-striped">
             <thead>
-                <tr 
-                class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-lg hidden-md hidden-sm">Nome - Situação</th>
-                <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-lg hidden-md hidden-xs">Nome - Função - Loja - Situação</th>
-                <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
-                <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Tipo</th>
-                <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data Exame</th>
-                <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situação</th>
-                <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Ações</th>
-                </tr>  
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Tipo Exame</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data Exame</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situação</th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Ações</th>
+                </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let agenda of asoAgendas" 
-                  class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                  <td class="col-lg-3 col-xs mb-1 text-muted text-small w-sm-100">{{ agenda.funcionario.nome}}</td>
-                  <td class="col-lg-2 col-xs mb-1 text-muted text-small w-sm-100">{{ agenda.funcionario.loja.nome }}</td>
-                  <td class="col-lg-2 col-xs mb-1 text-muted text-small w-sm-100">{{ agenda.asotipo.nome }}</td>
-                  <td class="col-lg-2 col-xs mb-1 text-muted text-small w-sm-100 hidden-xs">{{ agenda.dataexame | date: 'dd/MM/yyyy' }}</td>
-                  <td class="col-lg-2 col-xs mb-1 text-muted text-small w-sm-100">{{ agenda.situacao }}</td>
-                  <td class="col-lg-1 col-xs mb-1 text-muted text-small w-sm-100">
-                      <button (click)="editar( agenda )" class="btn btn-success hidden-xs hidden-sm"
-                        style="margin-top: -9px;float: right">
-                        <i class="fa  fa-pencil"></i>
-                      </button>
-                      <button (click)="editar( agenda )" class="btn btn-success hidden-lg hidden-md" style="float: right">
-                        <i class="fa  fa-pencil"></i>
-                      </button>
+              <tr *ngFor="let agenda of asoAgendas" 
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    {{agenda.funcionario.nome}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                      {{agenda.funcionario.loja.nome }}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ agenda.asotipo.nome}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ agenda.dataexame | date: 'dd/MM/yyyy' }}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ agenda.situacao }}</td>
+                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                      style="border: none;">
+                      <a style="color: green;margin-left: 10%;" (click)="editar(agenda)">
+                        <i class="far fa-edit" title="Editar"></i>
+                    </a>
+                    <a style="color: blue;margin-left: 10%;" (click)="finalizar(agenda)">
+                      <i class="fas fa-check-double" title="Finalizar"></i>
+                  </a>
+                  <a style="color: red;margin-left: 10%;" (click)="cancelar(agenda)">
+                    <i class="fas fa-ban" title="Cancelar"></i>
+                </a>
+                <a style="color: green;margin-left: 10%;" >
+                  <a href="{{imprimir(agenda)}}" target="_blank" >
+                  <i class="fas fa-print" title="Imprimir"></i></a>
+              </a>
+                    
                     </td>
+                  
                 </tr>
             </tbody>
         </table>
-
-
-
-      </div>
-    </form>
-  </div>
+    </div>
+    </div>
+  </form>
 </div>

@@ -8,6 +8,9 @@ import { AsotipoService } from 'src/app/asocontrole/asotipo.service';
 import { LojaService } from 'src/app/loja/loja.service';
 import { AsoagendaService } from '../asoagenda.service';
 
+import { environment as env } from '../../../environments/environment.prod';
+import { AuthService } from 'src/app/usuario/login/auth.service';
+
 @Component({
   selector: 'app-consasoagenda',
   templateUrl: './consasoagenda.component.html',
@@ -29,6 +32,7 @@ export class ConsasoagendaComponent implements OnInit {
     private asotipoService: AsotipoService,
     private lojaService: LojaService,
     private asoagendaService: AsoagendaService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -91,6 +95,7 @@ pesquisarNome( nomePesquisa: string ) {
   this.asoagendaService.pesquisarNome( nomePesquisa ).subscribe(
     resposta => {
       this.asoAgendas = resposta as any;
+      console.log(this.asoAgendas);
     }
   );
 }
@@ -120,12 +125,36 @@ pesquisarAll( idLoja: number, nomePesquisa: string, situacao: string) {
 }
 
 novo() {
-  this.router.navigate([ '/cadasoagenda', 'asoagenda']);
+  this.asoagendaService.setAsoAgenda(null);
+  this.router.navigate([ '/cadasoagenda']);
 }
 
 editar(asoAgenda: Asoagenda) {
-  this.router.navigate([ '/cadasoagenda' ,   asoAgenda.idasoagenda, 'asoagenda' ]);
+  this.asoagendaService.setAsoAgenda(asoAgenda);
+  this.router.navigate([ '/cadasoagenda']);
+}
+
+imprimir(asoAgenda: Asoagenda) {
+  let uri =  env.baseApiUrl + 'asoagenda/autorizacao/' + asoAgenda.idasoagenda; 
+  return uri;
+}
+
+cancelar(asoAgenda: Asoagenda) {
+  asoAgenda.usuario = this.authService.getUsuario();
+  asoAgenda.datacancelamento = new Date;
+  asoAgenda.situacao= 'Cancelado';
+  this.asoagendaService.salvar(asoAgenda).subscribe(resposta => {
+    asoAgenda = resposta as Asoagenda;
+  });
+}
+
+finalizar(asoAgenda: Asoagenda) {
+  asoAgenda.usuario = this.authService.getUsuario();
+  asoAgenda.situacao= 'Finalizado';
+  this.asoagendaService.salvar(asoAgenda).subscribe(resposta => {
+    asoAgenda = resposta as Asoagenda;
+    this.consultar();
+  });
 }
 
 }
-
