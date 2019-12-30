@@ -69,19 +69,19 @@ export class CadsalutarComponent implements OnInit {
     this.salutar.dataemissao = new Date();
     this.salutar.usuario = this.authService.getUsuario();
     this.salutar.nome = this.formulario.get('nome').value;
-    this.salutar.admitidos =0;
-    this.salutar.ativos =0;
-    this.salutar.afastados=0;
-    this.salutar.inativos=0;
-    this.salutar.total=0;
-    let dataincio = this.formulario.get('datainicial').value;
-    let datafinal = this.formulario.get('datafinal').value;
-    let todos = this.formulario.get('todos').value;
-    let admitidos = this.formulario.get('admitidos').value;
-    let afastados = this.formulario.get('afastados').value;
-    let inativos = this.formulario.get('inativos').value;
-    let ativos = this.formulario.get('ativos').value;
-    let adicionar: boolean = false;
+    this.salutar.admitidos = 0;
+    this.salutar.ativos = 0;
+    this.salutar.afastados = 0;
+    this.salutar.inativos = 0;
+    this.salutar.total = 0;
+    const dataincio = this.formulario.get('datainicial').value;
+    const datafinal = this.formulario.get('datafinal').value;
+    const todos = this.formulario.get('todos').value;
+    const admitidos = this.formulario.get('admitidos').value;
+    const afastados = this.formulario.get('afastados').value;
+    const inativos = this.formulario.get('inativos').value;
+    const ativos = this.formulario.get('ativos').value;
+    let adicionar = false;
     if ((dataincio != null) && (datafinal != null) && (this.salutar.loja != null)) {
       this.funcionarioService.getLojaData(this.salutar.loja.idloja, dataincio, datafinal).subscribe(resposta => {
         this.lojas = resposta as any;
@@ -91,7 +91,7 @@ export class CadsalutarComponent implements OnInit {
         this.funcionarios = resposta as any;
         if (this.funcionarios != null) {
           this.salutarFuncionario = [];
-          for (let f of this.funcionarios) {
+          for (const f of this.funcionarios) {
             adicionar = false;
             let s = Salutarfuncionario;
             this.sf = new Salutarfuncionario();
@@ -137,14 +137,14 @@ export class CadsalutarComponent implements OnInit {
   }
 
   calcularNumeroTodos() {
-   for (let sf of this.salutarFuncionario) {
-   if (sf.situacao == 'Adminitido') {
-    this.salutar.admitidos = this.salutar.admitidos + 1;  
-   } else if (sf.situacao == 'Ativo') {
+   for (const sf of this.salutarFuncionario) {
+   if (sf.situacao === 'Adminitido') {
+    this.salutar.admitidos = this.salutar.admitidos + 1;
+   } else if (sf.situacao === 'Ativo') {
      this.salutar.ativos = this.salutar.ativos + 1;
-   } else if (sf.situacao == 'Afastado') {
-     this.salutar.afastados = this.salutar.afastados + 1
-   } else if (sf.situacao == 'Inativo') {
+   } else if (sf.situacao === 'Afastado') {
+     this.salutar.afastados = this.salutar.afastados + 1;
+   } else if (sf.situacao === 'Inativo') {
      this.salutar.inativos = this.salutar.inativos + 1;
    }
    this.salutar.total = this.salutar.total + 1;
@@ -182,27 +182,27 @@ export class CadsalutarComponent implements OnInit {
     this.calcularNumeroTodos();
     this.salutarService.salvar(this.salutar).subscribe(resposta => {
       this.salutar = resposta as any;
-      for (let i=0;i<this.salutarFuncionario.length;i++){
+      for (let i = 0; i < this.salutarFuncionario.length; i++) {
         this.salutarFuncionario[i].salutar = this.salutar;
-      }  
+      }
       this.salutarService.salvarSalutarFuncionario(this.salutarFuncionario).subscribe(
         reposta1 => {
           this.salutarFuncionario = reposta1 as any;
           this.salutarService.setSalutar(null);
           this.router.navigate(['/conssalutar']);
-        }, 
+        },
         err1 => {
           console.log(err1.error.erros.join(' '));
         }
       );
-    },  
+    },
     err => {
       console.log(err.error.erros.join(' '));
     }
     );
   }
 
-  
+
   cancelar() {
     this.salutarService.setSalutar(null);
     this.router.navigate(['/conssalutar']);
@@ -223,15 +223,17 @@ export class CadsalutarComponent implements OnInit {
       inativos: [null],
       ativos: [null],
     });
-    this.salutarFuncionario =[];
+    this.salutarFuncionario = [];
     this.verificarBotaoIniciar();
   }
 
   verificarBotaoIniciar() {
-    let loja = this.formulario.get('loja').value;
-    let nome = this.formulario.get('nome').value;
+    const loja = this.formulario.get('loja').value;
+    const nome = this.formulario.get('nome').value;
     if (( loja == null) || ( nome == null)) {
       this.botaoiniciar = true;
-    } else this.botaoiniciar = false;;
+    } else {
+      this.botaoiniciar = false;
+    }
   }
 }
