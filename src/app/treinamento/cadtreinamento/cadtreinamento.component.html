@@ -11,7 +11,7 @@
       <div class="row">
         <div class="form-group col-md-12 col-sm-12">
           <label for="clinica">Tipo de Treinamento</label>
-          <select class="form-control" formControlName="treinamentotipo" [compareWith]="compararTreinamentoTipo"
+          <select class="form-control" formControlName="treinamentotipo" [compareWith]="compararTreinamentoTipo()"
             (change)="setTreinamentoTipo()">
             <option *ngFor="let treinamentotipo of treinamentostipo" [ngValue]="treinamentotipo"> {{ treinamentotipo.nome }}</option>
           </select>
