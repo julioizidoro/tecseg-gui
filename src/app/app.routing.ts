@@ -16,6 +16,8 @@ import { CadsalutarComponent } from './asocontrole/salutar/cadsalutar/cadsalutar
 import { VissalutarComponent } from './asocontrole/salutar/vissalutar/vissalutar.component';
 import { CadtipoComponent } from './treinamento/tipo/cadtipo/cadtipo.component';
 import { ConstipoComponent } from './treinamento/tipo/constipo/constipo.component';
+import { ConstreinamentoComponent } from './treinamento/constreinamento/constreinamento.component';
+import { CadtreinamentoComponent } from './treinamento/cadtreinamento/cadtreinamento.component';
 
 
 const APP_ROUTER: Routes = [
@@ -35,6 +37,9 @@ const APP_ROUTER: Routes = [
   { path: 'cadtreinamentotipo', component: CadtipoComponent },
   { path: 'constreinamentotipo', component: ConstipoComponent },
   { path: 'vissalutar', component: VissalutarComponent },
+  { path: 'constreinamento', component: ConstreinamentoComponent },
+  { path: 'cadtreinamento', component: CadtreinamentoComponent },
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

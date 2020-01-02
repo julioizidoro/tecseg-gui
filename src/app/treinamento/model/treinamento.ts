@@ -1,13 +1,18 @@
-import { Loja } from 'src/app/loja/model/loja';
+import { Treinamentotipo } from './treinamentotipo';
+import { Usuario } from 'src/app/usuario/model/usuario';
 
 export class Treinamento {
 
     idtreinamento: number;
-    nome: string;
     data: Date;
-    instrutor: string;
-    situacao: string;
+    hora: string;
     duracao: string;
-    loja: Loja;
+    instrutor: string;
+    conteudo: string;
+    local: string;
+    cidade: string;
+    situacao: string;
+    treinamentotipo: Treinamentotipo;
+    usuario: Usuario;
 
 }
