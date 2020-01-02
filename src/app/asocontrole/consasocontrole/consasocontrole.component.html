@@ -85,28 +85,45 @@
                     <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Função</th>
                     <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
                     <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Tipo</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Exame</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Vencimento</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Vencimento</th>
                 </tr>
             </thead>
             <tbody>
               <tr *ngFor="let aso of asoControles" 
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a (click)="editar(aso)" ><img src="{{aso.situacao}}" width='40%'></a></td>
+                      <li class="nav-item dropdown btn-group" dropdown>
+                        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light text-primary" mdbWavesEffect>
+                          <img src="{{aso.situacao}}" width='50%'>
+                        </a>
+                        <div class="dropdown-menu dropdown-primary dropdown-menu-left" role="menu">
+                          <a class="dropdown-item">
+                            <a style="color: green;margin-left: 10%;" (click)="novo(aso)">
+                              <i class="far fa-file-alt" title="Novo aso"></i>
+                          </a>
+                          <a style="color: blue;margin-left: 10%;" (click)="editar(aso)">
+                            <i class="far fa-edit" title="Editar aso"></i>
+                        </a>
+                        <a style="color: orangered;margin-left: 10%;" (click)="listarFuncionario(aso)">
+                          <i class="far fa-list-alt" title="Listar aso"></i>
+                      </a>
+                      <a style="color: brown;margin-left: 10%;" (click)="agendar(aso)">
+                        <i class="far fa-calendar-plus" title="Agendar exame"></i>
+                    </a>
+                          </a>
+                        </div>
+                      </li>
+                    </td>
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a (click)="listarFuncionario(aso)" >{{ aso.funcionario.nome}}</a></td>
+                      <a  >{{ aso.funcionario.nome}}</a></td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ aso.funcionario.funcao.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ aso.funcionario.loja.nome }}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ aso.asotipo.nome }}</td>
-                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                      style="border: none;"> {{ aso.dataexame | date: 'dd/MM/yyyy' }}</td>
-                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                      style="border: none;"><a (click)="novo(aso)" >{{ aso.datavencimento | date: 'dd/MM/yyyy' }}</a></td>
-                  
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                      style="border: none;"> {{ aso.datavencimento | date: 'dd/MM/yyyy' }}</td>
                 </tr>
             </tbody>
         </table>

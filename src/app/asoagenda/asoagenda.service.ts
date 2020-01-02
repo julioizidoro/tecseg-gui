@@ -26,18 +26,18 @@ export class AsoagendaService {
   }
 
   pesquisarLoja(idloja: number, nome: string): Observable<Asoagenda> {
-    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/loja' + idloja + '/' + nome);
+    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/loja/' + idloja + '/' + nome);
   }
 
   pesquisarSituacao(situacao: string, nome: string): Observable<Asoagenda> {
-    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/situacao' + situacao + '/' + nome);
+    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/situacao/' + situacao + '/' + nome);
   }
 
   pesquisarNome(nome: string): Observable<Asoagenda> {
-    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/nome' +  nome);
+    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/nome/' +  nome);
   }
   pesquisar(idloja: number, nome: string, situacao: string): Observable<Asoagenda> {
-    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda' + idloja + '/' + nome + '/' + situacao);
+    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/' + idloja + '/' + nome + '/' + situacao);
   }
 
   salvar(asoAgenda: Asoagenda): Observable<any> {

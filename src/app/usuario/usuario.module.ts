@@ -9,6 +9,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UsuarioService } from './usuario.service';
 import { AuthService } from './login/auth.service';
+import { AccordionModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -20,12 +21,13 @@ import { AuthService } from './login/auth.service';
     DropdownModule,
     FormsModule,
     TextMaskModule,
+    AccordionModule.forRoot(),
   ],
   exports:[CadusuarioComponent, ConsusuarioComponent, LoginComponent], 
   providers:[
     UsuarioService, 
     AuthService,
   ],
-  schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
+  
 })
 export class UsuarioModule { }

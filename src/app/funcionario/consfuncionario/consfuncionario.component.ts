@@ -25,7 +25,6 @@ export class ConsfuncionarioComponent implements OnInit {
   isFirstOpen = false;
   oneAtATime = true;
   bsInlineValue = new Date();
-  rotaAnterior: string;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -33,7 +32,6 @@ export class ConsfuncionarioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
     private funcaoService: FuncaoService,
-    private activeRrouter: ActivatedRoute,
     private asoControleService: AsocontroleService
     ) {
       this.consultar();
@@ -43,12 +41,7 @@ export class ConsfuncionarioComponent implements OnInit {
 
 
   ngOnInit() {
-    this.activeRrouter.params.subscribe(params => {
-      this.habilitarConsulta = params.habilita;
-      this.rotaAnterior = params.rota;
-    });
     this.habilitarConsulta = true;
-    this.rotaAnterior = 'asocontrole';
     this.carregarComboBox();
     this.formulario = this.formBuilder.group({
       nome: [null],
@@ -172,15 +165,14 @@ export class ConsfuncionarioComponent implements OnInit {
 
   selecionarFuncionario(funcionarioConsulta: Funcionario) {
     this.funcionarioService.setFuncionario(funcionarioConsulta);
-    if ( this.rotaAnterior === 'asoagenda') {
+    if ( this.funcionarioService.getRota() === 'cadasoagenda') {
+      this.funcionarioService.setRota('');
       this.router.navigate([ '/cadasoagenda' ]);
-    } else if ( this.rotaAnterior === 'asocontrole') {
+    } else if ( this.funcionarioService.getRota() === 'cadasocontrole') {
+      this.funcionarioService.setRota('');
       this.asoControleService.setOp('n');
       this.router.navigate([ '/cadasocontrole']);
-    } else {
-      this.asoControleService.setOp('n');
-      this.router.navigate([ '/cadasocontrole']);
-    }
+    } 
   }
 
   getSituacao(funcionario: Funcionario) {

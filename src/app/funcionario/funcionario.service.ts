@@ -10,6 +10,7 @@ import { environment as env } from '../../environments/environment.prod';
 export class FuncionarioService {
 
   private funcionario: Funcionario;
+  private rota: string;
 
   constructor( private httpClient: HttpClient ) { }
 
@@ -19,6 +20,14 @@ export class FuncionarioService {
 
   setFuncionario(funcionario: Funcionario) {
     this.funcionario = funcionario;
+  }
+
+  getRota() {
+    return this.rota;
+  }
+
+  setRota(rota: string) {
+    this.rota = rota;
   }
 
   listar(nome: string, sit: string): Observable<Funcionario> {

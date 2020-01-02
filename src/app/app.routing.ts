@@ -20,8 +20,6 @@ const APP_ROUTER: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'consfuncionario', component: ConsfuncionarioComponent },
-  { path: 'consfuncionario/:habilita/:rota', component: ConsfuncionarioComponent },
-  { path: 'consfuncionario/:asos', component: ConsfuncionarioComponent },
   { path: 'cadfuncionario', component: CadfuncionarioComponent },
   { path: 'consasocontrole', component: ConsasocontroleComponent },
   { path: 'listaaso', component: ListaasofuncionarioComponent },

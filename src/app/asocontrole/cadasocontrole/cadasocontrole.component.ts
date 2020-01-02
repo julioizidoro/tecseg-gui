@@ -219,7 +219,9 @@ export class CadasocontroleComponent implements OnInit {
   }
 
   consultaFuncionario() {
-    this.router.navigate(['/consfuncionario'] ,  { queryParams: {habilitarConsulta: true, rota: 'asocontrole'}});
+    this.funcionarioService.setFuncionario(null);
+    this.funcionarioService.setRota('cadasocontrole');
+    this.router.navigate(['/consfuncionario']);
   }
 
 

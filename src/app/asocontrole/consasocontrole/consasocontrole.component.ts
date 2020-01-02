@@ -340,6 +340,9 @@ listarFuncionario(aso: Asocontrole) {
   this.router.navigate(['/listaaso']);
 }
 
-
+agendar(aso: Asocontrole) {
+  this.asocontroleService.setAso(aso);
+  this.router.navigate(['/cadasoagenda']);
+}
 
 }
