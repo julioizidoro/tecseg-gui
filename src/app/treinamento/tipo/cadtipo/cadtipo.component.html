@@ -1,0 +1,81 @@
+<br /><br />
+
+<br /><br />
+<div class="page-header">
+    <div class="container-fluid">
+        <h3>
+            Cadastro de Tipo de Treinamento
+        </h3>
+        <hr />
+    </div>
+
+
+    <div style="width: 100%;">
+
+
+        <form [formGroup]="formulario">
+            <div class="row">
+                    <div class="form-group col-md-2 col-sm-1" [ngClass]="aplicaCssErro('nome')">
+                    </div>
+
+                <div class="form-group col-md-12 col-sm-10" [ngClass]="aplicaCssErro('nome')">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" placeholder="Nome" formControlName="nome">
+                    <app-campo-control-erro [mostrarErro]="verificarValidTouched('nome')" msgErro="Nome é obrigatório.">
+                    </app-campo-control-erro>
+                </div>
+                <div class="form-group col-md-12 col-sm-10" >
+                    <label for="complemento">Complemento Titulo</label>
+                    <input type="text" class="form-control" id="complemento" placeholder="Complemento" formControlName="complementotitulo">
+                </div>
+
+               
+    
+                <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('periodicidade')">
+                    <label for="periodicidade">Periodicidade</label>
+                    <input type="number" class="form-control" id="periodicidade" formControlName="periodicidade"  >
+                    <app-campo-control-erro [mostrarErro]="verificarValidTouched('periodicidade')" msgErro="Periodicidade é obrigatório.">
+                    </app-campo-control-erro>
+                </div>
+
+                <div class="form-group col-md-9" col-sm-12>
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" formControlName="tipo">
+                        <option value="Curso">Cursor</option>
+                        <option value="Palestra">Palestra</option>
+                        <option value="Treinamento">Treinamento</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-12" col-sm-12>
+                    <label for="conteudo">Conteudo</label>
+                    <textarea class="form-control" id="conteudo" rows="5"></textarea>
+                </div>
+
+
+
+                
+            </div>
+
+            <br />
+            <div class="w-100 text-right">
+                <button type="submit" class="btn btn-primary" (click)="salvar()" [disabled]="!formulario.valid">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                    Salvar
+                </button>
+                <button type="submit" class="btn btn-danger" style="margin-left:1%;" (click)="cancelar()">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    Cancelar
+                </button>
+
+            </div>
+
+
+
+            <br />
+
+
+        </form>
+
+    </div>
+</div>

@@ -14,6 +14,8 @@ import { CadfuncaoComponent } from './funcao/cadfuncao/cadfuncao.component';
 import { ConsfuncaoComponent } from './funcao/consfuncao/consfuncao.component';
 import { CadsalutarComponent } from './asocontrole/salutar/cadsalutar/cadsalutar.component';
 import { VissalutarComponent } from './asocontrole/salutar/vissalutar/vissalutar.component';
+import { CadtipoComponent } from './treinamento/tipo/cadtipo/cadtipo.component';
+import { ConstipoComponent } from './treinamento/tipo/constipo/constipo.component';
 
 
 const APP_ROUTER: Routes = [
@@ -30,6 +32,8 @@ const APP_ROUTER: Routes = [
   { path: 'consfuncao', component: ConsfuncaoComponent },
   { path: 'conssalutar', component: ConssalutarComponent },
   { path: 'cadsalutar', component: CadsalutarComponent },
+  { path: 'cadtreinamentotipo', component: CadtipoComponent },
+  { path: 'constreinamentotipo', component: ConstipoComponent },
   { path: 'vissalutar', component: VissalutarComponent },
 ];
 
