@@ -40,8 +40,6 @@ export class CadfuncionarioComponent implements OnInit {
     private setorService: SetorService,
     private funcionarioService: FuncionarioService,
     private router: Router,
-    private activeRrouter: ActivatedRoute
-
   ) {}
 
   ngOnInit() {

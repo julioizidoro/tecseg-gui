@@ -98,8 +98,8 @@ export class AsocontroleService {
     dataI + '/' + dataF + '/' + nome + '/' + idloja + '/' + idfuncao + '/' + idtipo );
   }
 
-  getLast(idfuncionario: number) {
-    return this.httpClient.get<Asocontrole>(env.baseApiUrl + 'asocontrole/last/' + idfuncionario);
+  getLast(idfuncionario: number, tipo: string) {
+    return this.httpClient.get<Asocontrole>(env.baseApiUrl + 'asocontrole/last/' + idfuncionario + '/' + tipo);
   }
 
   getFuncionarioId(idfuncionario: number) {

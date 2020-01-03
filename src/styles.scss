@@ -1,98 +1,97 @@
 /* You can add global styles to this file, and also import other style files */
 /* You can add global styles to this file, and also import other style files */
 body {
-    background-color: #eee;
-    width: 100%;
-    height: 100%;
+  background-color: #eee;
+  width: 100%;
+  height: 100%;
+}
+
+.card.card-cascade .view.gradient-card-header {
+  padding: 1rem 1rem;
+  text-align: center;
+}
+
+.card.card-cascade h3,
+.card.card-cascade h4 {
+  margin-bottom: 0px;
+}
+
+.blue-gradient {
+  background: -webkit-linear-gradient(50deg, #45cafc, #303f9f);
+  background: linear-gradient(40deg, #45cafc, #4285f4);
+}
+
+.sidebar-fixed {
+  height: 100vh;
+  width: 270px;
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  z-index: 1050;
+  background-color: #fff;
+  padding: 0 1.5rem 1.5rem
+}
+
+.sidebar-fixed .list-group .active {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
+  -webkit-border-radius: 5px;
+  border-radius: 5px
+}
+
+.sidebar-fixed .logo-wrapper {
+  padding: 2.5rem
+}
+
+.sidebar-fixed .logo-wrapper img {
+  max-height: 50px
+}
+
+@media (min-width: 600px) {
+  .navbar, .page-footer, main {
+    padding-left: 270px
   }
-  
-  .card.card-cascade .view.gradient-card-header {
-    padding: 1rem 1rem;
-    text-align: center;
-  }
-  
-  .card.card-cascade h3,
-  .card.card-cascade h4 {
-    margin-bottom: 0px;
-  }
-  
-  .blue-gradient {
-    background: -webkit-linear-gradient(50deg, #45cafc, #303f9f);
-    background: linear-gradient(40deg, #45cafc, #4285f4);
-  }
-  
+}
+
+@media (max-width: 600px) {
   .sidebar-fixed {
-    height: 100vh;
-    width: 270px;
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    z-index: 1050;
-    background-color: #fff;
-    padding: 0 1.5rem 1.5rem
+    display: none
   }
-  
-  .sidebar-fixed .list-group .active {
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16), 0 2px 10px 0 rgba(0, 0, 0, .12);
-    -webkit-border-radius: 5px;
-    border-radius: 5px
+}
+
+mdb-navbar .navbar.navbar-1 .navbar-toggler-icon {
+  background-image: url('https://static.thenounproject.com/png/2169315-200.png');
+ .cor-site {
+    background: #612241 !important;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    font-weight: 300;
   }
-  
-  .sidebar-fixed .logo-wrapper {
-    padding: 2.5rem
-  }
-  
-  .sidebar-fixed .logo-wrapper img {
-    max-height: 50px
-  }
-  
-  @media (min-width: 600px) {
-    .navbar, .page-footer, main {
-      padding-left: 270px
-    }
-  }
-  
-  @media (max-width: 600px) {
-    .sidebar-fixed {
-      display: none
-    }
-  }
-  
-  mdb-navbar .navbar.navbar-1 .navbar-toggler-icon {
-    background-image: url('https://static.thenounproject.com/png/2169315-200.png');
-   .cor-site {
-      background: green !important;
-      box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-      font-weight: 300;
-    }
-  
-  }
-  
-  .box {
-    box-shadow: none !important;
-  }
-  
-  .list-group-item{
-    padding: 0.35rem 1.25rem;
-  }
-  
-  .btn-color{
-    background: #880E4F;
-    border: 1px solid #880E4F;
-    color: white;
-  }
-  
-  .btn-color:hover{
-    color: white;
-  }
-  
-  .color{
-    color: #880E4F
-  }
-  
-  .btn-link {
-    font-weight: 400;
-    color: #880E4F;
-    text-decoration: none;
-  }
-  
+
+}
+
+.box {
+  box-shadow: none !important;
+}
+
+.list-group-item{
+  padding: 0.35rem 1.25rem;
+}
+
+.btn-color{
+  background: #880E4F;
+  border: 1px solid #880E4F;
+  color: white;
+}
+
+.btn-color:hover{
+  color: white;
+}
+
+.color{
+  color: #880E4F
+}
+
+.btn-link {
+  font-weight: 400;
+  color: #880E4F;
+  text-decoration: none;
+}

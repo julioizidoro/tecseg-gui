@@ -109,6 +109,13 @@
                         <a *ngIf="habilitarConsulta" style="color: green; margin-left: 10%;" (click)="selecionarFuncionario(f)">
                           <i class="fas fa-check" title="Selecionar"></i>
                       </a>
+                        <a *ngIf="verificarNaoParticipante(f)" style="color: blue; margin-left: 10%;" (click)="addTreinamentoFuncionario(f)">
+                          <i class="fas fa-user-edit" title="Adicionar no Treinamento"></i>
+                        </a>
+                        <a *ngIf="verificarParticipante()" style="color: red; margin-left: 10%;" (click)="removerTreinamentoFuncionario(f)">
+                          <i class="fas fa-user-times" title="Remover do Treinamento"></i>
+                        </a>
+
         
                     </td>
                 </tr>

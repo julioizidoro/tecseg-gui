@@ -11,7 +11,7 @@
       <div class="row">
         <div class="form-group col-md-12 col-sm-12">
           <label for="clinica">Tipo de Treinamento</label>
-          <select class="form-control" formControlName="treinamentotipo" [compareWith]="compararTreinamentoTipo()"
+          <select class="form-control" formControlName="treinamentotipo" [compareWith]="compararTreinamentoTipo"
             (change)="setTreinamentoTipo()">
             <option *ngFor="let treinamentotipo of treinamentostipo" [ngValue]="treinamentotipo"> {{ treinamentotipo.nome }}</option>
           </select>
@@ -27,7 +27,7 @@
           <input type="text" class="form-control" id="hora" [textMask]="{mask: maskHora}"  formControlName="hora">
         </div>
         <div class="form-group col-md-4 col-sm-12">
-          <label for="duracao">Hora</label>
+          <label for="duracao">Duração</label>
           <input type="text" class="form-control" id="duracao" [textMask]="{mask: maskHora}"  formControlName="duracao">
         </div>
         <div class="form-group col-md-12 col-sm-12">
@@ -44,7 +44,7 @@
         </div>
         <div class="form-group col-md-12" col-sm-12>
           <label for="conteudo">Conteudo</label>
-          <textarea class="form-control" id="conteudo" rows="5"></textarea>
+          <textarea class="form-control" id="conteudo" rows="5" formControlName="conteudo"  ></textarea>
       </div>
         
       </div>

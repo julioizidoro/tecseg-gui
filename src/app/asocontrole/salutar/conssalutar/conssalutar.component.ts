@@ -245,6 +245,7 @@ deletar(salutar: Salutar) {
   this.salutarService.deletar(salutar).subscribe (
     resposta => {
       resposta as any;
+      this.consultar();
     }
   )  
 }

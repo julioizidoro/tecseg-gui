@@ -162,6 +162,7 @@ cancelar(asoAgenda: Asoagenda) {
 
 finalizar(asoAgenda: Asoagenda) {
   this.asoAgenda = asoAgenda;
+  this.dataExame = this.asoAgenda.dataexame;
   this.openModalFluxoCaixa();
 }
 
@@ -204,7 +205,7 @@ salvarAso() {
     salvarFunc = true;
   }
   const idfuncao = this.asoAgenda.funcao.idfuncao;
-  this.asocontroleService.getLast(this.aso.funcionario.idfuncionario).subscribe(resposta => {
+  this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
     this.lastAsoControles = resposta as any;
     if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
       this.aso.funcionario.funcao = this.asoAgenda.funcao;

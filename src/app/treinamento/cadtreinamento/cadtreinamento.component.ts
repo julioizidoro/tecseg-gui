@@ -84,7 +84,11 @@ export class CadtreinamentoComponent implements OnInit {
       this.formulario.reset();
       this.treinamentoService.setTreinamento(null);
       this.router.navigate([ '/constreinamento']);
-    });  
+    },
+    err => {
+      console.log(err.error.erros.join(' '));
+    }
+    );  
   }
 
   cancelar() {

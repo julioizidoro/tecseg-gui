@@ -8,6 +8,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LojaService } from 'src/app/loja/loja.service';
 import { FuncaoService } from 'src/app/funcao/funcao.service';
 import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
+import { TreinamentoService } from 'src/app/treinamento/treinamento.service';
+import { Treinamentoparticipante } from 'src/app/treinamento/model/treinamentoparticipante';
 
 @Component({
   selector: 'app-consfuncionario',
@@ -25,6 +27,10 @@ export class ConsfuncionarioComponent implements OnInit {
   isFirstOpen = false;
   oneAtATime = true;
   bsInlineValue = new Date();
+  habilitarTreinamento: boolean;
+  listaParticipante : Treinamentoparticipante[];
+  idNaoParticipante : number;
+  TaParticipando: boolean;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -32,7 +38,8 @@ export class ConsfuncionarioComponent implements OnInit {
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
     private funcaoService: FuncaoService,
-    private asoControleService: AsocontroleService
+    private asoControleService: AsocontroleService,
+    private treinamentoService: TreinamentoService,
     ) {
       this.consultar();
     }
@@ -41,6 +48,20 @@ export class ConsfuncionarioComponent implements OnInit {
 
 
   ngOnInit() {
+    this.listaParticipante = [];
+    if (this.funcionarioService.getRota() === 'treinamento') {
+      this.idNaoParticipante = 0;
+      let treinamento = this.treinamentoService.getTreinamento();
+      this.treinamentoService.listarParticipante(this.treinamentoService.getTreinamento().idtreinamento).subscribe(
+        resposta => {
+          this.listaParticipante = resposta as any;
+        },
+        err => {
+          console.log(err.error.erros.join(' '));
+        }
+      );
+      this.habilitarTreinamento = true; 
+    } else this.habilitarTreinamento = false;
     this.habilitarConsulta = true;
     this.carregarComboBox();
     this.formulario = this.formBuilder.group({
@@ -55,15 +76,26 @@ export class ConsfuncionarioComponent implements OnInit {
   carregarComboBox() {
     this.funcaoService.listar().subscribe(resposta => {
       this.funcoes = resposta as any;
-    });
+    },
+    err => {
+      console.log(err.error.erros.join(' '));
+    }
+    );
     this.lojaService.listar().subscribe(resposta => {
       this.lojas = resposta as any;
-    });
+    },
+    err => {
+      console.log(err.error.erros.join(' '));
+    }
+    );
   }
     consultar() {
       this.funcionarioService.listar('@', '@').subscribe(
         resposta => {
           this.funcionarios = resposta as any;
+        },
+        err => {
+          console.log(err.error.erros.join(' '));
         }
       );
   }
@@ -99,6 +131,9 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.listar(nomePesquisa, situacao).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
       }
     );
   }
@@ -111,6 +146,9 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.getFuncionarioLoja(this.lojaSelecionada.idloja, nomePesquisa, situacao).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
       }
     );
   }
@@ -123,6 +161,9 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.getFuncionarioFuncao(this.funcaoSelecionada.idfuncao, nomePesquisa, situacao).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
       }
     );
   }
@@ -136,6 +177,9 @@ export class ConsfuncionarioComponent implements OnInit {
       this.funcaoSelecionada.idfuncao, nomePesquisa, situacao ).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
       }
     );
   }
@@ -172,6 +216,9 @@ export class ConsfuncionarioComponent implements OnInit {
       this.funcionarioService.setRota('');
       this.asoControleService.setOp('n');
       this.router.navigate([ '/cadasocontrole']);
+    } else if ( this.funcionarioService.getRota() === 'treinamento') {
+      this.funcionarioService.setRota('');
+      this.router.navigate([ '/constreinamento']);
     } 
   }
 
@@ -180,6 +227,48 @@ export class ConsfuncionarioComponent implements OnInit {
       return true;
     } else return false;
   }
+
+  addTreinamentoFuncionario(funcionario: Funcionario) {
+    let treinamento = this.treinamentoService.getTreinamento();
+    if (treinamento != null) {
+      let tf = new Treinamentoparticipante();
+      tf.funcionario = funcionario;
+      tf.compareceu = false;
+      tf.loja = funcionario.loja;
+      tf.nota = 0;
+      tf.treinamento = treinamento;
+      this.treinamentoService.salvarParticipante(tf).subscribe(
+        reposta => {
+          tf = reposta as any;
+        },
+        err => {
+          console.log(err.error.erros.join(' '));
+        }
+      );
+    }
+  }
+
+  verificarNaoParticipante(funcinario: Funcionario) {
+    if (this.habilitarTreinamento){
+    for (let i=0;i<this.listaParticipante.length;i++) {
+      if (this.listaParticipante[i].funcionario.idfuncionario === funcinario.idfuncionario) {
+        i = 100000;
+        this.TaParticipando = true;
+        return false;
+      }
+    }
+    this.TaParticipando = false;
+    return true;
+    } else return false;
+  }
+
+  verificarParticipante() {
+    if (this.habilitarTreinamento) {
+    if (this.TaParticipando) {
+      return true;
+    } else return false;;
+  } else return false;
+}
 
   
 }

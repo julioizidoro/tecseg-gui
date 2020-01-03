@@ -30,7 +30,7 @@
                     <div class="form-group col-md-2 col-sm-2" [ngClass]="aplicaCssErro('nome')">
                         </div>
     
-                <div class="form-group col-md-2 col-sm-12" [ngClass]="aplicaCssErro('CBO')">
+                <div class="form-group col-md-2 col-sm-12" [ngClass]="aplicaCssErro('cbo')">
                     <label for="cbo">CBO</label>
                     <input type="text" class="form-control" id="cbo" placeholder="0000-00" formControlName="cbo" [textMask]="{mask: maskCBO}" >
                     <app-campo-control-erro [mostrarErro]="verificarValidTouched('cbo')" msgErro="No. do CBO é obrigatório.">

@@ -77,6 +77,7 @@ export class CadasoagendaComponent implements OnInit {
       this.asoControle = this.asocontroleService.getAso();
       if (this.asoControle !=null) {
         this.habilitarConsultaFuncionario = true;
+        this.asoAgenda = new Asoagenda();
         this.funcionarioSelecionado = this.asoControle.funcionario;
             this.funcaoSelecionada = this.asoControle.funcionario.funcao;
             this.asoAgenda.funcionario = this.asoControle.funcionario;
@@ -98,9 +99,9 @@ export class CadasoagendaComponent implements OnInit {
         this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
         this.funcionarioService.setFuncionario(null);
         if (this.funcionarioSelecionado !=null) {
-          this.funcionarioSelecionado = this.asoControle.funcionario;
+          this.asoAgenda = new Asoagenda();
           this.asoAgenda.funcionario = this.funcionarioSelecionado;
-            this.funcaoSelecionada = this.asoControle.funcionario.funcao;
+            this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
             this.formulario = this.formBuilder.group({
               idasoagenda: [null],
               dataexame: [null],

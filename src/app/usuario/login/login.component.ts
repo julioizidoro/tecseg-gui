@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../model/usuario';
-import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { InputsModule, WavesModule } from 'angular-bootstrap-md'
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
     private authService: AuthService,
   ) { }
 

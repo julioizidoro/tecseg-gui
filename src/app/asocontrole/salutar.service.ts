@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment.prod';
 import { Salutar } from './model/salutar';
 import { Loja } from '../loja/model/loja';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Salutarfuncionario } from './model/salutarfuncionario';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class SalutarService {
     this.salutar = salutar;
   }
 
-  listarData(datainicial: Date, datafinal: Date): Observable<Salutar> {
+  listarData(datainicial: string, datafinal: string): Observable<Salutar> {
     return this.httpClient.get<Salutar>(env.baseApiUrl + 'salutar/listar/' + datainicial + '/' + datafinal);
   }
 
@@ -34,11 +34,11 @@ export class SalutarService {
   }
 
   pesquisarLojaData(loja: Loja, datainicial: Date, datafinal: Date): Observable<Salutar> {
-    return this.httpClient.get<Salutar>(env.baseApiUrl + 'salutar/loja/' + loja.idloja + '/' + datainicial + '/' + datafinal);
+    return this.httpClient.get<Salutar>(env.baseApiUrl + 'salutar/listar/' + loja.idloja + '/' + datainicial + '/' + datafinal);
   }
 
   pesquisarLojaId(loja: Loja): Observable<Salutar> {
-    return this.httpClient.get<Salutar>(env.baseApiUrl + 'salutar/loja/' + loja.idloja);
+    return this.httpClient.get<Salutar>(env.baseApiUrl + 'salutar/listar/' + loja.idloja);
   }
 
   pesquisarId(id: number): Observable<Salutar> {
@@ -54,7 +54,13 @@ export class SalutarService {
   }
 
   deletar(salutar: Salutar): Observable<any> {
-    return this.httpClient.post<any>(env.baseApiUrl + 'salutar/deletar', salutar);
+    let options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: salutar,
+    };
+    return this.httpClient.delete<any>(env.baseApiUrl + 'salutar/deletar', options);
   }
 
   listarSalutarFuncionario(salutar: Salutar): Observable<Salutarfuncionario> {

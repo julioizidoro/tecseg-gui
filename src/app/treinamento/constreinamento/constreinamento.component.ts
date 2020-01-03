@@ -6,6 +6,7 @@ import { Loja } from 'src/app/loja/model/loja';
 import { Router } from '@angular/router';
 import { Treinamentotipo } from '../model/treinamentotipo';
 import { AuthService } from 'src/app/usuario/login/auth.service';
+import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
 
 @Component({
   selector: 'app-constreinamento',
@@ -23,6 +24,7 @@ export class ConstreinamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private funcionarioService: FuncionarioService,
   ) { }
 
   ngOnInit() {
@@ -72,6 +74,12 @@ cancelar(treinamento: Treinamento) {
 
 imprimir(trinemanto: Treinamento) {
   
+}
+
+participantes(treinamento: Treinamento) {
+  this.treinamentoService.setTreinamento(treinamento);
+  this.funcionarioService.setRota('treinamento');
+  this.router.navigate([ '/consfuncionario']);
 }
 
 }

@@ -145,7 +145,7 @@ export class CadasocontroleComponent implements OnInit {
     }
     const idfuncao = this.funcionarioSelecionado.funcao.idfuncao;
     this.aso.funcionario.funcao = this.funcaoSelecionada;
-    this.asocontroleService.getLast(this.aso.funcionario.idfuncionario).subscribe(resposta => {
+    this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
       this.lastAsoControles = resposta as any;
       if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
         this.aso.funcionario.funcao = this.funcaoSelecionada;
