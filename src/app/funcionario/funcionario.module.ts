@@ -1,3 +1,4 @@
+import { SetorService } from './../setor/setor.service';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CadfuncionarioComponent } from './cadfuncionario/cadfuncionario.component';
@@ -24,10 +25,11 @@ import { routing } from '../app.routing';
     AccordionModule.forRoot(),
     routing,
   ],
-  providers:[
+  providers: [
     FuncionarioService,
     FuncaoService,
     LojaService,
+    SetorService,
   ],
   exports: [CadfuncionarioComponent, ConsfuncionarioComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]

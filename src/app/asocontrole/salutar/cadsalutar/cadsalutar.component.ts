@@ -93,7 +93,7 @@ export class CadsalutarComponent implements OnInit {
           this.salutarFuncionario = [];
           for (const f of this.funcionarios) {
             adicionar = false;
-            let s = Salutarfuncionario;
+            const s = Salutarfuncionario;
             this.sf = new Salutarfuncionario();
             this.sf.datasituacao = f.datasituacao;
             this.sf.funcao = f.funcao;
@@ -182,6 +182,7 @@ export class CadsalutarComponent implements OnInit {
     this.calcularNumeroTodos();
     this.salutarService.salvar(this.salutar).subscribe(resposta => {
       this.salutar = resposta as any;
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.salutarFuncionario.length; i++) {
         this.salutarFuncionario[i].salutar = this.salutar;
       }

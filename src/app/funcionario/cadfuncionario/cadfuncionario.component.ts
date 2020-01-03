@@ -69,7 +69,7 @@ export class CadfuncionarioComponent implements OnInit {
         serie: [null],
         sexo: [null],
         matricula: [null, Validators.required],
-        setor: [null, Validators.required],
+        setor: [null],
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
@@ -92,7 +92,7 @@ export class CadfuncionarioComponent implements OnInit {
         serie: [this.funcionario.serie],
         sexo: [this.funcionario.sexo],
         matricula: [this.funcionario.matricula, Validators.required],
-        setor: [this.funcionario.setor, Validators.required],
+        setor: [this.setorSelecionado],
       });
     }
   }
