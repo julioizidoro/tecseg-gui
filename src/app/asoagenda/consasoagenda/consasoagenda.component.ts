@@ -147,14 +147,14 @@ editar(asoAgenda: Asoagenda) {
 }
 
 imprimir(asoAgenda: Asoagenda) {
-  let uri =  env.baseApiUrl + 'asoagenda/autorizacao/' + asoAgenda.idasoagenda; 
+  const uri =  env.baseApiUrl + 'asoagenda/autorizacao/' + asoAgenda.idasoagenda;
   return uri;
 }
 
 cancelar(asoAgenda: Asoagenda) {
   asoAgenda.usuario = this.authService.getUsuario();
-  asoAgenda.datacancelamento = new Date;
-  asoAgenda.situacao= 'Cancelado';
+  asoAgenda.datacancelamento = new Date();
+  asoAgenda.situacao = 'Cancelado';
   this.asoagendaService.salvar(asoAgenda).subscribe(resposta => {
     asoAgenda = resposta as Asoagenda;
   });
@@ -168,7 +168,7 @@ finalizar(asoAgenda: Asoagenda) {
 
 salvar() {
   this.asoAgenda.usuario = this.authService.getUsuario();
-  this.asoAgenda.situacao= 'Finalizado';
+  this.asoAgenda.situacao = 'Finalizado';
   this.asoAgenda.dataexame = this.dataExame;
   this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
     this.asoAgenda = resposta as Asoagenda;
@@ -190,7 +190,7 @@ salvarAso() {
   this.aso.funcionario = this.asoAgenda.funcionario;
   this.aso.finalizado = false;
   this.aso.situacao = 'https://tecseg-img.s3.us-east-2.amazonaws.com/atestadodia.png';
-  let salvarFunc : boolean = false
+  let salvarFunc = false;
   if (this.aso.asotipo.idasotipo === 5) {
     this.aso.funcionario.situacao = 'Inativo';
     this.aso.funcionario.datasituacao = this.aso.dataexame;
@@ -220,7 +220,7 @@ salvarAso() {
           resposta4 => {
             this.aso.funcionario = resposta4 as any;
           }
-        )
+        );
       }
       if ( this.lastAsoControles != null ) {
         this.lastAsoControles.funcionario = this.aso.funcionario;

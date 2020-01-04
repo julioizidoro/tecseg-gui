@@ -15,7 +15,7 @@ export class ExportarSalutar {
     dtAdmissao: Date;
     dtDemissao: string;
     dTDemissao: Date;
-    estadoCivil: string
+    estadoCivil: string;
     pispasep: string;
     contratacao: string;
     rg: string;
@@ -64,32 +64,26 @@ export class ExportarSalutar {
     nomeCentroCusto: string;
     AutorizaSMS: string;
     enderecoCobranca: string;
-    numeroEnderecoCobrancaUnidade : string;
+    numeroEnderecoCobrancaUnidade: string;
     bairroCobrancaUnidade: string;
     cidadeCobrancaUnidade: string;
     estadoCobrancaUnidade: string;
     cepCobrancaUnidade: string;
     complementoEnderecoCobrancaUnidade: string;
     remuneracaoMensal: string;
-    telefoneComercial:string;
+    telefoneComercial: string;
     telefoneCelular: string;
     dataemissaoRG: string;
-    codigpPaisNascimento : string;
-    origiemDescricaoDetalhada : string;
+    codigpPaisNascimento: string;
+    origiemDescricaoDetalhada: string;
     unidadeContratante: string;
     escolaridade: string;
     codigoCategoria: string;
-    matriculaRH :string;
+    matriculaRH: string;
     genereo: string;
-    nomeSocial : string;
+    nomeSocial: string;
     tipoAdmissao: string;
     nomedoPaidoFuncionario: string;
     tipovinculo: string;
     nomedoturno: string;
-
-
-
-
-
-
 }

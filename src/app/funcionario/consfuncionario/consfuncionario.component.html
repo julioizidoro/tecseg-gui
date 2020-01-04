@@ -9,11 +9,17 @@
   <form [formGroup]="formulario">
     <div class="container-fluid" style="width:100%;">
       <div class="w-100">
-        <button type="button" style="float:right;" class="btn btn-success font-weight-light" 
-          routerLink="/cadfuncionario" >
+        
+        <button type="button" style="float:right;margin-left:1%;" class="btn btn-success font-weight-light" 
+          routerLink="/cadfuncionario"  >
           <i class="fa fa-plus" aria-hidden="true"></i>
           <a class="ml-2">Adicionar</a>
         </button>
+        <button type="button" style="float:right;margin-left:0%;" class="btn btn-primary font-weight-light" (click)="selecionarFuncionario(null)"  >
+          <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+          <a class="ml-2">Voltar</a>
+        </button>
+        
       </div>
       <br><br>
       <div class="w-100">
@@ -101,22 +107,20 @@
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                       style="border: none;"> {{f.situacao}} </td>
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a style="color: green;margin-left: 10%;" (click)="editar(f)">
+                      <a style="color: green;margin-left: 0%;" (click)="editar(f)">
                         <i class="far fa-edit" title="Editar"></i>
                     </a>
 
 
-                        <a *ngIf="habilitarConsulta" style="color: green; margin-left: 10%;" (click)="selecionarFuncionario(f)">
+                        <a *ngIf="habilitarConsulta" style="color: green; margin-left: 5%;" (click)="selecionarFuncionario(f)">
                           <i class="fas fa-check" title="Selecionar"></i>
                       </a>
-                        <a *ngIf="verificarNaoParticipante(f)" style="color: blue; margin-left: 10%;" (click)="addTreinamentoFuncionario(f)">
-                          <i class="fas fa-user-edit" title="Adicionar no Treinamento"></i>
+                        <a *ngIf="verificarNaoParticipante(f)" style="color: blue; margin-left: 5%;" (click)="addTreinamentoFuncionario(f)">
+                          <i class="fas fa-user-plus" title="Adicionar no Treinamento"></i>
                         </a>
-                        <a *ngIf="verificarParticipante()" style="color: red; margin-left: 10%;" (click)="removerTreinamentoFuncionario(f)">
+                        <a *ngIf="verificarParticipante()" style="color: red; margin-left: 5%;" (click)="removerTreinamentoFuncionario(f)">
                           <i class="fas fa-user-times" title="Remover do Treinamento"></i>
                         </a>
-
-        
                     </td>
                 </tr>
             </tbody>

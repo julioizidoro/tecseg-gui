@@ -12,5 +12,4 @@ export class Salutarfuncionario {
     funcao: Funcao;
     setor: Setor;
     salutar: Salutar;
-
 }

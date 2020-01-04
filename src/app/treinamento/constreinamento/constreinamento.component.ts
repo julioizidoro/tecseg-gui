@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Treinamentotipo } from '../model/treinamentotipo';
 import { AuthService } from 'src/app/usuario/login/auth.service';
 import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
+import { environment as env } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-constreinamento',
@@ -17,7 +18,7 @@ export class ConstreinamentoComponent implements OnInit {
 
   treinamentos: Treinamento[];
   formulario: FormGroup;
-  
+
 
   constructor(
     private treinamentoService: TreinamentoService,
@@ -72,14 +73,20 @@ cancelar(treinamento: Treinamento) {
   });
 }
 
-imprimir(trinemanto: Treinamento) {
-  
+imprimir(treinamento: Treinamento) {
+  const uri =  env.baseApiUrl + 'treinamentos/listapresenca/' + treinamento.idtreinamento;
+  return uri;
 }
 
 participantes(treinamento: Treinamento) {
   this.treinamentoService.setTreinamento(treinamento);
   this.funcionarioService.setRota('treinamento');
   this.router.navigate([ '/consfuncionario']);
+}
+
+listarParticipantes(t: Treinamento) {
+  this.treinamentoService.setTreinamento(t);
+  this.router.navigate([ '/listatreinamento']);
 }
 
 }

@@ -10,9 +10,10 @@ import { ConstipoComponent } from './tipo/constipo/constipo.component';
 import { CadtipoComponent } from './tipo/cadtipo/cadtipo.component';
 import { AccordionModule } from 'ngx-bootstrap';
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ListatreinamentoComponent } from './listatreinamento/listatreinamento.component';
 
 @NgModule({
-  declarations: [CadtreinamentoComponent, ConstreinamentoComponent, ConstipoComponent, CadtipoComponent],
+  declarations: [CadtreinamentoComponent, ConstreinamentoComponent, ConstipoComponent, CadtipoComponent, ListatreinamentoComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -22,7 +23,7 @@ import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/cor
     TextMaskModule,
     AccordionModule.forRoot(),
   ],
-  exports: [CadtreinamentoComponent, ConstreinamentoComponent, ConstipoComponent, CadtipoComponent],
+  exports: [CadtreinamentoComponent, ConstreinamentoComponent, ConstipoComponent, CadtipoComponent, ListatreinamentoComponent],
   providers: [
     TreinamentoService,
   ],

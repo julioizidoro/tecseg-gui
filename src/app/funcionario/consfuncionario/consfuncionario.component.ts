@@ -28,8 +28,8 @@ export class ConsfuncionarioComponent implements OnInit {
   oneAtATime = true;
   bsInlineValue = new Date();
   habilitarTreinamento: boolean;
-  listaParticipante : Treinamentoparticipante[];
-  idNaoParticipante : number;
+  listaParticipante: Treinamentoparticipante[];
+  idNaoParticipante: number;
   TaParticipando: boolean;
 
   constructor(
@@ -49,9 +49,9 @@ export class ConsfuncionarioComponent implements OnInit {
 
   ngOnInit() {
     this.listaParticipante = [];
-    if (this.funcionarioService.getRota() === 'treinamento') {
+    if (this.funcionarioService.getRota() === 'treinamento' || this.funcionarioService.getRota() === 'listatreinamento') {
       this.idNaoParticipante = 0;
-      let treinamento = this.treinamentoService.getTreinamento();
+      const treinamento = this.treinamentoService.getTreinamento();
       this.treinamentoService.listarParticipante(this.treinamentoService.getTreinamento().idtreinamento).subscribe(
         resposta => {
           this.listaParticipante = resposta as any;
@@ -60,8 +60,10 @@ export class ConsfuncionarioComponent implements OnInit {
           console.log(err.error.erros.join(' '));
         }
       );
-      this.habilitarTreinamento = true; 
-    } else this.habilitarTreinamento = false;
+      this.habilitarTreinamento = true;
+    } else {
+      this.habilitarTreinamento = false;
+    }
     this.habilitarConsulta = true;
     this.carregarComboBox();
     this.formulario = this.formBuilder.group({
@@ -219,17 +221,23 @@ export class ConsfuncionarioComponent implements OnInit {
     } else if ( this.funcionarioService.getRota() === 'treinamento') {
       this.funcionarioService.setRota('');
       this.router.navigate([ '/constreinamento']);
-    } 
+    } else if ( this.funcionarioService.getRota() === 'listatreinamento') {
+      this.funcionarioService.setRota('');
+      this.router.navigate([ '/listatreinamento']);
+    }
   }
 
   getSituacao(funcionario: Funcionario) {
-    if (funcionario.situacao='Ativo') {
+    // tslint:disable-next-line:no-conditional-assignment
+    if ( funcionario.situacao = 'Ativo' ) {
       return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
 
   addTreinamentoFuncionario(funcionario: Funcionario) {
-    let treinamento = this.treinamentoService.getTreinamento();
+    const treinamento = this.treinamentoService.getTreinamento();
     if (treinamento != null) {
       let tf = new Treinamentoparticipante();
       tf.funcionario = funcionario;
@@ -248,9 +256,32 @@ export class ConsfuncionarioComponent implements OnInit {
     }
   }
 
+  removerTreinamentoFuncionario(funcionario: Funcionario) {
+    const p = this.getParticipante(funcionario);
+    if (p != null) {
+    this.treinamentoService.deletarParticipante(p).subscribe(
+        reposta => {
+          const tf = reposta as any;
+        },
+        err => {
+          console.log(err.error.erros.join(' '));
+        }
+      );
+    }
+  }
+
+  getParticipante(funcionario: Funcionario) {
+    for (const p of this.listaParticipante) {
+      if (p.funcionario.idfuncionario === funcionario.idfuncionario) {
+        return p;
+      }
+    }
+    return null;
+  }
+
   verificarNaoParticipante(funcinario: Funcionario) {
-    if (this.habilitarTreinamento){
-    for (let i=0;i<this.listaParticipante.length;i++) {
+    if (this.habilitarTreinamento) {
+    for (let i = 0; i < this.listaParticipante.length; i++) {
       if (this.listaParticipante[i].funcionario.idfuncionario === funcinario.idfuncionario) {
         i = 100000;
         this.TaParticipando = true;
@@ -259,16 +290,20 @@ export class ConsfuncionarioComponent implements OnInit {
     }
     this.TaParticipando = false;
     return true;
-    } else return false;
+    } else {
+      return false;
+    }
   }
 
   verificarParticipante() {
     if (this.habilitarTreinamento) {
     if (this.TaParticipando) {
       return true;
-    } else return false;;
-  } else return false;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
 }
-
-  
 }

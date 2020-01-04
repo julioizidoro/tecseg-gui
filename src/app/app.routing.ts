@@ -18,6 +18,7 @@ import { CadtipoComponent } from './treinamento/tipo/cadtipo/cadtipo.component';
 import { ConstipoComponent } from './treinamento/tipo/constipo/constipo.component';
 import { ConstreinamentoComponent } from './treinamento/constreinamento/constreinamento.component';
 import { CadtreinamentoComponent } from './treinamento/cadtreinamento/cadtreinamento.component';
+import { ListatreinamentoComponent } from './treinamento/listatreinamento/listatreinamento.component';
 
 
 const APP_ROUTER: Routes = [
@@ -39,7 +40,7 @@ const APP_ROUTER: Routes = [
   { path: 'vissalutar', component: VissalutarComponent },
   { path: 'constreinamento', component: ConstreinamentoComponent },
   { path: 'cadtreinamento', component: CadtreinamentoComponent },
-
+  { path: 'listatreinamento', component: ListatreinamentoComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

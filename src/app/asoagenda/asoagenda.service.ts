@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AsoagendaService {
 
-  private asoAgenda : Asoagenda;
+  private asoAgenda: Asoagenda;
 
   constructor(private httpClient: HttpClient ) { }
 
@@ -47,9 +47,6 @@ export class AsoagendaService {
   getId(id: number): Observable<Asoagenda> {
     return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/id/' +  id);
   }
-
-  
-
 
 }
 

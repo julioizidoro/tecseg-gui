@@ -15,19 +15,16 @@ export class CadtreinamentoComponent implements OnInit {
   treinamentostipo: Treinamentotipo[];
   treinamento: Treinamento;
   public maskHora = [/[0-9]/, /[0-9]/, ':', /[0-9]/, /[0-9]/];
-  
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private treinamentoService: TreinamentoService,
-    
   ) { }
 
   ngOnInit() {
     this.treinamento = this.treinamentoService.getTreinamento();
-    if (this.treinamento !=null) {
+    if (this.treinamento != null) {
       this.formulario = this.formBuilder.group({
         idtreinamento: this.treinamento.idtreinamento,
         data: this.treinamento.data,
@@ -40,7 +37,7 @@ export class CadtreinamentoComponent implements OnInit {
         situacao: this.treinamento.situacao,
         treinamentotipo: this.treinamento.treinamentotipo,
         usuario: this.treinamento.usuario,
-      });  
+      });
     } else {
       this.formulario = this.formBuilder.group({
         idtreinamento: [null],
@@ -54,7 +51,7 @@ export class CadtreinamentoComponent implements OnInit {
         situacao: [null],
         treinamentotipo: [null],
         usuario: [null],
-      });  
+      });
     }
     this.carregarComboBox();
   }
@@ -66,11 +63,11 @@ export class CadtreinamentoComponent implements OnInit {
   }
 
   setTreinamentoTipo() {
-    let tipo = this.formulario.get('treinamentotipo').value;
+    const tipo = this.formulario.get('treinamentotipo').value;
     console.log(tipo);
-    if ( tipo !=null ) {
+    if ( tipo != null ) {
       this.formulario.get('conteudo').setValue(tipo.conteudo);
-    } 
+    }
   }
 
   compararTreinamentoTipo(obj1, obj2) {
@@ -88,7 +85,7 @@ export class CadtreinamentoComponent implements OnInit {
     err => {
       console.log(err.error.erros.join(' '));
     }
-    );  
+    );
   }
 
   cancelar() {

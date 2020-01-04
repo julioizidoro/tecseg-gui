@@ -45,7 +45,6 @@ getTreinamentoTipo() {
   }
 
 
-
   /* Teeinamento Tipo */
 
   listarTipo(): Observable<Treinamentotipo> {
@@ -76,7 +75,7 @@ getTreinamentoTipo() {
   }
 
   deletarParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {
-    let options = {
+    const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
