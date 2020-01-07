@@ -17,6 +17,7 @@ import { Loja } from 'src/app/loja/model/loja';
 import { AsotipoService } from 'src/app/asocontrole/asotipo.service';
 import { AuthService } from 'src/app/usuario/login/auth.service';
 
+
 @Component({
   selector: 'app-cadasoagenda',
   templateUrl: './cadasoagenda.component.html',
@@ -25,7 +26,8 @@ import { AuthService } from 'src/app/usuario/login/auth.service';
 export class CadasoagendaComponent implements OnInit {
   formulario: FormGroup;
   tipos: Asotipo[];
-  tipoSelecionado: Asotipo;
+  asotiposSelecionado: Asotipo[];
+  tipoSelecionado: [];
   funcoes: Funcao[];
   asoControle: Asocontrole;
   funcaoSelecionada: Funcao;
@@ -40,6 +42,9 @@ export class CadasoagendaComponent implements OnInit {
   habilitarConsultaFuncionario = false;
   rota: string;
 
+  
+  selected = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private funcionarioService: FuncionarioService,
@@ -51,15 +56,15 @@ export class CadasoagendaComponent implements OnInit {
     private asoagendaService: AsoagendaService,
     private clinicaService: ClinicaService,
     private authService: AuthService,
-  ) { }
+  ) { 
+    this.carregarComboBox();    
+  }
 
   ngOnInit() {
-    console.log('parou');
     this.asoAgenda = this.asoagendaService.getAsoAgenda();
     if (this.asoAgenda !=null) {
       this.funcionarioSelecionado = this.asoAgenda.funcionario;
       this.funcaoSelecionada = this.asoAgenda.funcao;
-      this.tipoSelecionado = this.asoAgenda.asotipo;
       this.clinicaSelecionada = this.asoAgenda.clinica;
       this.formulario = this.formBuilder.group({
         idasoagenda: this.asoAgenda.idasoagenda,
@@ -67,6 +72,9 @@ export class CadasoagendaComponent implements OnInit {
         hora: this.asoAgenda.horaexame,
         situacao: this.asoAgenda.situacao,
         datacancelamento: this.asoAgenda.datacancelamento,
+        avaliacaomedica: this.asoAgenda.avaliacaomediaca,
+        examescomplementar: this.asoAgenda.examescomplementares,
+        manipulacaoalimentos: this.asoAgenda.manipulacaoalimentos,
         funcionario: this.asoAgenda.funcionario,
         asotipo: this.asoAgenda.asotipo,
         funcao: this.asoAgenda.funcao,
@@ -89,6 +97,9 @@ export class CadasoagendaComponent implements OnInit {
               hora: [null],
               situacao: [null],
               datacancelamento: [],
+              avaliacaomedica: [null],
+              examescomplementares: [null],
+              manipulacaoalimentos: 'S',
               funcionario: [this.funcionarioSelecionado],
               asotipo: [null],
               funcao: [this.funcaoSelecionada],
@@ -107,6 +118,10 @@ export class CadasoagendaComponent implements OnInit {
               dataexame: [null],
               hora: [null],
               situacao: [null],
+              datacancelamento: [],
+              avaliacaomedica: [null],
+              examescomplementares: [null],
+              manipulacaoalimentos: 'S',
               funcionario: [this.funcionarioSelecionado],
               asotipo: [null],
               funcao: [this.funcaoSelecionada],
@@ -131,6 +146,9 @@ export class CadasoagendaComponent implements OnInit {
         hora: [null],
         situacao: [null],
         datacancelamento: [],
+        avaliacaomedica: [null],
+        examescomplementares: [null],
+        manipulacaoalimentos: 'S',
         funcionario: [null],
         asotipo: [null],
         funcao: [null],
@@ -138,8 +156,7 @@ export class CadasoagendaComponent implements OnInit {
         usuario: [null],
       });
       }
-    console.log(this.funcionarioSelecionado);
-    this.carregarComboBox();    
+    
   
   }
 
@@ -158,17 +175,20 @@ export class CadasoagendaComponent implements OnInit {
     });
   }
 
-  compararTipo(obj1, obj2) {
-    return obj1 && obj2 ? obj1.idloja === obj2.idloja : obj1 === obj2;
-  }
 
   setTipo() {
     this.tipoSelecionado = this.formulario.get('asotipo').value;
-    if ( this.tipoSelecionado.idasotipo === 3 ) {
+    let achou = false;
+    for ( let tipo of this.tipoSelecionado ) {
+      if (tipo === 'Mudança de função') {
+        achou = true;
+      }
+    }
+    if ( achou ) {
       this.enabledFuncao = true;
     } else {
       this.enabledFuncao = false;
-    }
+    }   
   }
 
   setFuncao() {
@@ -194,7 +214,46 @@ export class CadasoagendaComponent implements OnInit {
   }
 
   salvar() {
+  this.asotiposSelecionado = [];
+    this.tipoSelecionado = this.tipoSelecionado = this.formulario.get('asotipo').value;
+    let asoTipo;
+    for (let tipo of this.tipoSelecionado) {
+      for (let i=0;i<this.tipos.length;i++) {
+        if (this.tipos[i].nome === tipo) {
+          this.asotiposSelecionado.push(this.tipos[i]);
+        }
+      }
+    }
+    let achouAso = false;
+    for (let i=0;i<this.asotiposSelecionado.length;i++) {
+      if (this.asotiposSelecionado[i].categoria === 'aso') {
+        this.formulario.get('asotipo').setValue(this.asotiposSelecionado[i]);
+        achouAso = true;
+        i = 10000;
+      }
+    }
+    if ( !achouAso ) {
+      this.formulario.get('asotipo').setValue(this.asotiposSelecionado[0]);
+    }
+    let exame = '';
+    let avaliacao = '';
+  
+    for (let i=0;i<this.asotiposSelecionado.length;i++) {
+      if (this.asotiposSelecionado[i].categoria === 'exc') {
+        exame = exame +  ' - ' + this.asotiposSelecionado[i].nome; 
+      } else if (this.asotiposSelecionado[i].categoria === 'avm') {
+        avaliacao = avaliacao +  ' - ' + this.asotiposSelecionado[i].nome; 
+      }
+    }
+    if (avaliacao != null) {
+      this.formulario.get('avaliacaomedica').setValue(avaliacao);
+    }
+    if (exame != null) {
+      this.formulario.get('examescomplementares').setValue(exame);  
+    }
     this.asoAgenda = this.formulario.value;
+
+
     this.asoAgenda.funcionario = this.funcionarioSelecionado;
     this.asoAgenda.usuario = this.authService.getUsuario();
     if (this.asoAgenda.funcao === null) {
@@ -227,6 +286,7 @@ export class CadasoagendaComponent implements OnInit {
       this.router.navigate([ '/consasoagenda']);
     }
   }
-
+  
+  
 
 }

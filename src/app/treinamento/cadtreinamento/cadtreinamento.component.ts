@@ -64,7 +64,6 @@ export class CadtreinamentoComponent implements OnInit {
 
   setTreinamentoTipo() {
     const tipo = this.formulario.get('treinamentotipo').value;
-    console.log(tipo);
     if ( tipo != null ) {
       this.formulario.get('conteudo').setValue(tipo.conteudo);
     }

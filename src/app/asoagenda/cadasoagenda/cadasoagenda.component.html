@@ -30,7 +30,7 @@
           <input type="text" class="form-control" id="loja" placeholder="Loja" readonly="false"
             [value]="funcionarioSelecionado.loja.nome">
         </div>
-        <div class="form-group col-md-6 col-sm-12">
+        <div class="form-group col-md-4 col-sm-12">
           <label for="clinica">Clinica</label>
           <select class="form-control" formControlName="clinica" [compareWith]="compararClinica"
             (change)="setClinica()">
@@ -38,23 +38,36 @@
           </select>
         </div>
 
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="tipo">Tipo de Exame</label>
-          <select class="form-control" formControlName="asotipo" 
-            (change)="setTipo()">
-            <option *ngFor="let tipo of tipos" [ngValue]="tipo"> {{ tipo.nome }}</option>
-          </select>
-        </div>
-        
         <div class="form-group col-md-3 col-sm-12">
           <label for="dataexame">Data do Exame</label>
           <input type="date" class="form-control" id="dataexame" placeholder="Data do Exame"
             formControlName="dataexame">
         </div>
-        <div class="form-group col-md-3 col-sm-12">
+        <div class="form-group col-md-2 col-sm-12">
           <label for="hora">Hora Exame</label>
           <input type="text" class="form-control" id="hora" [textMask]="{mask: maskHora}" placeholder="Hora" formControlName="hora">
         </div>
+
+        <div class="form-group col-md-3 col-sm-12">
+          <input type="checkbox" id="alimentos" value="true" formControlName="manipulacaoalimentos">
+          <label for="alimentos"> Exame de Manipulação de Alimetnos</label>
+      </div>
+
+        
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="tipo">Tipo de Exame</label>
+          <ng-select bindLabel="nome" placeholder="Selecione tipo de exame" multiple="true" [searchable]="true"
+            [clearable]="false" [closeOnSelect]="false" formControlName="asotipo" (change)="setTipo()">
+        
+            <ng-option [value]="tipo.nome" *ngFor="let tipo of tipos">
+              {{tipo.nome}}
+            </ng-option>
+          </ng-select>
+        
+        
+        </div>
+        
+       
         <div class="form-group col-md-6 col-sm-12" *ngIf="enabledFuncao">
           <label for="funcao">Função</label>
           <select class="form-control" formControlName="funcao" [compareWith]="compararFuncao" (change)="setFuncao()">

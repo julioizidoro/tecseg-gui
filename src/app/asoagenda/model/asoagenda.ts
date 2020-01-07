@@ -11,6 +11,9 @@ export class Asoagenda {
     horaexame: string;
     situacao: string;
     datacancelamento: Date;
+    avaliacaomediaca: string;
+    examescomplementares: string;
+    manipulacaoalimentos: string;
     funcionario: Funcionario;
     asotipo: Asotipo;
     funcao: Funcao;

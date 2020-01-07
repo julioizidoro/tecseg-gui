@@ -7,6 +7,9 @@ import {DropdownModule} from 'primeng/dropdown';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AsoagendaService } from './asoagenda.service';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 
 @NgModule({
@@ -18,6 +21,8 @@ import { AsoagendaService } from './asoagenda.service';
     DropdownModule,
     FormsModule,
     TextMaskModule,
+    MultiselectDropdownModule,
+    NgSelectModule,
   ],
   exports:  [CadasoagendaComponent, ConsasoagendaComponent],
   providers: [  

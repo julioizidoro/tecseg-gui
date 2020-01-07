@@ -3,4 +3,5 @@ export class Asotipo {
   nome: string;
   tipo: string;
   periodicidade: number;
+  categoria: string;
 }

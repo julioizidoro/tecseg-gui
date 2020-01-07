@@ -39,7 +39,6 @@ export class FuncionarioService {
   }
 
   atualizar(funcionario: Funcionario): Observable<any> {
-    console.log(funcionario);
     return this.httpClient.put<any>(env.baseApiUrl + 'funcionarios/atualizar', funcionario);
   }
 

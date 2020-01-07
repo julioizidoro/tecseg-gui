@@ -40,7 +40,6 @@ getTreinamentoTipo() {
   }
 
   salvar(treinamento: Treinamento): Observable<any> {
-    console.log(treinamento);
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/salvar', treinamento);
   }
 

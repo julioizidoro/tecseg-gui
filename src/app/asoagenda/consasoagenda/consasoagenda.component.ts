@@ -10,10 +10,10 @@ import { AsoagendaService } from '../asoagenda.service';
 
 import { environment as env } from '../../../environments/environment.prod';
 import { AuthService } from 'src/app/usuario/login/auth.service';
-import { ModalDirective } from 'angular-bootstrap-md';
 import { Asocontrole } from 'src/app/asocontrole/model/asocontrole';
 import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-consasoagenda',
@@ -107,7 +107,6 @@ pesquisarNome( nomePesquisa: string ) {
   this.asoagendaService.pesquisarNome( nomePesquisa ).subscribe(
     resposta => {
       this.asoAgendas = resposta as any;
-      console.log(this.asoAgendas);
     }
   );
 }

@@ -28,11 +28,13 @@
 
       <div class="form-group col-md-4" >
         <label for="funcao">Função</label>
-        <select class="form-control" formControlName="funcao"  [compareWith]="compararFuncao" (change)="setFuncao()">
+        <select class="form-control" formControlName="funcao"  [compareWith]="compararFuncao" (change)="setFuncao()" >
             <option *ngFor="let funcao of funcoes" [ngValue]="funcao"> {{ funcao.nome }}</option>
          </select>
-        </div>
+        </div> 
 
+
+  
         <div class="form-group col-md-3" >
           <label for="loja">Loja</label>
           <input type="text" class="form-control" id="loja" placeholder="Loja" readonly="false"

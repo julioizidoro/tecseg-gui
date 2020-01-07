@@ -230,7 +230,6 @@ export class CadasocontroleComponent implements OnInit {
     this.asocontroleService.calcularVencimento(dataVencimento, dias).subscribe(resposta => {
       dataVencimento = resposta as any;
       dataVencimento = moment(dataVencimento).format('YYYY-MM-DD');
-      console.log(dataVencimento);
       this.formularioAsoControle.patchValue({
         datavencimento: dataVencimento
     });

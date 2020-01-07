@@ -71,7 +71,6 @@ export class CadfuncionarioComponent implements OnInit {
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
-      console.log(this.setorSelecionado);
       this.funcaoSelecionada = this.funcionario.funcao;
       this.lojaSelecionada = this.funcionario.loja;
       this.formulario = this.formBuilder.group({
@@ -133,7 +132,6 @@ export class CadfuncionarioComponent implements OnInit {
 
   salvar() {
     this.funcionario = this.formulario.value;
-    console.log(this.funcionario);
     if (this.funcionario.idfuncionario == null) {
       this.funcionarioService.salvar(this.funcionario).subscribe(resposta => {
         this.funcionario = resposta as any;
