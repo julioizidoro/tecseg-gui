@@ -2,96 +2,141 @@
 <div class="page-header">
   <div class="container-fluid">
     <h3>
-     Lista de Participantes
+      Lista de Participantes
     </h3>
     <hr />
   </div>
-    <div class="container-fluid" style="width:100%;">
-      <div class="row">
-        <div class="form-group col-md-12 col-sm-12">
-          <label for="treinamento">Treinamento</label>
-          <input type="text" class="form-control" id="treinamento" [value]="treinamento.treinamentotipo.nome" readonly="false" >
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label for="data">Data</label>
-          <input type="date" class="form-control" id="data"  [value]="treinamento.data" readonly>
-        </div>
-        <div class="form-group col-md-2 col-sm-2">
-          <label for="hora">Hora</label>
-          <input type="text" class="form-control" id="hora" [value]="treinamento.hora" readonly>
-        </div>
-        <div class="form-group col-md-2 col-sm-12">
-          <label for="duracao">Duração</label>
-          <input type="text" class="form-control" id="duracao" [value]="treinamento.duracao" readonly>
-        </div>
-        <div class="form-group col-md-6 col-sm-12">
-          <label for="instrutor">Instrutor</label>
-          <input type="text" class="form-control" id="instrutor" [value]="treinamento.instrutor" readonly>
-        </div>
+  <div class="container-fluid" style="width:100%;">
+    <div class="row">
+      <div class="form-group col-md-12 col-sm-12">
+        <label for="treinamento">Treinamento</label>
+        <input type="text" class="form-control" id="treinamento" [value]="treinamento.treinamentotipo.nome"
+          readonly="false">
       </div>
-      <br><br>
-      <div class="w-100">
-      <button type="button" style="float:right;" class="btn btn-success font-weight-light"  (click)="addParticipantes()" >
-          <i class="fa fa-plus" aria-hidden="true"></i>
-          <a class="ml-2">Adicionar</a>
-        </button>
+      <div class="form-group col-md-2 col-sm-12">
+        <label for="data">Data</label>
+        <input type="date" class="form-control" id="data" [value]="treinamento.data" readonly>
       </div>
-      <div class="table-responsive-lg">
-        <table class="table table-striped">
-            <thead>
-                <tr
-                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
-                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Função</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Presença</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nota</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
-                        style="text-align: center;">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let p of participantes"
-                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                        {{p.funcionario.nome}}</td>
-                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{p.funcionario.funcao.nome}}</td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{p.loja.nome}}</td>
-                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                      style="border: none;"> {{p.compareceu}} </td>
-                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                      style="border: none;"> {{p.nota}} </td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <a style="color: green;margin-left: 10%;" (click)="presentaNota(p)">
-                        <i class="far fa-edit" title="Editar"></i>
-                    </a>
-
-
-                        <a style="color: red; margin-left: 10%;" (click)="removerTreinamentoFuncionario(p)" [disabled]="trenamentoFinalizado">
-                          <i class="fas fa-user-times" title="Remover do Treinamento"></i>
-                        </a>
-
-        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <div class="form-group col-md-2 col-sm-2">
+        <label for="hora">Hora</label>
+        <input type="text" class="form-control" id="hora" [value]="treinamento.hora" readonly>
+      </div>
+      <div class="form-group col-md-2 col-sm-12">
+        <label for="duracao">Duração</label>
+        <input type="text" class="form-control" id="duracao" [value]="treinamento.duracao" readonly>
+      </div>
+      <div class="form-group col-md-6 col-sm-12">
+        <label for="instrutor">Instrutor</label>
+        <input type="text" class="form-control" id="instrutor" [value]="treinamento.instrutor" readonly>
+      </div>
     </div>
+    <div class="w-100">
+      <button type="button" style="float:right;margin-left:1%;" class="btn btn-success font-weight-light"
+        (click)="addParticipantes()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        <a class="ml-2">Adicionar</a>
+      </button>
+      <button type="button" style="float:right;margin-left:0%;" class="btn btn-primary font-weight-light"
+        (click)="voltarTreinamento()">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        <a class="ml-2">Voltar</a>
+      </button>
     </div>
+    <div class="table-responsive-lg">
+      <table class="table table-striped">
+        <thead>
+          <tr
+            class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Função</th>
+            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+            <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Presença</th>
+            <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nota</th>
+            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm" style="text-align: center;">
+              Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of participantes"
+            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+              {{p.funcionario.nome}}</td>
+            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0" style="border: none;">
+              {{p.funcionario.funcao.nome}}</td>
+            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0" style="border: none;">
+              {{p.loja.nome}}</td>
+            <td *ngIf="p.compareceu" class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+              style="border: none;">
+              <a style="color: green;margin-left: 10%;">
+                <i class="fas fa-check-circle" title="Compareceu"></i>
+              </a>
+
+            </td>
+            <td *ngIf="!p.compareceu" class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+              style="border: none;">
+              <a style="color: red;margin-left: 10%;">
+                <i class="fas fa-check-circle" title="Faltou"></i>
+              </a>
+
+            </td>
+            <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0" style="border: none;">
+              {{p.nota}} </td>
+            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+              <a style="color: red; margin-left: 10%;" (click)="removerTreinamentoFuncionario(p)"
+                [disabled]="trenamentoFinalizado">
+                <i class="fas fa-user-times" title="Remover do Treinamento"></i>
+              </a>
+              <a style="color: green;margin-left: 10%;" (click)="presentaNota(p)">
+                <i class="far fa-edit" title="Lançar notas/presença"></i>
+              </a>
+
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
 
 
+<!-- Lançar notas e presença -->
+<!--
+<div mdbModal #notas="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
+  aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Registro de Presença e Notas</p>
+      </div>
+      <div class="form-group col-md-6 col-sm-12">
+        <p>Nome: {{participante.funcionario.nome}}</p>
+      </div>  
+      <div class="text-left p-2">
+        <div>
+          <div class="form-group col-md-6 col-sm-12">
+            <p>Nome: {{participante.funcionario.nome}}</p>
+          </div>  
+        </div>
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="dataexame">Nota</label>
+          <input type="date" class="form-control" id="dataexame" [(ngModel)]="dataExame">
+        </div>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="radio-inline"><input type="radio" name="optradio" value="false">Compareceu</label>
+          <label class="radio-inline"><input type="radio" name="optradio" value="true">Faltou</label>
+          <br>
+        </div>
+        <div class="modal-footer">
+        <button type="submit" class="btn btn-primary col-4" style="margin-left:1%;" (click)="confirmarNota()">
+          Salvar
+        </button>
+        <button type="submit" class="btn btn-danger col-4" style="margin-left:3%;" (click)="cancelarNota()">
 
-
-
-
-
-
-
-
-
-
-
-
+          Cancelar
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>-->

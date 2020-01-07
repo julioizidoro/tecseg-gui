@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AsocontroleService } from '../asocontrole.service';
 import { Loja } from 'src/app/loja/model/loja';
 import * as moment from 'moment';
+import { AST } from '@angular/compiler';
 
 
 @Component({
@@ -49,7 +50,7 @@ export class CadasocontroleComponent implements OnInit {
       finalizado: [null],
       observacao: [null],
       exame: [null],
-      asotipo: [null],
+      asotipo: this.tipoSelecionado,
       funcionario: this.funcionarioSelecionado,
       funcao: this.funcaoSelecionada,
     });
@@ -59,14 +60,9 @@ export class CadasocontroleComponent implements OnInit {
       this.funcaoSelecionada.nome = 'Função';
       this.funcionarioSelecionado.loja = new Loja();
       this.funcionarioSelecionado.loja.nome = 'Loja';
-    this.carregarComboBox();
-    const op = this.asocontroleService.getOp();
-    console.log(op);
-    if ( op === 'n') {
-      this.novoAso();
-    } else if ( op === 'e') {
-      this.editarAaso();
-    }
+      this.tipoSelecionado = new Asotipo();
+      this.tipoSelecionado.nome = "Tipo Exame",
+      this.carregarComboBox();
   }
 
 
@@ -89,12 +85,29 @@ export class CadasocontroleComponent implements OnInit {
 
   novoAso() {
     const aso = this.asocontroleService.getAso();
+    let tipoExame = 0;
     if (aso != null) {
       this.funcionarioSelecionado = this.asocontroleService.getAso().funcionario;
+      if (aso.asotipo.idasotipo === 1 ){
+        tipoExame = 2;
+      } else if (aso.funcionario.situacao === 'Afastado' ) {
+        tipoExame = 4;
+      } else if ( aso.asotipo.idasotipo === 2) {
+        tipoExame = 2;
+      } else if (aso.asotipo.idasotipo === 3 ) {
+        tipoExame = 2;
+      }
+      if ( tipoExame > 0) {
+        for (let asoTipo of this.tipos ) {
+          if ( asoTipo.idasotipo === tipoExame ) {
+            this.tipoSelecionado = asoTipo;
+          }
+        }
+      }
     } else {
       this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
     }
-    if ( this.funcionarioSelecionado == null ) {
+    if ( this.funcionarioSelecionado === null ) {
       this.funcionarioSelecionado = new Funcionario();
       this.funcionarioSelecionado.nome = 'Nome do funcioário';
       this.funcaoSelecionada = new Funcao();
@@ -103,16 +116,35 @@ export class CadasocontroleComponent implements OnInit {
       this.funcionarioSelecionado.loja.nome = 'Loja';
     } else {
       this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
+
+      this.formularioAsoControle = this.formBuilder.group({
+        idasocontrole: [null],
+        dataexame: [null],
+        datavencimento: [null],
+        finalizado: [null],
+        observacao: [null],
+        exame: [null],
+        asotipo: this.tipoSelecionado,
+        funcionario: this.funcionarioSelecionado,
+        funcao: this.funcaoSelecionada,
+      });
     }
   }
 
   carregarComboBox() {
     this.asotipoService.listar().subscribe(resposta => {
       this.tipos = resposta as any;
+      this.funcaoService.listar().subscribe(resposta => {
+        this.funcoes = resposta as any;
+        const op = this.asocontroleService.getOp();
+        if ( op === 'n') {
+          this.novoAso();
+        } else if ( op === 'e') {
+          this.editarAaso();
+        }
+      });
     });
-    this.funcaoService.listar().subscribe(resposta => {
-      this.funcoes = resposta as any;
-    });
+    
   }
 
   compararTipo(obj1, obj2) {

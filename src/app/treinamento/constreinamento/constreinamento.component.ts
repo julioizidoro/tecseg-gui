@@ -18,7 +18,8 @@ export class ConstreinamentoComponent implements OnInit {
 
   treinamentos: Treinamento[];
   formulario: FormGroup;
-
+  isFirstOpen = false;
+  oneAtATime = true;
 
   constructor(
     private treinamentoService: TreinamentoService,
@@ -87,6 +88,14 @@ participantes(treinamento: Treinamento) {
 listarParticipantes(t: Treinamento) {
   this.treinamentoService.setTreinamento(t);
   this.router.navigate([ '/listatreinamento']);
+}
+
+pesquisar(){
+
+}
+
+pesquisarLimpar() {
+  
 }
 
 }

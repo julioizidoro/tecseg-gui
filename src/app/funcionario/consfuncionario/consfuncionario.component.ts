@@ -306,4 +306,12 @@ export class ConsfuncionarioComponent implements OnInit {
     return false;
   }
 }
+
+novoAso(funcionario: Funcionario) {
+  this.funcionarioService.setFuncionario(funcionario);
+  this.asoControleService.setOp('n');
+  this.funcionarioService.setRota('');
+  this.router.navigate([ '/cadasocontrole']);
+}
+
 }
