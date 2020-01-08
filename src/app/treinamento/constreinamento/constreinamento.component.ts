@@ -90,12 +90,12 @@ listarParticipantes(t: Treinamento) {
   this.router.navigate([ '/listatreinamento']);
 }
 
-pesquisar(){
+pesquisar() {
 
 }
 
 pesquisarLimpar() {
-  
+
 }
 
 }

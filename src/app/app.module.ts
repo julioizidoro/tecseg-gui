@@ -28,7 +28,6 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { FuncaoModule } from './funcao/funcao.module';
 import { routing } from './app.routing';
 import { AfastamentoModule } from './afastamento/afastamento.module';
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 
 registerLocaleData(br, 'pt-BR');
@@ -55,7 +54,6 @@ registerLocaleData(br, 'pt-BR');
     AppRoutingModule,
     TextMaskModule,
     BrowserAnimationsModule,
-    MultiselectDropdownModule,
     NavigationModule,
     DashboardModule,
     UsuarioModule,
