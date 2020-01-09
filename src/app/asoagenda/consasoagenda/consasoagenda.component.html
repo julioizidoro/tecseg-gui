@@ -70,11 +70,10 @@
                 <tr
                     class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
                     <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Tipo Exame</th>
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
                     <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data Exame</th>
                     <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situação</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Ações</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,15 +81,13 @@
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                     {{agenda.funcionario.nome}}</td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                       {{agenda.funcionario.loja.nome }}</td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ agenda.asotipo.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ agenda.dataexame | date: 'dd/MM/yyyy' }}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{ agenda.situacao }}</td>
-                    <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                       style="border: none;">
                       <li class="nav-item dropdown btn-group" dropdown>
                         <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light text-primary" mdbWavesEffect>
@@ -126,27 +123,53 @@
 </div>
 
 <!-- Finalizar colcoar data do exame -->
-
-<div mdbModal #dataexame="mdb-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="myBasicModalLabel" aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
-    <div class="modal-dialog" role="document">
+<div mdbModal #Exames="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <p class="heading lead">Data do Exame</p>
+                <h4 class="modal-title w-100" id="myModalLabel">Exames</h4>
+
+               
             </div>
-            <div class="text-left p-3">
-              <div class="form-group col-md-6 col-sm-12">
-                <label for="dataexame">Data do Exame</label>
-                <input type="date" class="form-control" id="dataexame" 
-                  [(ngModel)]="dataExame" >
+            <div class="modal-body">
+              
+              <div *ngFor="let exame of agendaExames" >
+                <div class="row">
+                <div class="form-group col-md-5 col-sm-12">
+                  <label for="tipoexame"  style="font-size: 1;" >Tipo de Exme</label>
+                  <input type="text" class="form-control" id="tipoexame" style="font-size: 1;" 
+                    [(ngModel)]="exame.asotipo.nome" readonly >
+                </div>
+                <div class="form-group col-md-3 col-sm-12">
+                  <label for="datalancamento"  style="font-size: 1;" >Data do Exame</label>
+                  <input type="date" class="form-control" id="datalancamento" style="font-size: 1;" 
+                    [(ngModel)]="exame.datalancamento" >
+                </div>
+                <div class="form-group col-md-4 col-sm-12" >
+                  <label for="situacao">Situação</label>
+                  <select class="form-control"  [(ngModel)]="exame.situacao" >
+                      <option value="Agendado">Agendado</option>
+                      <option value="Cancelado">Cancelado</option>
+                      <option value="Finalizado">Finalizado</option>
+                  </select>
               </div>
-                <button type="submit" class="btn btn-primary col-4" style="margin-left:1%;" (click)="salvar()">
-                    Salvar
+
+              </div>
+
+            </div>
+        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm waves-light" data-dismiss="modal" 
+                    (click)="salvarFinalizar()" mdbWavesEffect title="Salvar alterações">
+                    <i class="fas fa-check" aria-hidden="true"></i>Salvar
                 </button>
-                <button type="submit" class="btn btn-danger col-4" style="margin-left:3%;" (click)="dataexame.hide()">
-                    Cancelar
+                <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" 
+                    (click)="fecharModal()" mdbWavesEffect title="Cancelar alterações">
+                    <i class="fas fa-times" aria-hidden="true"></i>Cancelar
                 </button>
             </div>
+            
         </div>
     </div>
 </div>

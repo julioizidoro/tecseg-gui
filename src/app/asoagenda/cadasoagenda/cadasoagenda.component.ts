@@ -16,6 +16,7 @@ import { ClinicaService } from 'src/app/clinica/clinica.service';
 import { Loja } from 'src/app/loja/model/loja';
 import { AsotipoService } from 'src/app/asocontrole/asotipo.service';
 import { AuthService } from 'src/app/usuario/login/auth.service';
+import { Agendaexame } from '../model/agendaexame';
 
 
 @Component({
@@ -26,8 +27,6 @@ import { AuthService } from 'src/app/usuario/login/auth.service';
 export class CadasoagendaComponent implements OnInit {
   formulario: FormGroup;
   tipos: Asotipo[];
-  asotiposSelecionado: Asotipo[];
-  tipoSelecionado: [];
   funcoes: Funcao[];
   asoControle: Asocontrole;
   funcaoSelecionada: Funcao;
@@ -35,6 +34,7 @@ export class CadasoagendaComponent implements OnInit {
   asoAgenda: Asoagenda;
   clinicaSelecionada: Clinica;
   clinicas: Clinica[];
+  agendaExames: Agendaexame[];
   enabledFuncao = false;
   public maskHora = [/[0-9]/, /[0-9]/, ':', /[0-9]/, /[0-9]/];
   rotaConsulta: string;
@@ -51,7 +51,6 @@ export class CadasoagendaComponent implements OnInit {
     private asotipoService: AsotipoService,
     private funcaoService: FuncaoService,
     private router: Router,
-    private activeRrouter: ActivatedRoute,
     private asocontroleService: AsocontroleService,
     private asoagendaService: AsoagendaService,
     private clinicaService: ClinicaService,
@@ -62,30 +61,34 @@ export class CadasoagendaComponent implements OnInit {
 
   ngOnInit() {
     this.asoAgenda = this.asoagendaService.getAsoAgenda();
+    this.agendaExames = [];
     if (this.asoAgenda !=null) {
       this.funcionarioSelecionado = this.asoAgenda.funcionario;
       this.funcaoSelecionada = this.asoAgenda.funcao;
-      this.clinicaSelecionada = this.asoAgenda.clinica;
+      this.clinicaSelecionada = new Clinica();
       this.formulario = this.formBuilder.group({
         idasoagenda: this.asoAgenda.idasoagenda,
         dataexame: this.asoAgenda.dataexame,
         hora: this.asoAgenda.horaexame,
         situacao: this.asoAgenda.situacao,
         datacancelamento: this.asoAgenda.datacancelamento,
-        avaliacaomedica: this.asoAgenda.avaliacaomediaca,
-        examescomplementar: this.asoAgenda.examescomplementares,
-        manipulacaoalimentos: this.asoAgenda.manipulacaoalimentos,
         funcionario: this.asoAgenda.funcionario,
-        asotipo: this.asoAgenda.asotipo,
+        asotipo: new Asotipo(),
         funcao: this.asoAgenda.funcao,
-        clinica: this.asoAgenda.clinica,
+        clinica: new Clinica(),
         usuario: this.asoAgenda.usuario,
       });  
+      this.asoagendaService.listarAgendaExame(this.asoAgenda).subscribe (
+        resposta => {
+          this.agendaExames = resposta as any;
+        }
+      );
     } else {
       this.asoControle = this.asocontroleService.getAso();
       if (this.asoControle !=null) {
         this.habilitarConsultaFuncionario = true;
         this.asoAgenda = new Asoagenda();
+        this.agendaExames = [];
         this.funcionarioSelecionado = this.asoControle.funcionario;
             this.funcaoSelecionada = this.asoControle.funcionario.funcao;
             this.asoAgenda.funcionario = this.asoControle.funcionario;
@@ -97,9 +100,6 @@ export class CadasoagendaComponent implements OnInit {
               hora: [null],
               situacao: [null],
               datacancelamento: [],
-              avaliacaomedica: [null],
-              examescomplementares: [null],
-              manipulacaoalimentos: 'S',
               funcionario: [this.funcionarioSelecionado],
               asotipo: [null],
               funcao: [this.funcaoSelecionada],
@@ -111,6 +111,7 @@ export class CadasoagendaComponent implements OnInit {
         this.funcionarioService.setFuncionario(null);
         if (this.funcionarioSelecionado !=null) {
           this.asoAgenda = new Asoagenda();
+          this.agendaExames = [];
           this.asoAgenda.funcionario = this.funcionarioSelecionado;
             this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
             this.formulario = this.formBuilder.group({
@@ -119,9 +120,6 @@ export class CadasoagendaComponent implements OnInit {
               hora: [null],
               situacao: [null],
               datacancelamento: [],
-              avaliacaomedica: [null],
-              examescomplementares: [null],
-              manipulacaoalimentos: 'S',
               funcionario: [this.funcionarioSelecionado],
               asotipo: [null],
               funcao: [this.funcaoSelecionada],
@@ -146,9 +144,6 @@ export class CadasoagendaComponent implements OnInit {
         hora: [null],
         situacao: [null],
         datacancelamento: [],
-        avaliacaomedica: [null],
-        examescomplementares: [null],
-        manipulacaoalimentos: 'S',
         funcionario: [null],
         asotipo: [null],
         funcao: [null],
@@ -176,31 +171,13 @@ export class CadasoagendaComponent implements OnInit {
   }
 
 
-  setTipo() {
-    this.tipoSelecionado = this.formulario.get('asotipo').value;
-    let achou = false;
-    for ( let tipo of this.tipoSelecionado ) {
-      if (tipo === 'Mudança de função') {
-        achou = true;
-      }
-    }
-    if ( achou ) {
-      this.enabledFuncao = true;
-    } else {
-      this.enabledFuncao = false;
-    }   
-  }
-
+  
   setFuncao() {
     this.funcaoSelecionada = this.formulario.get('funcao').value;
   }
 
   compararFuncao(obj1, obj2) {
     return obj1 && obj2 ? obj1.idfuncao === obj2.idfuncao : obj1 === obj2;
-  }
-
-  setClinica() {
-    this.clinicaSelecionada = this.formulario.get('clinica').value;
   }
 
   compararClinica(obj1, obj2) {
@@ -214,68 +191,47 @@ export class CadasoagendaComponent implements OnInit {
   }
 
   salvar() {
-  this.asotiposSelecionado = [];
-    this.tipoSelecionado = this.tipoSelecionado = this.formulario.get('asotipo').value;
-    let asoTipo;
-    for (let tipo of this.tipoSelecionado) {
-      for (let i=0;i<this.tipos.length;i++) {
-        if (this.tipos[i].nome === tipo) {
-          this.asotiposSelecionado.push(this.tipos[i]);
+    let salvarExame = false;
+    if (this.agendaExames.length > 0) {
+      if ( this.asoAgenda.idasoagenda != null) {
+        salvarExame = false;
+      } else {
+        salvarExame = true;
+      }
+      this.asoAgenda = this.formulario.value;
+      this.asoAgenda.funcionario = this.funcionarioSelecionado;
+      this.asoAgenda.usuario = this.authService.getUsuario();
+      if (this.asoAgenda.funcao === null) {
+        this.asoAgenda.funcao = this.asoAgenda.funcionario.funcao;
+      }
+      if (this.asoAgenda.situacao === null) {
+        this.asoAgenda.situacao = 'Agendado';
+      }
+      this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
+        this.asoAgenda = resposta as Asoagenda;
+        if ( salvarExame ){
+          for (let i=0; i<this.agendaExames.length;i++) {
+            this.agendaExames[i].asoagenda = this.asoAgenda;
+          }
+          this.asoagendaService.salvarListaAgendaExame(this.agendaExames).subscribe(
+            resposta3 => {
+              this.agendaExames = resposta3 as any;
+            }
+          );
         }
-      }
-    }
-    let achouAso = false;
-    for (let i=0;i<this.asotiposSelecionado.length;i++) {
-      if (this.asotiposSelecionado[i].categoria === 'aso') {
-        this.formulario.get('asotipo').setValue(this.asotiposSelecionado[i]);
-        achouAso = true;
-        i = 10000;
-      }
-    }
-    if ( !achouAso ) {
-      this.formulario.get('asotipo').setValue(this.asotiposSelecionado[0]);
-    }
-    let exame = '';
-    let avaliacao = '';
-  
-    for (let i=0;i<this.asotiposSelecionado.length;i++) {
-      if (this.asotiposSelecionado[i].categoria === 'exc') {
-        exame = exame +  ' - ' + this.asotiposSelecionado[i].nome; 
-      } else if (this.asotiposSelecionado[i].categoria === 'avm') {
-        avaliacao = avaliacao +  ' - ' + this.asotiposSelecionado[i].nome; 
-      }
-    }
-    if (avaliacao != null) {
-      this.formulario.get('avaliacaomedica').setValue(avaliacao);
-    }
-    if (exame != null) {
-      this.formulario.get('examescomplementares').setValue(exame);  
-    }
-    this.asoAgenda = this.formulario.value;
-
-
-    this.asoAgenda.funcionario = this.funcionarioSelecionado;
-    this.asoAgenda.usuario = this.authService.getUsuario();
-    if (this.asoAgenda.funcao === null) {
-      this.asoAgenda.funcao = this.asoAgenda.funcionario.funcao;
-    }
-    if (this.asoAgenda.situacao === null){
-      this.asoAgenda.situacao = 'Agendado';
-    }
-    this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
-      this.asoAgenda = resposta as Asoagenda;
-      if (this.asoAgenda.situacao === 'Agendado') {
+        if (this.asoAgenda.situacao === 'Agendado') {
           if (this.asoControle == null) {
-            
-          }else {
+
+          } else {
             this.asoControle.agendado = true;
             this.asocontroleService.atualizar(this.asoControle).subscribe(resposta2 => {
               this.asoControle = resposta2 as any;
             });
           }
-      }
-    });
-    this.cancelar();
+        }
+      });
+      this.cancelar();
+    }
   }
 
   cancelar() {
@@ -285,6 +241,40 @@ export class CadasoagendaComponent implements OnInit {
     } else  {
       this.router.navigate([ '/consasoagenda']);
     }
+  }
+
+  adicionarExame() {
+    if (this.agendaExames === null) {
+      this.agendaExames = [];
+    }
+    let clinica = this.formulario.get('clinica').value;
+    let asoTipo = this.formulario.get('asotipo').value;
+    if (( clinica != null) && (asoTipo != null)) {
+      let agenciaExame = new Agendaexame();
+      agenciaExame.asotipo = asoTipo;
+      agenciaExame.clinica = clinica;
+      agenciaExame.situacao = 'Agendado';
+      agenciaExame.usuario = this.authService.getUsuario();
+      this.agendaExames.push(agenciaExame);
+    }
+  }
+
+  cancelarAgendaExame(agendaExame: Agendaexame) {
+    let index = this.agendaExames.indexOf(agendaExame);
+    agendaExame.situacao = 'Cancelado';
+    agendaExame.datalancamento = new Date();
+    agendaExame.usuario = this.authService.getUsuario();
+    this.asoagendaService.salvarAgendaExame(agendaExame).subscribe(
+      resposta => {
+        agendaExame = resposta as any;
+        this.agendaExames[index] = agendaExame;
+      }
+    );
+  }
+
+  excluir(agendaExmae: Agendaexame) {
+    const index = this.agendaExames.indexOf(agendaExmae);
+    this.agendaExames.splice(index,1);
   }
   
   

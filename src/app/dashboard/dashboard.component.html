@@ -1,4 +1,220 @@
+<!-- Heading -->
+<mdb-card class="mb-4 wow fadeIn">
+
+    <!--Card content-->
+    <mdb-card-body class="d-sm-flex justify-content-between" > 
+
+        <h4 class="mb-sm-0 pt-3">
+            <span>Dashboard</span>
+        </h4>
+
+        
+
+    </mdb-card-body>
+
+</mdb-card>
+<!-- Heading -->
+
 
 <app-card-dashboard></app-card-dashboard>
+
+
+<!--Grid row-->
+<div class="row wow fadeIn mt-5">
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-2">
+
+   
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    
+    <div class="col-md-6 mb-2">
+
+     
+    </div>
+    <!--Grid column-->
+
+   
+
+</div>
+<!--Grid row-->
+
+<!--Grid row-->
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+        <!--Card-->
+        <mdb-card>
+            <div class="card-header">Agenda de exames</div>
+            <!--Card content-->
+            <mdb-card-body>
+
+                <!-- Table  -->
+                <table class="table table-hover">
+                    <!-- Table head -->
+                    <thead class="blue-grey lighten-4">
+                    <tr
+                        class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                        <th class="col-lg-7 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                        <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                        <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Hora</th>
+                    </tr>
+                    </thead>
+                    <!-- Table head -->
+
+                    <!-- Table body -->
+                    <tbody>
+                        <tr *ngFor="let agenda of asoAgendas" 
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    {{agenda.funcionario.nome}}</td>
+                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ agenda.dataexame | date: 'dd/MM/yyyy' }}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ agenda.hora }}</td>
+                    
+                  
+                </tr>
+                    </tbody>
+                    <!-- Table body -->
+                </table>
+                <!-- Table  -->
+
+            </mdb-card-body>
+
+        </mdb-card>
+        <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+        <!--Card-->
+        <mdb-card>
+            <div class="card-header">Próximos Treinamento/ Cursos / Palestras</div>
+            <!--Card content-->
+            <mdb-card-body>
+
+               <!-- Table  -->
+               <table class="table table-hover">
+                <!-- Table head -->
+                <thead class="blue-grey lighten-4">
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-7 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Hora</th>
+                </tr>
+                </thead>
+                <!-- Table head -->
+
+                <!-- Table body -->
+                <tbody>
+                    <tr *ngFor="let t of treinamentos" 
+                class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                {{t.treinamentotipo.nome}}</td>
+                <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                    style="border: none;">{{ t.data | date: 'dd/MM/yyyy' }}</td>
+                <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                    style="border: none;">{{ t.hora }}</td>
+                
+              
+            </tr>
+                </tbody>
+                <!-- Table body -->
+            </table>
+            <!-- Table  -->
+
+            </mdb-card-body>
+
+        </mdb-card>
+        <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+</div>
+<!--Grid row-->
+
+<!--Grid row-->
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-12 mb-4">
+
+        <!--Card-->
+        <mdb-card>
+
+            <!-- Card header -->
+          
+
+            <!--Card content-->
+            
+
+        </mdb-card>
+        <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-6 mb-4">
+
+        <!--Card-->
+        <mdb-card>
+
+        
+
+        </mdb-card>
+        <!--/.Card-->
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-lg-4 col-md-6 mb-4">
+
+
+    </div>
+    <!--Grid column-->
+
+</div>
+<!--Grid row-->
+
+<!--Grid row-->
+<div class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+       
+
+    </div>
+    <!--Grid column-->
+
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+
+
+
+    </div>
+    <!--Grid column-->
+
+
+</div>
+<!--Grid row-->
+
+
+
+
 
 

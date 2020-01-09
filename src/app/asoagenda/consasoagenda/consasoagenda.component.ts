@@ -14,6 +14,7 @@ import { Asocontrole } from 'src/app/asocontrole/model/asocontrole';
 import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
 import { ModalDirective } from 'ngx-bootstrap';
+import { Agendaexame } from '../model/agendaexame';
 
 @Component({
   selector: 'app-consasoagenda',
@@ -30,7 +31,8 @@ export class ConsasoagendaComponent implements OnInit {
   lojaSelecionada: Loja;
   asoAgendas: Asoagenda[];
   asoAgenda: Asoagenda;
-  @ViewChild('dataexame', null) public showModalDataExameOnClick: ModalDirective;
+  agendaExames: Agendaexame[];
+  @ViewChild('Exames', null) public showModalDataExameOnClick: ModalDirective;
   aso: Asocontrole;
   lastAsoControles: Asocontrole;
 
@@ -93,7 +95,7 @@ export class ConsasoagendaComponent implements OnInit {
       nomePesquisa = '@';
     }
     if ((this.lojaSelecionada != null) && (situacao != null)) {
-      this.pesquisarAll( this.lojaSelecionada.idloja, nomePesquisa, situacao);
+      this.pesquisarAll(this.lojaSelecionada.idloja, nomePesquisa, situacao);
     } else if (this.lojaSelecionada != null) {
       this.pesquisarLoja(this.lojaSelecionada.idloja, nomePesquisa);
     } else if (situacao != null) {
@@ -103,138 +105,179 @@ export class ConsasoagendaComponent implements OnInit {
     }
   }
 
-pesquisarNome( nomePesquisa: string ) {
-  this.asoagendaService.pesquisarNome( nomePesquisa ).subscribe(
-    resposta => {
-      this.asoAgendas = resposta as any;
-    }
-  );
-}
-
-pesquisarLoja( idLoja: number, nomePesquisa: string) {
-  this.asoagendaService.pesquisarLoja( idLoja, nomePesquisa ).subscribe(
-    resposta => {
-      this.asoAgendas = resposta as any;
-    }
-  );
-}
-
-pesquisarSituacao( situacao: string, nomePesquisa: string) {
-  this.asoagendaService.pesquisarSituacao( situacao, nomePesquisa ).subscribe(
-    resposta => {
-      this.asoAgendas = resposta as any;
-    }
-  );
-}
-
-pesquisarAll( idLoja: number, nomePesquisa: string, situacao: string) {
-  this.asoagendaService.pesquisar( idLoja, nomePesquisa, situacao ).subscribe(
-    resposta => {
-      this.asoAgendas = resposta as any;
-    }
-  );
-}
-
-novo() {
-  this.asoagendaService.setAsoAgenda(null);
-  this.router.navigate([ '/cadasoagenda']);
-}
-
-editar(asoAgenda: Asoagenda) {
-  this.asoagendaService.setAsoAgenda(asoAgenda);
-  this.router.navigate([ '/cadasoagenda']);
-}
-
-imprimir(asoAgenda: Asoagenda) {
-  const uri =  env.baseApiUrl + 'asoagenda/autorizacao/' + asoAgenda.idasoagenda;
-  return uri;
-}
-
-cancelar(asoAgenda: Asoagenda) {
-  asoAgenda.usuario = this.authService.getUsuario();
-  asoAgenda.datacancelamento = new Date();
-  asoAgenda.situacao = 'Cancelado';
-  this.asoagendaService.salvar(asoAgenda).subscribe(resposta => {
-    asoAgenda = resposta as Asoagenda;
-  });
-}
-
-finalizar(asoAgenda: Asoagenda) {
-  this.asoAgenda = asoAgenda;
-  this.dataExame = this.asoAgenda.dataexame;
-  this.openModalFluxoCaixa();
-}
-
-salvar() {
-  this.asoAgenda.usuario = this.authService.getUsuario();
-  this.asoAgenda.situacao = 'Finalizado';
-  this.asoAgenda.dataexame = this.dataExame;
-  this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
-    this.asoAgenda = resposta as Asoagenda;
-    this.consultar();
-    this.showModalDataExameOnClick.hide();
-  });
-}
-
-openModalFluxoCaixa() {
-  this.showModalDataExameOnClick.show();
-}
-
-salvarAso() {
-  this.aso.agendado = false;
-  this.aso.asotipo = this.asoAgenda.asotipo;
-  this.aso.dataexame = this.asoAgenda.dataexame;
-  this.dataExame.setDate(this.dataExame.getDate() + this.asoAgenda.asotipo.periodicidade);
-  this.aso.datavencimento = this.dataExame;
-  this.aso.funcionario = this.asoAgenda.funcionario;
-  this.aso.finalizado = false;
-  this.aso.situacao = 'https://tecseg-img.s3.us-east-2.amazonaws.com/atestadodia.png';
-  let salvarFunc = false;
-  if (this.aso.asotipo.idasotipo === 5) {
-    this.aso.funcionario.situacao = 'Inativo';
-    this.aso.funcionario.datasituacao = this.aso.dataexame;
-    salvarFunc = true;
-  } else if ( this.aso.asotipo.idasotipo === 4) {
-    this.aso.funcionario.situacao = 'Ativo';
-    this.aso.funcionario.datasituacao = this.aso.dataexame;
-    salvarFunc = true;
-  } else if ( this.aso.asotipo.idasotipo === 1) {
-    this.aso.funcionario.situacao = 'Ativo';
-    this.aso.funcionario.datasituacao = this.aso.dataexame;
-    salvarFunc = true;
-  }
-  const idfuncao = this.asoAgenda.funcao.idfuncao;
-  this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
-    this.lastAsoControles = resposta as any;
-    if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
-      this.aso.funcionario.funcao = this.asoAgenda.funcao;
-      this.funcionarioService.atualizar(this.aso.funcionario).subscribe(resposta1 => {
-        this.aso.funcionario = resposta1 as any;
-      });
-    }
-    this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
-      this.aso = resposta2 as any;
-      if ( salvarFunc ) {
-        this.funcionarioService.salvar(this.aso.funcionario).subscribe (
-          resposta4 => {
-            this.aso.funcionario = resposta4 as any;
-          }
-        );
+  pesquisarNome(nomePesquisa: string) {
+    this.asoagendaService.pesquisarNome(nomePesquisa).subscribe(
+      resposta => {
+        this.asoAgendas = resposta as any;
       }
-      if ( this.lastAsoControles != null ) {
-        this.lastAsoControles.funcionario = this.aso.funcionario;
-        this.lastAsoControles.finalizado = true;
-        this.asocontroleService.atualizar(this.lastAsoControles).subscribe( resposta3 => {
-          this.aso = resposta3 as any;
+    );
+  }
+
+  pesquisarLoja(idLoja: number, nomePesquisa: string) {
+    this.asoagendaService.pesquisarLoja(idLoja, nomePesquisa).subscribe(
+      resposta => {
+        this.asoAgendas = resposta as any;
+      }
+    );
+  }
+
+  pesquisarSituacao(situacao: string, nomePesquisa: string) {
+    this.asoagendaService.pesquisarSituacao(situacao, nomePesquisa).subscribe(
+      resposta => {
+        this.asoAgendas = resposta as any;
+      }
+    );
+  }
+
+  pesquisarAll(idLoja: number, nomePesquisa: string, situacao: string) {
+    this.asoagendaService.pesquisar(idLoja, nomePesquisa, situacao).subscribe(
+      resposta => {
+        this.asoAgendas = resposta as any;
+      }
+    );
+  }
+
+  novo() {
+    this.asoagendaService.setAsoAgenda(null);
+    this.router.navigate(['/cadasoagenda']);
+  }
+
+  editar(asoAgenda: Asoagenda) {
+    this.asoagendaService.setAsoAgenda(asoAgenda);
+    this.router.navigate(['/cadasoagenda']);
+  }
+
+  imprimir(asoAgenda: Asoagenda) {
+    const uri = env.baseApiUrl + 'asoagenda/autorizacao/' + asoAgenda.idasoagenda;
+    return uri;
+  }
+
+  cancelar(asoAgenda: Asoagenda) {
+    asoAgenda.usuario = this.authService.getUsuario();
+    asoAgenda.datacancelamento = new Date();
+    asoAgenda.situacao = 'Cancelado';
+    this.asoagendaService.salvar(asoAgenda).subscribe(resposta => {
+      asoAgenda = resposta as Asoagenda;
+    });
+  }
+
+  finalizar(asoAgenda: Asoagenda) {
+    this.asoAgenda = asoAgenda;
+    this.asoagendaService.listarAgendaExame(this.asoAgenda).subscribe(
+      resposta => {
+        this.agendaExames = resposta as any;
+        this.showModalDataExameOnClick.show();
+      }
+    );
+  }
+
+  salvar() {
+    this.asoAgenda.usuario = this.authService.getUsuario();
+    this.asoAgenda.situacao = 'Finalizado';
+    this.asoAgenda.dataexame = this.dataExame;
+    this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
+      this.asoAgenda = resposta as Asoagenda;
+      this.consultar();
+      this.showModalDataExameOnClick.hide();
+    });
+  }
+
+
+  salvarAso(exame: Agendaexame) {
+    this.aso.agendado = false;
+    this.aso.asotipo = exame.asotipo;
+    this.aso.dataexame = exame.datalancamento;
+    this.aso.datavencimento.setDate(this.dataExame.getDate() + exame.asotipo.periodicidade);
+    this.aso.funcionario = this.asoAgenda.funcionario;
+    this.aso.finalizado = false;
+    this.aso.situacao = 'https://tecseg-img.s3.us-east-2.amazonaws.com/atestadodia.png';
+    let salvarFunc = false;
+    if (this.aso.asotipo.idasotipo === 5) {
+      this.aso.funcionario.situacao = 'Inativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      this.aso.finalizado = true;
+      salvarFunc = true;
+    } else if (this.aso.asotipo.idasotipo === 4) {
+      this.aso.funcionario.situacao = 'Ativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
+    } else if (this.aso.asotipo.idasotipo === 1) {
+      this.aso.funcionario.situacao = 'Ativo';
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
+    }
+    const idfuncao = this.asoAgenda.funcao.idfuncao;
+    this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
+      this.lastAsoControles = resposta as any;
+      if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
+        this.aso.funcionario.funcao = this.asoAgenda.funcao;
+        this.funcionarioService.atualizar(this.aso.funcionario).subscribe(resposta1 => {
+          this.aso.funcionario = resposta1 as any;
         });
       }
-    });
-  },
-  err => {
-    console.log(err.error.erros.join(' '));
+      this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
+        this.aso = resposta2 as any;
+        if (salvarFunc) {
+          this.funcionarioService.salvar(this.aso.funcionario).subscribe(
+            resposta4 => {
+              this.aso.funcionario = resposta4 as any;
+            }
+          );
+        }
+        if (this.lastAsoControles != null) {
+          this.lastAsoControles.funcionario = this.aso.funcionario;
+          this.lastAsoControles.finalizado = true;
+          this.asocontroleService.atualizar(this.lastAsoControles).subscribe(resposta3 => {
+            this.aso = resposta3 as any;
+          });
+        }
+      });
+    },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
   }
-  );
 
-}
+  salvarFinalizar() {
+    this.showModalDataExameOnClick.hide();
+    this.asoagendaService.salvarListaAgendaExame(this.agendaExames).subscribe(
+      resposta => {
+        this.agendaExames = resposta as any;
+        let agendado = false;
+        for (let exame of this.agendaExames) {
+          if (exame.situacao === 'Agendado') {
+            agendado = true;
+          }
+        }
+        if (!agendado) {
+          this.asoAgenda.datacancelamento = new Date();
+          this.asoAgenda.situacao = 'Finalizado';
+          this.asoAgenda.usuario = this.authService.getUsuario();
+          this.asoagendaService.salvar(this.asoAgenda).subscribe(
+            resposta2 => {
+              this.asoAgenda = resposta2 as any;
+              this.lancarExames();
+            },
+            err => {
+              console.log(err.error.erros.join(' '));
+            }
+          );
+        }
+      }
+    );
+  }
+
+  lancarExames() {
+    for (let exame of this.agendaExames) {
+      if (exame.situacao === 'Finalizado') {
+        this.salvarAso(exame);
+      }
+    }
+  }
+
+  fecharModal() {
+    this.showModalDataExameOnClick.hide();
+  }
 
 }

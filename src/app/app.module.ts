@@ -28,6 +28,10 @@ import { AccordionModule } from 'ngx-bootstrap';
 import { FuncaoModule } from './funcao/funcao.module';
 import { routing } from './app.routing';
 import { AfastamentoModule } from './afastamento/afastamento.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ShareModule } from './share/share.module';
+import { AlertModalComponent } from './share/alert-modal/alert-modal.component';
+
 
 
 registerLocaleData(br, 'pt-BR');
@@ -66,6 +70,8 @@ registerLocaleData(br, 'pt-BR');
     FuncaoModule,
     AfastamentoModule,
     SetorModule,
+    ModalModule.forRoot(),
+    ShareModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

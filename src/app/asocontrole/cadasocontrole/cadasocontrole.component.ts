@@ -11,7 +11,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AsocontroleService } from '../asocontrole.service';
 import { Loja } from 'src/app/loja/model/loja';
 import * as moment from 'moment';
-import { AST } from '@angular/compiler';
 
 
 @Component({
@@ -38,7 +37,7 @@ export class CadasocontroleComponent implements OnInit {
     private funcaoService: FuncaoService,
     private router: Router,
     private activeRrouter: ActivatedRoute,
-    private asocontroleService: AsocontroleService
+    private asocontroleService: AsocontroleService,
   ) { }
 
 
@@ -165,6 +164,7 @@ export class CadasocontroleComponent implements OnInit {
     if (this.aso.asotipo.idasotipo === 5) {
       this.aso.funcionario.situacao = 'Inativo';
       this.aso.funcionario.datasituacao = this.aso.dataexame;
+      this.aso.finalizado = true;
       salvarFunc = true;
     } else if ( this.aso.asotipo.idasotipo === 4) {
       this.aso.funcionario.situacao = 'Ativo';
@@ -254,6 +254,8 @@ export class CadasocontroleComponent implements OnInit {
     this.funcionarioService.setRota('cadasocontrole');
     this.router.navigate(['/consfuncionario']);
   }
+
+ 
 
 
 }

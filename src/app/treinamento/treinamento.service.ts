@@ -39,6 +39,10 @@ getTreinamentoTipo() {
     return this.httpClient.get<Treinamento>(env.baseApiUrl + 'treinamentos');
   }
 
+  listar7Dias(): Observable<Treinamento> {
+    return this.httpClient.get<Treinamento>(env.baseApiUrl + 'treinamentos/dias/7');
+  }
+
   salvar(treinamento: Treinamento): Observable<any> {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/salvar', treinamento);
   }

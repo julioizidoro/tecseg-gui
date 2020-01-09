@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { Salutarfuncionario } from '../../model/salutarfuncionario';
 import { TypeaheadOptions } from 'ngx-bootstrap';
+import { AlertModelService } from 'src/app/share/alert-model.service';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class CadsalutarComponent implements OnInit {
   sf: Salutarfuncionario;
   botaoiniciar: boolean;
   salutarFuncionario: Salutarfuncionario[];
+  executarSpiner = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +40,7 @@ export class CadsalutarComponent implements OnInit {
     private authService: AuthService,
     private funcionarioService: FuncionarioService,
     private router: Router,
+    private alertService: AlertModelService,
   ) { }
 
   ngOnInit() {
@@ -65,74 +68,31 @@ export class CadsalutarComponent implements OnInit {
   }
 
   gerarListaFuncionarios() {
-    this.salutar.loja = this.formulario.get('loja').value;
-    this.salutar.dataemissao = new Date();
-    this.salutar.usuario = this.authService.getUsuario();
-    this.salutar.nome = this.formulario.get('nome').value;
-    this.salutar.admitidos = 0;
-    this.salutar.ativos = 0;
-    this.salutar.afastados = 0;
-    this.salutar.inativos = 0;
-    this.salutar.total = 0;
+    const loja = this.formulario.get('loja').value;
     const dataincio = this.formulario.get('datainicial').value;
     const datafinal = this.formulario.get('datafinal').value;
-    const todos = this.formulario.get('todos').value;
-    const admitidos = this.formulario.get('admitidos').value;
-    const afastados = this.formulario.get('afastados').value;
-    const inativos = this.formulario.get('inativos').value;
-    const ativos = this.formulario.get('ativos').value;
-    let adicionar = false;
-    if ((dataincio != null) && (datafinal != null) && (this.salutar.loja != null)) {
-      this.funcionarioService.getLojaData(this.salutar.loja.idloja, dataincio, datafinal).subscribe(resposta => {
-        this.lojas = resposta as any;
-      });
-    } else if (this.salutar.loja != null) {
-      this.funcionarioService.getLoja(this.salutar.loja.idloja).subscribe(resposta => {
+    if ((dataincio != null) && (datafinal != null) && (loja != null)) {
+      this.executarSpiner = true;
+      this.funcionarioService.getLojaData(loja.idloja, dataincio, datafinal).subscribe(resposta => {
         this.funcionarios = resposta as any;
-        if (this.funcionarios != null) {
-          this.salutarFuncionario = [];
-          for (const f of this.funcionarios) {
-            adicionar = false;
-            const s = Salutarfuncionario;
-            this.sf = new Salutarfuncionario();
-            this.sf.datasituacao = f.datasituacao;
-            this.sf.funcao = f.funcao;
-            this.sf.funcionario = f;
-            this.sf.setor = f.setor;
-            this.sf.situacao = f.situacao;
-            if (todos) {
-              this.salutarFuncionario.push(this.sf);
-            } else {
-              if (admitidos) {
-                if ((dataincio != null) && (datafinal != null)) {
-                  if ((f.dataadmissao >= dataincio) && (f.dataadmissao <= datafinal) && f.situacao === 'Ativo') {
-                    adicionar = true;
-                    this.sf.situacao = 'Admitido';
-                  }
-                }
-              }
-              if (ativos) {
-                if (f.situacao === 'Ativo') {
-                  adicionar = true;
-                }
-              }
-              if (afastados) {
-                if (f.situacao === 'Afastado') {
-                  adicionar = true;
-                }
-              }
-              if (inativos) {
-                if (f.situacao === 'Inativo') {
-                  adicionar = true;
-                }
-              }
-              if (adicionar) {
-                this.salutarFuncionario.push(this.sf);
-              }
-            }
-          }
-        }
-      });
+        this.gerarLista(dataincio, datafinal);
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+        this.handleError('Erro ao gerar planilha', 'danger');
+      }
+      );
+    } else if (loja != null) {
+      this.executarSpiner = true;
+      this.funcionarioService.getLoja(loja.idloja).subscribe(resposta => {
+        this.funcionarios = resposta as any;
+        this.gerarLista(null, null);
+      },
+      err => {
+        console.error(err);
+        this.handleError('Erro ao gerar planilha', 'danger');
+      }
+      );
     }
   }
 
@@ -149,6 +109,72 @@ export class CadsalutarComponent implements OnInit {
    }
    this.salutar.total = this.salutar.total + 1;
   }
+}
+
+gerarLista(datainicio: Date, datafinal: Date) {
+  this.salutar.loja = this.formulario.get('loja').value;
+  this.salutar.dataemissao = new Date();
+  this.salutar.usuario = this.authService.getUsuario();
+  this.salutar.nome = this.formulario.get('nome').value;
+  this.salutar.admitidos = 0;
+  this.salutar.ativos = 0;
+  this.salutar.afastados = 0;
+  this.salutar.inativos = 0;
+  this.salutar.total = 0;
+  const todos = this.formulario.get('todos').value;
+    const admitidos = this.formulario.get('admitidos').value;
+    const afastados = this.formulario.get('afastados').value;
+    const inativos = this.formulario.get('inativos').value;
+    const ativos = this.formulario.get('ativos').value;
+    let adicionar = false;
+  if ((this.funcionarios != null) && ( this.funcionarios.length>0)) {
+    this.salutarFuncionario = [];
+
+    for (const f of this.funcionarios) {
+      adicionar = false;
+      const s = Salutarfuncionario;
+      this.sf = new Salutarfuncionario();
+      this.sf.datasituacao = f.datasituacao;
+      this.sf.funcao = f.funcao;
+      this.sf.funcionario = f;
+      this.sf.setor = f.setor;
+      this.sf.situacao = f.situacao;
+      if (todos) {
+        this.salutarFuncionario.push(this.sf);
+      } else {
+        if (admitidos) {
+          if ((datainicio != null) && (datafinal != null)) {
+            if ((f.dataadmissao >= datainicio) && (f.dataadmissao <= datafinal) && f.situacao === 'Ativo') {
+              adicionar = true;
+              this.sf.situacao = 'Admitido';
+            }
+          }
+        }
+        if (ativos) {
+          if (f.situacao === 'Ativo') {
+            adicionar = true;
+          }
+        }
+        if (afastados) {
+          if (f.situacao === 'Afastado') {
+            adicionar = true;
+          }
+        }
+        if (inativos) {
+          if (f.situacao === 'Inativo') {
+            adicionar = true;
+          }
+        }
+        if (adicionar) {
+          this.salutarFuncionario.push(this.sf);
+        }
+      }
+    }
+    this.handleError('Planilha gerada com sucesso.', 'success');
+  } else {
+      this.handleError('Nenhum funcionário localizado', 'warning');
+  }
+  this.executarSpiner = false;
 }
 
 
@@ -236,5 +262,16 @@ export class CadsalutarComponent implements OnInit {
     } else {
       this.botaoiniciar = false;
     }
+  }
+
+  handleError(msg: string, tipo:string) {
+    if (tipo === 'danger') {
+      this.alertService.showAlertDanger(msg);
+    } else if ( tipo === 'warning') {
+      this.alertService.showAlertWarning(msg);
+    } else if ( tipo === 'success') {
+      this.alertService.showAlertSuccess(msg);
+    } 
+    
   }
 }

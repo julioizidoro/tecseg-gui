@@ -66,11 +66,12 @@ finalizar(treinamento: Treinamento) {
 }
 
 cancelar(treinamento: Treinamento) {
+  const index = this.treinamentos.indexOf(treinamento);
   treinamento.situacao = 'Cancelado';
   treinamento.usuario = this.authService.getUsuario();
   this.treinamentoService.salvar(treinamento).subscribe(resposta => {
     treinamento = resposta as any;
-    this.consultar();
+    this.treinamentos.slice(index);
   });
 }
 

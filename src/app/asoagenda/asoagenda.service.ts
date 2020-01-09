@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../environments/environment.prod';
 import { Asoagenda } from './model/asoagenda';
 import { Observable } from 'rxjs';
+import { Agendaexame } from './model/agendaexame';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,27 @@ export class AsoagendaService {
   getId(id: number): Observable<Asoagenda> {
     return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/id/' +  id);
   }
+
+  pesquisarData7(): Observable<Asoagenda> {
+    return this.httpClient.get<Asoagenda>(env.baseApiUrl + 'asoagenda/listar7');
+  }
+
+
+  /* Agenda Exame */
+
+  listarAgendaExame(asoAgenda: Asoagenda): Observable<Agendaexame> {
+    return this.httpClient.get<Agendaexame>(env.baseApiUrl + 'agendaexame/listar/' + asoAgenda.idasoagenda);
+  }
+
+  salvarAgendaExame(agendaExame: Agendaexame): Observable<any> {
+    return this.httpClient.post<any>(env.baseApiUrl + 'agendaexame/salvar', agendaExame);
+  }
+
+  salvarListaAgendaExame(agendaExames: Agendaexame[]): Observable<any> {
+    return this.httpClient.post<any>(env.baseApiUrl + 'agendaexame/salvarlista', agendaExames);
+  }
+
+
 
 }
 
