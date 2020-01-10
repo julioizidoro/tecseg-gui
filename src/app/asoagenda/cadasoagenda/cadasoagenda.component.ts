@@ -256,6 +256,9 @@ export class CadasoagendaComponent implements OnInit {
       agenciaExame.situacao = 'Agendado';
       agenciaExame.usuario = this.authService.getUsuario();
       this.agendaExames.push(agenciaExame);
+      if (agenciaExame.asotipo.idasotipo === 3) {
+        this.enabledFuncao = true;
+      }
     }
   }
 
@@ -268,6 +271,9 @@ export class CadasoagendaComponent implements OnInit {
       resposta => {
         agendaExame = resposta as any;
         this.agendaExames[index] = agendaExame;
+        if (agendaExame.asotipo.idasotipo === 3){
+          this.enabledFuncao = false;
+        }
       }
     );
   }
