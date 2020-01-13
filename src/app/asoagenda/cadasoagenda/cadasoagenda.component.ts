@@ -41,8 +41,9 @@ export class CadasoagendaComponent implements OnInit {
   inscricao: Subscription;
   habilitarConsultaFuncionario = false;
   rota: string;
+  agenciaExame: Agendaexame;
 
-  
+
   selected = [];
 
   constructor(
@@ -55,21 +56,21 @@ export class CadasoagendaComponent implements OnInit {
     private asoagendaService: AsoagendaService,
     private clinicaService: ClinicaService,
     private authService: AuthService,
-  ) { 
-    this.carregarComboBox();    
+  ) {
+    this.carregarComboBox();
   }
 
   ngOnInit() {
     this.asoAgenda = this.asoagendaService.getAsoAgenda();
     this.agendaExames = [];
-    if (this.asoAgenda !=null) {
+    if (this.asoAgenda != null) {
       this.funcionarioSelecionado = this.asoAgenda.funcionario;
       this.funcaoSelecionada = this.asoAgenda.funcao;
       this.clinicaSelecionada = new Clinica();
       this.formulario = this.formBuilder.group({
         idasoagenda: this.asoAgenda.idasoagenda,
         dataexame: this.asoAgenda.dataexame,
-        hora: this.asoAgenda.horaexame,
+        hora: this.asoAgenda.hora,
         situacao: this.asoAgenda.situacao,
         datacancelamento: this.asoAgenda.datacancelamento,
         funcionario: this.asoAgenda.funcionario,
@@ -77,58 +78,58 @@ export class CadasoagendaComponent implements OnInit {
         funcao: this.asoAgenda.funcao,
         clinica: new Clinica(),
         usuario: this.asoAgenda.usuario,
-      });  
-      this.asoagendaService.listarAgendaExame(this.asoAgenda).subscribe (
+      });
+      this.asoagendaService.listarAgendaExame(this.asoAgenda).subscribe(
         resposta => {
           this.agendaExames = resposta as any;
         }
       );
     } else {
       this.asoControle = this.asocontroleService.getAso();
-      if (this.asoControle !=null) {
+      if (this.asoControle != null) {
         this.habilitarConsultaFuncionario = true;
         this.asoAgenda = new Asoagenda();
         this.agendaExames = [];
         this.funcionarioSelecionado = this.asoControle.funcionario;
-            this.funcaoSelecionada = this.asoControle.funcionario.funcao;
-            this.asoAgenda.funcionario = this.asoControle.funcionario;
-            this.asoAgenda.usuario = this.authService.getUsuario();
-            this.asocontroleService.setAso(null);
-            this.formulario = this.formBuilder.group({
-              idasoagenda: [null],
-              dataexame: [null],
-              hora: [null],
-              situacao: [null],
-              datacancelamento: [],
-              funcionario: [this.funcionarioSelecionado],
-              asotipo: [null],
-              funcao: [this.funcaoSelecionada],
-              clinica: [null],
-              usuario: this.authService.getUsuario(),
-            });
+        this.funcaoSelecionada = this.asoControle.funcionario.funcao;
+        this.asoAgenda.funcionario = this.asoControle.funcionario;
+        this.asoAgenda.usuario = this.authService.getUsuario();
+        this.asocontroleService.setAso(null);
+        this.formulario = this.formBuilder.group({
+          idasoagenda: [null],
+          dataexame: [null],
+          hora: [null],
+          situacao: [null],
+          datacancelamento: [],
+          funcionario: [this.funcionarioSelecionado],
+          asotipo: [null],
+          funcao: [this.funcaoSelecionada],
+          clinica: [null],
+          usuario: this.authService.getUsuario(),
+        });
       } else {
         this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
         this.funcionarioService.setFuncionario(null);
-        if (this.funcionarioSelecionado !=null) {
+        if (this.funcionarioSelecionado != null) {
           this.asoAgenda = new Asoagenda();
           this.agendaExames = [];
           this.asoAgenda.funcionario = this.funcionarioSelecionado;
-            this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
-            this.formulario = this.formBuilder.group({
-              idasoagenda: [null],
-              dataexame: [null],
-              hora: [null],
-              situacao: [null],
-              datacancelamento: [],
-              funcionario: [this.funcionarioSelecionado],
-              asotipo: [null],
-              funcao: [this.funcaoSelecionada],
-              clinica: [null],
-            });
+          this.funcaoSelecionada = this.funcionarioSelecionado.funcao;
+          this.formulario = this.formBuilder.group({
+            idasoagenda: [null],
+            dataexame: [null],
+            hora: [null],
+            situacao: [null],
+            datacancelamento: [],
+            funcionario: [this.funcionarioSelecionado],
+            asotipo: [null],
+            funcao: [this.funcaoSelecionada],
+            clinica: [null],
+          });
         }
       }
     }
-    if ( this.asoAgenda == null) {
+    if (this.asoAgenda == null) {
       this.habilitarConsultaFuncionario = false;
       this.funcionarioSelecionado = new Funcionario();
       this.funcionarioSelecionado.funcao = new Funcao();
@@ -150,9 +151,9 @@ export class CadasoagendaComponent implements OnInit {
         clinica: [null],
         usuario: [null],
       });
-      }
-    
-  
+    }
+
+
   }
 
   carregarComboBox() {
@@ -164,14 +165,14 @@ export class CadasoagendaComponent implements OnInit {
     });
     this.clinicaService.listar().subscribe(resposta => {
       this.clinicas = resposta as any;
-      if ( this.clinicas.length === 1) {
+      if (this.clinicas.length === 1) {
         this.clinicaSelecionada = this.clinicas[0];
       }
     });
   }
 
 
-  
+
   setFuncao() {
     this.funcaoSelecionada = this.formulario.get('funcao').value;
   }
@@ -187,17 +188,11 @@ export class CadasoagendaComponent implements OnInit {
   consultaFuncionario() {
     this.funcionarioService.setFuncionario(null);
     this.funcionarioService.setRota('cadasoagenda');
-    this.router.navigate([ '/consfuncionario' ]);
+    this.router.navigate(['/consfuncionario']);
   }
 
   salvar() {
-    let salvarExame = false;
     if (this.agendaExames.length > 0) {
-      if ( this.asoAgenda.idasoagenda != null) {
-        salvarExame = false;
-      } else {
-        salvarExame = true;
-      }
       this.asoAgenda = this.formulario.value;
       this.asoAgenda.funcionario = this.funcionarioSelecionado;
       this.asoAgenda.usuario = this.authService.getUsuario();
@@ -209,16 +204,17 @@ export class CadasoagendaComponent implements OnInit {
       }
       this.asoagendaService.salvar(this.asoAgenda).subscribe(resposta => {
         this.asoAgenda = resposta as Asoagenda;
-        if ( salvarExame ){
-          for (let i=0; i<this.agendaExames.length;i++) {
+        for (let i = 0; i < this.agendaExames.length; i++) {
+          if (this.agendaExames[i].situacao === 'novo') {
+            this.agendaExames[i].situacao = 'Agendado';
             this.agendaExames[i].asoagenda = this.asoAgenda;
           }
-          this.asoagendaService.salvarListaAgendaExame(this.agendaExames).subscribe(
-            resposta3 => {
-              this.agendaExames = resposta3 as any;
-            }
-          );
         }
+        this.asoagendaService.salvarListaAgendaExame(this.agendaExames).subscribe(
+          resposta3 => {
+            this.agendaExames = resposta3 as any;
+          }
+        );
         if (this.asoAgenda.situacao === 'Agendado') {
           if (this.asoControle == null) {
 
@@ -236,10 +232,10 @@ export class CadasoagendaComponent implements OnInit {
 
   cancelar() {
     this.formulario.reset();
-    if (this.asoControle !=null) {
-      this.router.navigate([ '/consasocontrole']);
-    } else  {
-      this.router.navigate([ '/consasoagenda']);
+    if (this.asoControle != null) {
+      this.router.navigate(['/consasocontrole']);
+    } else {
+      this.router.navigate(['/consasoagenda']);
     }
   }
 
@@ -249,15 +245,44 @@ export class CadasoagendaComponent implements OnInit {
     }
     let clinica = this.formulario.get('clinica').value;
     let asoTipo = this.formulario.get('asotipo').value;
-    if (( clinica != null) && (asoTipo != null)) {
-      let agenciaExame = new Agendaexame();
-      agenciaExame.asotipo = asoTipo;
-      agenciaExame.clinica = clinica;
-      agenciaExame.situacao = 'Agendado';
-      agenciaExame.usuario = this.authService.getUsuario();
-      this.agendaExames.push(agenciaExame);
-      if (agenciaExame.asotipo.idasotipo === 3) {
+    if ((clinica != null) && (asoTipo != null)) {
+      this.agenciaExame = new Agendaexame();
+      this.agenciaExame.asotipo = asoTipo;
+      this.agenciaExame.clinica = clinica;
+      this.agenciaExame.situacao = 'novo';
+      this.agenciaExame.usuario = this.authService.getUsuario();
+      this.agendaExames.push(this.agenciaExame);
+      if (this.agenciaExame.asotipo.idasotipo === 3) {
         this.enabledFuncao = true;
+      }
+      if (!this.verficarAsoTipoAdicionado(20)) {
+        if ((this.agenciaExame.asotipo.idasotipo === 1) || (this.agenciaExame.asotipo.idasotipo === 2) || (this.agenciaExame.asotipo.idasotipo === 4)) {
+          let agenciaExame = new Agendaexame();
+          agenciaExame.asotipo = this.getAsoTipo(20);
+          agenciaExame.clinica = clinica;
+          agenciaExame.situacao = 'novo';
+          agenciaExame.usuario = this.authService.getUsuario();
+          this.agendaExames.push(agenciaExame);
+        }
+      }
+    }
+  }
+
+  verficarAsoTipoAdicionado(id: number) {
+    for (let i = 0; i < this.agendaExames.length; i++) {
+      if (this.agendaExames[i].asotipo.idasotipo === id) {
+        return true;
+        i = 10000;
+      }
+    }
+    return false;
+  }
+
+  getAsoTipo(id: number) {
+    for (let i = 0; i < this.tipos.length; i++) {
+      if (this.tipos[i].idasotipo === id) {
+        return this.tipos[i];
+        i = 10000;
       }
     }
   }
@@ -271,7 +296,7 @@ export class CadasoagendaComponent implements OnInit {
       resposta => {
         agendaExame = resposta as any;
         this.agendaExames[index] = agendaExame;
-        if (agendaExame.asotipo.idasotipo === 3){
+        if (agendaExame.asotipo.idasotipo === 3) {
           this.enabledFuncao = false;
         }
       }
@@ -280,9 +305,9 @@ export class CadasoagendaComponent implements OnInit {
 
   excluir(agendaExmae: Agendaexame) {
     const index = this.agendaExames.indexOf(agendaExmae);
-    this.agendaExames.splice(index,1);
+    this.agendaExames.splice(index, 1);
   }
-  
-  
+
+
 
 }

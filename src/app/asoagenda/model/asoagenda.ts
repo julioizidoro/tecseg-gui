@@ -8,7 +8,7 @@ export class Asoagenda {
 
     idasoagenda: number;
     dataexame: Date;
-    horaexame: string;
+    hora: string;
     situacao: string;
     datacancelamento: Date;
     funcionario: Funcionario;
