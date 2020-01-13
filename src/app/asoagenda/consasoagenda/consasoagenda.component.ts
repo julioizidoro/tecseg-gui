@@ -15,6 +15,8 @@ import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Agendaexame } from '../model/agendaexame';
+import { Autlaboratorio } from '../model/Autlaboratorio.1';
+import { Exame } from 'src/app/asocontrole/model/exame';
 
 @Component({
   selector: 'app-consasoagenda',
@@ -33,8 +35,10 @@ export class ConsasoagendaComponent implements OnInit {
   asoAgenda: Asoagenda;
   agendaExames: Agendaexame[];
   @ViewChild('Exames', null) public showModalDataExameOnClick: ModalDirective;
+  @ViewChild('autExames', null) public showModalAutExameOnClick: ModalDirective;
   aso: Asocontrole;
   lastAsoControles: Asocontrole;
+  listaAutLaboratorio: Autlaboratorio[];
 
 
   constructor(
@@ -278,6 +282,25 @@ export class ConsasoagendaComponent implements OnInit {
 
   fecharModal() {
     this.showModalDataExameOnClick.hide();
+  }
+
+  imprimirAutoLaboratorio(asoAgenda: Asoagenda) {
+    this.asoAgenda = asoAgenda;
+    this.listaAutLaboratorio = [];
+    this.asoagendaService.listarAgendaExame(this.asoAgenda).subscribe(
+      resposta => {
+        this.agendaExames = resposta as any;
+        for (let exame of this.agendaExames) {
+          if (exame.situacao === 'Agendado') {
+            let aut = new Autlaboratorio();
+            aut.agendaexame = exame;
+            aut.selecionado = false;
+            this.listaAutLaboratorio.push(aut)
+          }
+        }
+        this.showModalAutExameOnClick.show();
+      }
+    );  
   }
 
 }

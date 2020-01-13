@@ -8,11 +8,12 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AsoagendaService } from './asoagenda.service';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AutorizacaolaboratorioComponent } from './autorizacaolaboratorio/autorizacaolaboratorio.component';
 
 
 
 @NgModule({
-  declarations: [CadasoagendaComponent, ConsasoagendaComponent],
+  declarations: [CadasoagendaComponent, ConsasoagendaComponent, AutorizacaolaboratorioComponent, AutorizacaolaboratorioComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -22,7 +23,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TextMaskModule,
     NgSelectModule,
   ],
-  exports:  [CadasoagendaComponent, ConsasoagendaComponent],
+  exports:  [CadasoagendaComponent, ConsasoagendaComponent, AutorizacaolaboratorioComponent],
   providers: [
     AsoagendaService,
   ],
