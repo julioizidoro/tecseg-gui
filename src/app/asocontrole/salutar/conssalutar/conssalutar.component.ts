@@ -191,7 +191,7 @@ export class ConssalutarComponent implements OnInit {
           this.exportar.serieCTPS = this.sf.funcionario.serie;
           this.exportar.telefoneSMS = '';
           this.exportar.grauRisco = '';
-          this.exportar.UFCTPS = '';
+          this.exportar.UFCTPS = this.sf.funcionario.uf;
           this.exportar.nomeCentroCusto = '';
           this.exportar.AutorizaSMS = '';
           this.exportar.enderecoCobranca = '';
