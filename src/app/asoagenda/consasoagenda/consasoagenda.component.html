@@ -178,7 +178,7 @@
 
 <!-- Imprimir Autorização de Exames-->
 
-<!-- Finalizar colcoar data do exame -->
+<!-- Finalizar colcoar data do exame 
 <div mdbModal #autExames="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
     aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
     <div class="modal-dialog modal-lg" role="document">
@@ -197,8 +197,13 @@
                 </select>
               </div>
               
-              <div *ngFor="let exame of agendaExames" >
+              <div *ngFor="let a of listaAutLaboratorio" >
                 <div class="row">
+                  <div class="form-group col-md-3 col-sm-12">
+                    <label for="datalancamento"  style="font-size: 1;" >Data do Exame</label>
+                    <input type="date" class="form-control" id="datalancamento" style="font-size: 1;" 
+                      [(ngModel)]="exame.datalancamento" >
+                  </div>
                 <div class="form-group col-md-5 col-sm-12">
                   <label for="tipoexame"  style="font-size: 1;" >Tipo de Exme</label>
                   <input type="text" class="form-control" id="tipoexame" style="font-size: 1;" 
@@ -236,3 +241,5 @@
         </div>
     </div>
 </div>
+
+-->

@@ -150,7 +150,7 @@ export class ConssalutarComponent implements OnInit {
           this.exportar.pispasep = this.sf.funcionario.pis;
           this.exportar.contratacao = '1';
           this.exportar.rg = this.sf.funcionario.rg;
-          this.exportar.ufrg = '';
+          this.exportar.ufrg = this.sf.funcionario.uf;
           this.exportar.cpf = this.sf.funcionario.cpf;
           this.exportar.ctps = this.sf.funcionario.ctps;
           this.exportar.endereco = '';
