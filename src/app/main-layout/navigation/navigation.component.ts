@@ -59,7 +59,7 @@ export class NavigationComponent implements OnInit {
   }
 
   confirmarModalMudarSenha() {
-   /* this.showModalMudarSenhaOnClick.hide();
+    this.showModalMudarSenhaOnClick.hide();
     let senha = this.formulario.get('senhaatual').value;
     const novasenha = this.formulario.get('novasenha').value;
     const confirmanovasenha = this.formulario.get('confirmanovasenha').value;
@@ -88,7 +88,13 @@ export class NavigationComponent implements OnInit {
       console.log(err.error.erros.join(' '));
       return '';
     }
-    );*/
+    );
+    
+  }
+
+  cancelarModalMudarSenha() {
+    this.showModalMudarSenhaOnClick.hide();
+    this.formulario.reset();
     this.usuarioService.getwinker().subscribe(
       resposta => {
         let retorno = resposta as any;
@@ -97,11 +103,6 @@ export class NavigationComponent implements OnInit {
         console.log(err1.error.erros.join(' '));
        }
     );
-  }
-
-  cancelarModalMudarSenha() {
-    this.showModalMudarSenhaOnClick.hide();
-    this.formulario.reset();
   }
 
   abrirModalAlterarFoto() {

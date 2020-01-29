@@ -17,6 +17,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { Agendaexame } from '../model/agendaexame';
 import { Autlaboratorio } from '../model/Autlaboratorio.1';
 import { Exame } from 'src/app/asocontrole/model/exame';
+import { AlertModelService } from 'src/app/share/alert-model.service';
 
 @Component({
   selector: 'app-consasoagenda',
@@ -51,6 +52,7 @@ export class ConsasoagendaComponent implements OnInit {
     private authService: AuthService,
     private asocontroleService: AsocontroleService,
     private funcionarioService: FuncionarioService,
+    private alertService: AlertModelService,
   ) { }
 
   ngOnInit() {
@@ -188,10 +190,11 @@ export class ConsasoagendaComponent implements OnInit {
 
 
   salvarAso(exame: Agendaexame) {
+    console.log("salvar Aso")
+    this.aso = new Asocontrole();
     this.aso.agendado = false;
     this.aso.asotipo = exame.asotipo;
     this.aso.dataexame = exame.datalancamento;
-    this.aso.datavencimento.setDate(this.dataExame.getDate() + exame.asotipo.periodicidade);
     this.aso.funcionario = this.asoAgenda.funcionario;
     this.aso.finalizado = false;
     this.aso.situacao = 'https://tecseg-img.s3.us-east-2.amazonaws.com/atestadodia.png';
@@ -209,16 +212,14 @@ export class ConsasoagendaComponent implements OnInit {
       this.aso.funcionario.situacao = 'Ativo';
       this.aso.funcionario.datasituacao = this.aso.dataexame;
       salvarFunc = true;
+    } else if (this.aso.asotipo.idasotipo === 3) {
+      this.aso.funcionario.funcao = this.asoAgenda.funcao;
+      this.aso.funcionario.datasituacao = this.aso.dataexame;
+      salvarFunc = true;
     }
-    const idfuncao = this.asoAgenda.funcao.idfuncao;
+   
     this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
       this.lastAsoControles = resposta as any;
-      if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
-        this.aso.funcionario.funcao = this.asoAgenda.funcao;
-        this.funcionarioService.atualizar(this.aso.funcionario).subscribe(resposta1 => {
-          this.aso.funcionario = resposta1 as any;
-        });
-      }
       this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
         this.aso = resposta2 as any;
         if (salvarFunc) {
@@ -261,7 +262,6 @@ export class ConsasoagendaComponent implements OnInit {
           this.asoagendaService.salvar(this.asoAgenda).subscribe(
             resposta2 => {
               this.asoAgenda = resposta2 as any;
-              this.lancarExames();
             },
             err => {
               console.log(err.error.erros.join(' '));
@@ -272,13 +272,7 @@ export class ConsasoagendaComponent implements OnInit {
     );
   }
 
-  lancarExames() {
-    for (let exame of this.agendaExames) {
-      if (exame.situacao === 'Finalizado') {
-        this.salvarAso(exame);
-      }
-    }
-  }
+  
 
   fecharModal() {
     this.showModalDataExameOnClick.hide();
@@ -303,4 +297,18 @@ export class ConsasoagendaComponent implements OnInit {
     );  
   }
 
+  GerarAsoControle(exame: Agendaexame) {
+    if (exame.datalancamento === null) {
+      if (exame.situacao != 'Agendado') {
+        this.alertService.showAlertDanger("Preenchar data do Exame");
+      }
+    } else {
+      if (exame.situacao==='Finalizado'){
+        this.salvarAso(exame);
+      }
+    }
+    
+  }
+
+  
 }
