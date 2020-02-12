@@ -35,8 +35,8 @@ export class ConsasoagendaComponent implements OnInit {
   asoAgendas: Asoagenda[];
   asoAgenda: Asoagenda;
   agendaExames: Agendaexame[];
-  @ViewChild('Exames', null) public showModalDataExameOnClick: ModalDirective;
-  @ViewChild('autExames', null) public showModalAutExameOnClick: ModalDirective;
+  @ViewChild('Exames') public showModalDataExameOnClick: ModalDirective;
+  @ViewChild('autExames') public showModalAutExameOnClick: ModalDirective;
   aso: Asocontrole;
   lastAsoControles: Asocontrole;
   listaAutLaboratorio: Autlaboratorio[];

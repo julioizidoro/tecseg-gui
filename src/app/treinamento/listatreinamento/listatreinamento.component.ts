@@ -19,7 +19,7 @@ export class ListatreinamentoComponent implements OnInit {
   participante: Treinamentoparticipante;
   nota: number;
   compareceu : boolean;
-  @ViewChild('notas', null) public showModalNotasOnClick: ModalDirective;
+  @ViewChild('notas') public showModalNotasOnClick: ModalDirective;
 
   constructor(
     private treinamentoService: TreinamentoService,

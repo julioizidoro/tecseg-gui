@@ -24,7 +24,7 @@ export class CadusuarioComponent implements OnInit {
     acessoSelecionado: Acesso;
     acessos: Acesso[];
     public maskCELULAR = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
-    @ViewChild('novasenha', null) public showModalNovaSenhaOnClick: ModalDirective;
+    @ViewChild('novasenha') public showModalNovaSenhaOnClick: ModalDirective;
 
   constructor(
     private formBuilder: FormBuilder,

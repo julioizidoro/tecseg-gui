@@ -22,8 +22,8 @@ export class NavigationComponent implements OnInit {
   formulario: FormGroup;
   file: File;
 
-  @ViewChild('mudarsenha', null) public showModalMudarSenhaOnClick: ModalDirective;
-  @ViewChild('alterarfoto', null) public showModalAlterarFotoOnClick: ModalDirective;
+  @ViewChild('mudarsenha') public showModalMudarSenhaOnClick: ModalDirective;
+  @ViewChild('alterarfoto') public showModalAlterarFotoOnClick: ModalDirective;
 
   constructor(
       private authService: AuthService,
