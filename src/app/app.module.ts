@@ -31,6 +31,7 @@ import { AfastamentoModule } from './afastamento/afastamento.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ShareModule } from './share/share.module';
 import { AlertModalComponent } from './share/alert-modal/alert-modal.component';
+import { ClientesModule } from './clientes/clientes.module';
 
 
 
@@ -72,6 +73,7 @@ registerLocaleData(br, 'pt-BR');
     SetorModule,
     ModalModule.forRoot(),
     ShareModule,
+    ClientesModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

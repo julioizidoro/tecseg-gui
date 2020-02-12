@@ -18,6 +18,10 @@
                     <ul class="navbar-nav mr-auto">
                         <li>
                             <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               routerLink="/consclientes">Clientes</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
                                routerLink="/consfuncionario">Funcionários</a>
                         </li>
                         <li>
@@ -132,7 +136,7 @@
             <li class="nav-item dropdown btn-group" dropdown>
               <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light text-white" mdbWavesEffect>
                 <label>{{ usuario.nome}}</label>
-               <img src='../../../assets/img/001.jpg' width=40 height=40> 
+               <img src={{usuario.urlfoto}} width=40 height=40> 
               </a>
               <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
                 <a class="dropdown-item" (click)="mudarsenha.show()" mdbWavesEffect>Alterar senha</a>

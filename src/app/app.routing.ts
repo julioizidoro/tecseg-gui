@@ -19,6 +19,8 @@ import { ConstipoComponent } from './treinamento/tipo/constipo/constipo.componen
 import { ConstreinamentoComponent } from './treinamento/constreinamento/constreinamento.component';
 import { CadtreinamentoComponent } from './treinamento/cadtreinamento/cadtreinamento.component';
 import { ListatreinamentoComponent } from './treinamento/listatreinamento/listatreinamento.component';
+import { ConsclienteComponent } from './clientes/consclientes/conscliente.component';
+import { CadclienteComponent } from './clientes/cadclientes/cadcliente.component';
 
 
 const APP_ROUTER: Routes = [
@@ -41,6 +43,8 @@ const APP_ROUTER: Routes = [
   { path: 'constreinamento', component: ConstreinamentoComponent },
   { path: 'cadtreinamento', component: CadtreinamentoComponent },
   { path: 'listatreinamento', component: ListatreinamentoComponent },
+  { path: 'cadclientes', component: CadclienteComponent },
+  { path: 'consclientes', component: ConsclienteComponent },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);
