@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { parse } from 'querystring';
+import { AlertModelService } from 'src/app/share/alert-model.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class NavigationComponent implements OnInit {
       private formBuilder: FormBuilder,
       private usuarioService: UsuarioService,
       private funcionarioService: FuncionarioService,
+      private alertService: AlertModelService,
   ) {
     this.clicked = this.clicked === undefined ? false : true;
   }
@@ -160,4 +162,111 @@ exportarSalutar() {
       }
     );
   }
+
+  menuCadastro(menu: string) {
+    let permitir = false;
+      if (menu === 'clientes') {
+        if (this.authService.getUsuario().acesso.clientes) {
+          permitir = true;
+          this.router.navigate(['/consclientes']);
+        } 
+      } else if (menu === 'funcionarios') {
+        if (this.authService.getUsuario().acesso.funcionarios) {
+          permitir = true;
+          this.router.navigate(['/consfuncionario']);
+        } 
+      } else if (menu === 'funcao') {
+        if (this.authService.getUsuario().acesso.funcao) {
+          permitir = true;
+          this.router.navigate(['/consfuncao']);
+        } 
+      } else if (menu === 'loja') {
+        if (this.authService.getUsuario().acesso.loja) {
+          permitir = true;
+          //this.router.navigate(['/consfuncao']);
+        } 
+      } else if (menu === 'treinamento') {
+        if (this.authService.getUsuario().acesso.treinamento) {
+          permitir = true;
+          this.router.navigate(['/constreinamentotipo']);
+        } 
+      } else if (menu === 'tipoexame') {
+        if (this.authService.getUsuario().acesso.tipoexame) {
+          permitir = true;
+          //this.router.navigate(['/constreinamentotipo']);
+        } 
+      } else if (menu === 'acesso') {
+        if (this.authService.getUsuario().acesso.acesso) {
+          permitir = true;
+          //this.router.navigate(['/constreinamentotipo']);
+        } 
+      } else if (menu === 'usuario') {
+        if (this.authService.getUsuario().acesso.usuario) {
+          permitir = true;
+          //this.router.navigate(['/constreinamentotipo']);
+        } 
+      }
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }
+  }
+
+  menuAso(menu: string) {
+    let permitir = false;
+      if (menu === 'agendamento') {
+        if (this.authService.getUsuario().acesso.agendamento) {
+          permitir = true;
+          this.router.navigate(['/consasoagenda']);
+        } 
+      } else if (menu === 'controle') {
+        if (this.authService.getUsuario().acesso.controle) {
+          permitir = true;
+          this.router.navigate(['/consasocontrole']);
+        } 
+      } else if (menu === 'relatorios') {
+        if (this.authService.getUsuario().acesso.relatorios) {
+          permitir = true;
+         // this.router.navigate(['/consfuncao']);
+        } 
+      }
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }  
+  }
+
+  menuMovimento(menu: string) {
+    let permitir = false;
+      if (menu === 'afastamento') {
+        if (this.authService.getUsuario().acesso.afastamento) {
+          permitir = true;
+          //this.router.navigate(['/consasoagenda']);
+        } 
+      } else if (menu === 'salutar') {
+        if (this.authService.getUsuario().acesso.salutar) {
+          permitir = true;
+          this.router.navigate(['/conssalutar']);
+        } 
+      } 
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }  
+  }
+
+  menuAcademia(menu: string) {
+    let permitir = false;
+      if (menu === 'turma') {
+        if (this.authService.getUsuario().acesso.turma) {
+          permitir = true;
+          this.router.navigate(['/constreinamento']);
+        } 
+      } 
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }  
+  }
+
+
+
+
+
 }

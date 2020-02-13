@@ -4,6 +4,7 @@ import { Treinamentotipo } from '../model/treinamentotipo';
 import { Router } from '@angular/router';
 import { TreinamentoService } from '../treinamento.service';
 import { Treinamento } from '../model/treinamento';
+import { AuthService } from 'src/app/usuario/login/auth.service';
 
 @Component({
   selector: 'app-cadtreinamento',
@@ -20,6 +21,7 @@ export class CadtreinamentoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private treinamentoService: TreinamentoService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -75,6 +77,8 @@ export class CadtreinamentoComponent implements OnInit {
 
   salvar() {
     this.treinamento = this.formulario.value;
+    this.treinamento.usuario = this.authService.getUsuario();
+    this.treinamento.situacao = 'Agendado';
     this.treinamentoService.salvar(this.treinamento).subscribe(resposta => {
       this.treinamento = resposta as any;
       this.formulario.reset();

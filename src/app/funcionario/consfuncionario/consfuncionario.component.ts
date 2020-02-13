@@ -280,6 +280,9 @@ export class ConsfuncionarioComponent implements OnInit {
   }
 
   verificarNaoParticipante(funcinario: Funcionario) {
+    if (this.listaParticipante === null) {
+      this.listaParticipante = [];
+    }
     if (this.habilitarTreinamento) {
     for (let i = 0; i < this.listaParticipante.length; i++) {
       if (this.listaParticipante[i].funcionario.idfuncionario === funcinario.idfuncionario) {

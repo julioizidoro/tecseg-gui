@@ -3,13 +3,20 @@ import { Usuario } from 'src/app/usuario/model/usuario';
 export class Acesso {
     idacesso: number;
     nome: string;
-    cadastro: boolean;
-    aso: boolean;
+    clientes: boolean;
+    funcionarios: boolean;
+    funcao: boolean;
+    loja: boolean;
     treinamento: boolean;
-    asoagenda: boolean;
-    asoagendanova: boolean;
-    asocontrole: boolean;
-    asocontrolenovo: boolean;
+    tipoexame: boolean;
+    acesso: boolean;
+    usuario: boolean;
+    agendamento: boolean;
+    controle: boolean;
+    relatorios: boolean;
+    afastamento: boolean;
+    salutar: boolean;
+    turma: boolean;
 
 
 }
