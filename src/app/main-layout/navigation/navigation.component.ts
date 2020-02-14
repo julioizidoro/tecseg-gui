@@ -205,6 +205,21 @@ exportarSalutar() {
           permitir = true;
           //this.router.navigate(['/constreinamentotipo']);
         } 
+      } else if (menu === 'produto') {
+        if (this.authService.getUsuario().acesso.produto) {
+          permitir = true;
+          this.router.navigate(['/consproduto']);
+        } 
+      }else if (menu === 'produtogrupo') {
+        if (this.authService.getUsuario().acesso.produtogrupo) {
+          permitir = true;
+          //this.router.navigate(['/consproduto']);
+        } 
+      }else if (menu === 'fornecedor') {
+        if (this.authService.getUsuario().acesso.fornecedor) {
+          permitir = true;
+          this.router.navigate(['/consfornecedor']);
+        } 
       }
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
@@ -260,6 +275,39 @@ exportarSalutar() {
           this.router.navigate(['/constreinamento']);
         } 
       } 
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }  
+  }
+
+  menuEPI(menu: string) {
+    let permitir = false;
+      if (menu === 'epi') {
+        if (this.authService.getUsuario().acesso.epi) {
+          permitir = true;
+          //this.router.navigate(['/constreinamento']);
+        } 
+      } else if (menu === 'uniformes') {
+        if (this.authService.getUsuario().acesso.uniformes) {
+          permitir = true;
+          //this.router.navigate(['/constreinamento']);
+        } 
+      } else if (menu === 'epicontrole') {
+        if (this.authService.getUsuario().acesso.epicontrole) {
+          permitir = true;
+          //this.router.navigate(['/constreinamento']);
+        } 
+      } else if (menu === 'epitipo') {
+        if (this.authService.getUsuario().acesso.epitipo) {
+          permitir = true;
+          //this.router.navigate(['/constreinamento']);
+        } 
+      }else if (menu === 'epicompras') {
+        if (this.authService.getUsuario().acesso.epicompras) {
+          permitir = true;
+          //this.router.navigate(['/constreinamento']);
+        } 
+      }
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
       }  

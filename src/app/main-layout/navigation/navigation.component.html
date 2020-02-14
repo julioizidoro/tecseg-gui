@@ -26,6 +26,18 @@
                         </li>
                         <li>
                             <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               (click)="menuCadastro('fornecedor')">Fornecedores</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               (click)="menuCadastro('produto')">Produtos</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
+                               (click)="menuCadastro('produtogrupo')">Grupo Produtos</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect border-bottom"
                             (click)="menuCadastro('funcao')" >Função</a>
                         </li>
                         <li>
@@ -71,6 +83,34 @@
                         <li>
                             <a class="nav-item list-group-item list-group-item-action waves-effect"
                             (click)="menuAso('relatorios')">Relatórios</a>
+                        </li>
+                    </ul>
+                </links>
+            </mdb-navbar>
+            <mdb-navbar SideClass="navbar navbar-1 navbar-light lighten-2 p-0 box border-bottom" [containerInside]="false">
+                <!-- Navbar brand -->
+                <mdb-navbar-brand>
+                    <a  class="list-group-item list-group-item-action waves-effect mt-1" >
+                        <mdb-icon fas icon="exchange-alt" class="mr-3"></mdb-icon><span>EPI´s</span>
+                    </a>
+                </mdb-navbar-brand>
+                <links>
+                    <ul class="navbar-nav mr-auto">
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               (click)="menuEPI('Epi')">Epi</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               (click)="menuEPI('uniformes')">Uniformes</a>
+                        </li>
+                        <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               (click)="menuEPI('epicontrole')">Controle</a>
+                        </li>
+                         <li>
+                            <a class="nav-item list-group-item list-group-item-action waves-effect"
+                               (click)="menuEPI('epicompras')">Compras</a>
                         </li>
                     </ul>
                 </links>

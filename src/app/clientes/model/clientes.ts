@@ -2,7 +2,7 @@ export class Clientes {
 
     idclientes: number;
     nome: string;
-    tipo: string;
+    tipojuridico: string;
     cpf: string;
     datanascimento: Date;
     logradouro: string;
@@ -17,5 +17,6 @@ export class Clientes {
     codigosysmo: string;
     email: string;
     contato: string;
-
+    tipo: string;
+    
 }

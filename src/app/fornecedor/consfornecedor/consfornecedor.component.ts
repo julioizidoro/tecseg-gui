@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Clientes } from 'src/app/clientes/model/clientes';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Clientes } from '../model/clientes';
-import { ClientesService } from '../clientes.service';
+import { ClientesService } from 'src/app/clientes/clientes.service';
 
 @Component({
-  selector: 'app-conscliente',
-  templateUrl: './conscliente.component.html',
-  styleUrls: ['./conscliente.component.scss']
+  selector: 'app-consfornecedor',
+  templateUrl: './consfornecedor.component.html',
+  styleUrls: ['./consfornecedor.component.scss']
 })
-export class ConsclienteComponent implements OnInit {
+export class ConsfornecedorComponent implements OnInit {
 
-    clientes: Clientes[];
+  clientes: Clientes[];
     formulario: FormGroup;
     isFirstOpen = false;
     oneAtATime: true;
@@ -30,7 +30,7 @@ export class ConsclienteComponent implements OnInit {
   }
 
   consultar() {
-    this.clientesService.listar('c').subscribe(
+    this.clientesService.listar('f').subscribe(
       resposta => {
         this.clientes = resposta as any;
       }
@@ -43,10 +43,10 @@ export class ConsclienteComponent implements OnInit {
       nome = '@';
     }
     let email = '@';
-    if (nome == null) {
-      nome = '@';
+    if (email == null) {
+      email = '@';
     }
-    this.clientesService.pesquisar(nome, email, 'c').subscribe(
+    this.clientesService.pesquisar(nome, email, 'f').subscribe(
      resposta => {
        this.clientes = resposta as any;
      }
@@ -56,7 +56,7 @@ export class ConsclienteComponent implements OnInit {
 
  editar(cliente: Clientes) {
     this.clientesService.setCliente(cliente);
-    this.router.navigate(['/cadclientes']);
+    this.router.navigate(['/cadfornecedor']);
  }
 
 }

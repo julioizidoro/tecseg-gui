@@ -30,8 +30,10 @@ import { routing } from './app.routing';
 import { AfastamentoModule } from './afastamento/afastamento.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { ShareModule } from './share/share.module';
-import { AlertModalComponent } from './share/alert-modal/alert-modal.component';
 import { ClientesModule } from './clientes/clientes.module';
+import { FornecedorModule } from './fornecedor/fornecedor.module';
+import { ProdutogrupoModule } from './produtogrupo/produtogrupo.module';
+import { ProdutoModule } from './produto/produto.module';
 
 
 
@@ -74,6 +76,10 @@ registerLocaleData(br, 'pt-BR');
     ModalModule.forRoot(),
     ShareModule,
     ClientesModule,
+    FornecedorModule,
+    ProdutoModule,
+    ProdutogrupoModule,
+    
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

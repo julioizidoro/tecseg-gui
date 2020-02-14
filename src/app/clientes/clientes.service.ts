@@ -23,8 +23,12 @@ export class ClientesService {
     return this.cliente;
   }
 
-  listar(nome: string): Observable<Clientes> {
-    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/listar/' + nome);
+  pesquisar(nome: string, email: string, tipo: string): Observable<Clientes> {
+    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/listar/' + nome + '/' + email + '/' + tipo);
+  }
+
+  listar(tipo: string): Observable<Clientes> {
+    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/listar/tipo' +tipo);
   }
 
   salvar(cliente: Clientes): Observable<any> {

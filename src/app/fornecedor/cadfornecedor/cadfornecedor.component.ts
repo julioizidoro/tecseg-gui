@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Usuario } from 'src/app/usuario/model/usuario';
-import { AuthService } from 'src/app/usuario/login/auth.service';
+import { Clientes } from 'src/app/clientes/model/clientes';
 import { Cep } from 'src/app/share/model/cep';
-import { Clientes } from '../model/clientes';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Usuario } from 'src/app/usuario/model/usuario';
 import { ConsultacepService } from 'src/app/share/consultacep.service';
-import { ClientesService } from '../clientes.service';
+import { ClientesService } from 'src/app/clientes/clientes.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/usuario/login/auth.service';
 
 @Component({
-  selector: 'app-cadcliente',
-  templateUrl: './cadcliente.component.html',
-  styleUrls: ['./cadcliente.component.scss']
+  selector: 'app-cadfornecedor',
+  templateUrl: './cadfornecedor.component.html',
+  styleUrls: ['./cadfornecedor.component.scss']
 })
-export class CadclienteComponent implements OnInit {
+export class CadfornecedorComponent implements OnInit {
 
   formulario: FormGroup;
   cep: Cep;
@@ -117,12 +117,12 @@ setTipoJuridico() {
 
 salvar() {
   this.cliente = this.formulario.value;
-  this.cliente.tipo = 'c';
+  this.cliente.tipo = 'f';
   this.clientesService.salvar(this.cliente).subscribe(
     resposta => {
       this.cliente = resposta as any;
       this.clientesService.setCliente(null);
-      this.router.navigate(['/consclientes']);
+      this.router.navigate(['/consfornecedor']);
     },
     err => {
       console.log(err.error.erros.join(' '));
@@ -133,7 +133,7 @@ salvar() {
 cancelar() {
   this.formulario.reset();
   this.clientesService.setCliente(null);
-  this.router.navigate(['/consclientes']);
+  this.router.navigate(['/consfornecedor']);
 }
 
 setFormularioNulo() {

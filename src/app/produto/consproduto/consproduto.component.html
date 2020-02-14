@@ -2,15 +2,15 @@
 <div class="page-header">
     <div class="container-fluid">
         <h3>
-            Consulta de Clientes
+            Consulta de Produtos
         </h3>
         <hr />
     </div>
     <form [formGroup]="formulario">
         <div class="container-fluid" style="width:100%;">
             <div class="w-100">
-                <button type="button" style="float:right;" class="btn btn-success font-weight-light" 
-                    routerLink="/cadclientes">
+                <button type="button" style="float:right;" class="btn btn-primary font-weight-light" 
+                    routerLink="/cadproduto">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     <a class="ml-2">Adicionar</a>
                 </button>
@@ -20,16 +20,16 @@
                 <accordion [closeOthers]="oneAtATime">
                     <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen" class="primary">
                         <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputNome2">Nome</label>
-                                <input type="text" class="form-control" id="exampleInputNome2" placeholder="Nome"
-                                    formControlName="nome">
+                            <div class="form-group col-md-3">
+                                <label for="exampleInputNome2">Código</label>
+                                <input type="text" class="form-control" id="exampleInputNome2" placeholder="Código"
+                                    formControlName="codigo">
                             </div>
-                      <!--      <div class="form-group col-md-6">
-                                <label for="exampleInputEmail2">Email</label>
-                                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email"
-                                    formControlName="email">
-                            </div> -->
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputEmail2">Descrição</label>
+                                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="Descrição"
+                                    formControlName="descricao">
+                            </div>
                             <div class="form-group col-md-12 text-right">
                                 <button type="button" class="btn btn-primary" (click)="pesquisar()">
                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -51,34 +51,35 @@
                     <thead>
                         <tr
                             class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
-                            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">CPF</th>
-                            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Email</th>
-                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Telefone</th>
-                            <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Sysmo</th>
+                            <th class="col-lg-5 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Descrição</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Unidade</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Estoque</th>
                             <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
                                 style="text-align: center;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let cliente of clientes"
+                        <tr *ngFor="let estoque of listaEstoque"
                             class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                                {{cliente.nome}}</td>
+                            <td class="col-lg-5 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                                {{estoque.produto.descricao}}</td>
                             <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                                {{cliente.cpf}}</td>
-                            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                                style="border: none;">{{cliente.email}}</td>
+                                {{estoque.produto.unidade}}</td>
                             <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                                style="border: none;">{{cliente.fonecelular}}</td>
-                            <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                                style="border: none;">{{cliente.codigosysmo}}</td>
+                                style="border: none;">{{estoque.quantidadeestoque}}</td>
                             <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
 
                                 <button type="button" style="float:right;" class="btn btn-light font-weight-light mr-1 p-1" 
-                                    (click)="editar(cliente)" title="Editar">
+                                    (click)="editar(estoque)" title="Editar">
                                     <i class="fa fa-pencil-alt" aria-hidden="true"></i>
                                 </button>
+                                <div >
+                                    <button type="button" style="float:right;"
+                                        class="btn btn-light font-weight-light mr-1 p-1" 
+                                        title="Selecionar Produto">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

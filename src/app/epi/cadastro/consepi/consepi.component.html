@@ -1,0 +1,104 @@
+<br /><br />
+<div class="page-header">
+    <div class="container-fluid">
+        <h3>
+            Consulta de EPI´s
+        </h3>
+        <hr />
+    </div>
+    <form [formGroup]="formulario">
+        <div class="container-fluid" style="width:100%;">
+            <div class="w-100">
+                <button type="button" style="float:right;" class="btn btn-primary font-weight-light" 
+                    routerLink="/cadepi">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <a class="ml-2">Adicionar</a>
+                </button>
+            </div>
+            <br><br>
+            <div class="w-100">
+                <accordion [closeOthers]="oneAtATime">
+                    <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen" class="primary">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="exampleInputNome2">Descrição</label>
+                                <input type="text" class="form-control" id="exampleInputNome2" placeholder="Código"
+                                    formControlName="descricao">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="tipo">Tipo</label>
+                                <select class="form-control" formControlName="epiTipo"  [compareWith]="compararTipo" (change)="setTipo()">
+                                    <option *ngFor="let tipo of listaEpiTipo" [ngValue]="tipo"> {{ tipo.descricao }}</option>
+                                 </select>
+                            </div>
+                            
+                            <div class="form-group col-md-12 text-right">
+                                <button type="button" class="btn btn-primary" (click)="pesquisar()">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    Pesquisar
+                                </button>
+                                <button type="submit" class="btn btn-danger" style="margin-left:1%;"
+                                    (click)="consultar()">
+                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    Limpar
+                                </button>
+                            </div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </div>
+
+            <div class="table-responsive-lg">
+                <table class="table table-striped">
+                    <thead>
+                        <tr
+                            class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                            <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Descrição</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Unidade</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Estoque</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Mínimo</th>
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
+                                style="text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let epi of listaEpi"
+                            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                            <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                                {{epi.estoque.produto.descricao}}</td>
+                            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                                {{epi.estoque.produto.unidade}}</td>
+                            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                                style="border: none;">{{epi.estoque.quantidadeestoque}}</td>
+                            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                                style="border: none;">{{epi.estoque.quantidademinima}</td>
+                                <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                                style="border: none;">
+                                <li class="nav-item dropdown btn-group" dropdown>
+                                  <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light text-primary" mdbWavesEffect>
+                                    <i class="fas fa-ellipsis-v" title="Ações"></i>
+                                  </a>
+                                  <div class="dropdown-menu dropdown-primary dropdown-menu-left" role="menu">
+                                    <a class="dropdown-item">
+                                      <a style="color: green;margin-left: 10%;" (click)="editar(epi)">
+                                        <i class="far fa-edit" title="Editar"></i>
+                                    </a>
+                                    <a style="color: blue;margin-left: 10%;" (click)="baixar(epi)">
+                                      <i class="fas fa-check-double" title="Baixar"></i>
+                                  </a>
+                                <a style="color: green;margin-left: 10%;" >
+                                  <a href="{{imprimir()}}" target="_blank" >
+                                  <i class="fas fa-print" title="Imprimir"></i></a>
+                                </a>
+                                    </a>
+                                  </div>
+                                </li>
+                              
+                              </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

@@ -17,6 +17,13 @@ export class Acesso {
     afastamento: boolean;
     salutar: boolean;
     turma: boolean;
-
+    produto: boolean;
+    produtogrupo: boolean;
+    epitipo: boolean;
+    fornecedor: boolean;
+    epicompras: boolean;
+    epicontrole: boolean;
+    uniformes: boolean;
+    epi: boolean;
 
 }
