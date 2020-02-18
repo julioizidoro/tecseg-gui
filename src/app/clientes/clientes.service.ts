@@ -39,4 +39,8 @@ export class ClientesService {
     return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/' +  id);
   }
 
+  getAniversariantes(): Observable<Clientes> {
+    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/aniversario');
+  }
+
 }

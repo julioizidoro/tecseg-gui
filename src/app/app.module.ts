@@ -34,6 +34,9 @@ import { ClientesModule } from './clientes/clientes.module';
 import { FornecedorModule } from './fornecedor/fornecedor.module';
 import { ProdutogrupoModule } from './produtogrupo/produtogrupo.module';
 import { ProdutoModule } from './produto/produto.module';
+import { ContasModule } from './contas/contas.module';
+import { MomentModule } from 'angular2-moment';
+
 
 
 
@@ -79,7 +82,8 @@ registerLocaleData(br, 'pt-BR');
     FornecedorModule,
     ProdutoModule,
     ProdutogrupoModule,
-    
+    ContasModule,
+    MomentModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
