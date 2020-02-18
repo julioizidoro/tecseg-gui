@@ -78,13 +78,14 @@ getTreinamentoTipo() {
   }
 
   deletarParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {
-    const options = {
+   /* const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
       body: treinamentoParticipante,
     };
-    return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/deletar', options);
+    return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/deletar', options);*/
+    return this.httpClient.delete<any>(env.baseApiUrl + 'treinamentos/participante/deletar/' + treinamentoParticipante.idtreinamentoparticipante);
   }
 
 }

@@ -48,12 +48,24 @@ export class ListatreinamentoComponent implements OnInit {
   removerTreinamentoFuncionario(participante: Treinamentoparticipante) {
     this.treinamentoService.deletarParticipante(participante).subscribe(
       reposta => {
-        participante = reposta as any;
+        let retorno = reposta as any;
+        this.removerParticipante(participante);
       },
       err => {
         console.log(err.error.erros.join(' '));
       }
     );
+  }
+
+  removerParticipante(participante: Treinamentoparticipante) {
+    let lista: Treinamentoparticipante[];
+    lista = [];
+    for (let i = 0; i < this.participantes.length; i++) {
+      if (this.participantes[i].funcionario.idfuncionario != participante.funcionario.idfuncionario) {
+        lista.push(this.participantes[i]);   
+      }
+    }
+    this.participantes = lista;
   }
 
   addParticipantes() {

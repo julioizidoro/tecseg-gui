@@ -28,7 +28,7 @@ export class ClientesService {
   }
 
   listar(tipo: string): Observable<Clientes> {
-    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/listar/tipo' +tipo);
+    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/listar/tipo/' +tipo);
   }
 
   salvar(cliente: Clientes): Observable<any> {

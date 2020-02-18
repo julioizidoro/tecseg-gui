@@ -55,16 +55,7 @@ pesquisar() {
           this.estoqueService = resposta as any;
         }
       );  
-    } else {
-      let codigoBarras = this.formulario.get('codgiobarras').value;
-      if (codigoBarras!= null){
-        this.estoqueService.listarProdutoCodigoBarras(codigoBarras).subscribe(
-          resposta => {
-            this.listaEstoque = resposta as any;
-          }
-       );
-      }  
-    }
+    } 
   }
 }
 
