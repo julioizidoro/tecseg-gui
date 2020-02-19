@@ -9,7 +9,6 @@ import { CascadingPanelComponent } from './shared/components/cascading-panel/cas
 import { CascadingCardComponent } from './shared/components/cascading-card/cascading-card.component';
 import { PanelComponent } from './shared/components/panel/panel.component';
 import { OverlayCardComponent } from './shared/components/overlay-card/overlay-card.component';
-import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   imports: [
@@ -25,7 +24,6 @@ import { MomentModule } from 'angular2-moment';
     CascadingCardComponent,
     OverlayCardComponent,
     PanelComponent,
-    MomentModule,
   ],
   exports: [
     DashboardComponent,

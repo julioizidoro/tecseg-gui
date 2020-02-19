@@ -39,9 +39,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.master = false;
-    this.comercial =false;
     if (this.authService.getUsuario().acesso.nome === 'Master') {
+      this.master = true;
+      this.comercial = false;
+      console.log(this.master);
       this.asoAgendaService.pesquisarData7().subscribe(
         resposta => {
           this.asoAgendas = resposta as any;
@@ -53,6 +54,8 @@ export class DashboardComponent implements OnInit {
         }
       );
     } else if (this.authService.getUsuario().acesso.nome === 'Comercial') {
+      this.master = false;
+      this.comercial = true;
       this.gerarDashBoardComercial();
     }
   }
