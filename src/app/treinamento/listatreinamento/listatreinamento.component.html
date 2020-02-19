@@ -57,7 +57,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of participantes"
+          <tr *ngFor="let p of participantes" 
             class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
             <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
               {{p.funcionario.nome}}</td>
@@ -101,7 +101,7 @@
 
 
 <!-- Lançar notas e presença -->
-<!--
+
 <div mdbModal #notas="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel"
   aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
   <div class="modal-dialog" role="document">
@@ -115,16 +115,16 @@
       <div class="text-left p-2">
         <div>
           <div class="form-group col-md-6 col-sm-12">
-            <p>Nome: {{participante.funcionario.nome}}</p>
+            <p>Função: {{participante.funcionario.funcao.nome}}</p>
           </div>  
         </div>
         <div class="form-group col-md-6 col-sm-12">
           <label for="dataexame">Nota</label>
-          <input type="date" class="form-control" id="dataexame" [(ngModel)]="dataExame">
+          <input type="number" class="form-control" id="dataexame" [(ngModel)]="nota">
         </div>
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label class="radio-inline"><input type="radio" name="optradio" value="false">Compareceu</label>
-          <label class="radio-inline"><input type="radio" name="optradio" value="true">Faltou</label>
+          <label class="radio-inline"><input type="radio" name="optradio" value="true" [(ngModel)]="compareceu">Compareceu</label>
+          <label class="radio-inline"><input type="radio" name="optradio" value="false" [(ngModel)]="compareceu">Faltou</label>
           <br>
         </div>
         <div class="modal-footer">
@@ -139,4 +139,4 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>

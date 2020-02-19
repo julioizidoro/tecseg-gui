@@ -77,6 +77,10 @@ getTreinamentoTipo() {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/salvar', treinamentoParticipante);
   }
 
+  salvarNotaParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {
+    return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/nota', treinamentoParticipante);
+  }
+
   deletarParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {
    /* const options = {
       headers: new HttpHeaders({

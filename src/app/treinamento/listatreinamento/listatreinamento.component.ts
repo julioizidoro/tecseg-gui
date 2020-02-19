@@ -5,11 +5,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { TreinamentoService } from '../treinamento.service';
 import { Treinamento } from '../model/treinamento';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { Funcionario } from 'src/app/funcionario/model/funcionario';
+import { Funcao } from 'src/app/funcao/model/funcao';
 
 @Component({
   selector: 'app-listatreinamento',
   templateUrl: './listatreinamento.component.html',
-  styleUrls: ['./listatreinamento.component.scss']
+  styleUrls: ['./listatreinamento.component.scss'],
+  exportAs: 'child'
 })
 export class ListatreinamentoComponent implements OnInit {
 
@@ -19,17 +22,24 @@ export class ListatreinamentoComponent implements OnInit {
   participante: Treinamentoparticipante;
   nota: number;
   compareceu : boolean;
-  @ViewChild('notas') public showModalNotasOnClick: ModalDirective;
+  @ViewChild('notas') showModalNotasOnClick: ModalDirective;
 
   constructor(
     private treinamentoService: TreinamentoService,
     private funcionarioService: FuncionarioService,
     private router: Router,
-  ) { }
+  ) { 
+
+    
+  }
 
   ngOnInit() {
-    this.participantes = [];
     this.treinamento = this.treinamentoService.getTreinamento();
+    this.participante = new Treinamentoparticipante();
+    this.participante.funcionario = new Funcionario();
+    this.participante.funcionario.nome = 'nome';
+    this.participante.funcionario.funcao = new Funcao();
+    this.participante.funcionario.funcao.nome = ' ';
     if (this.treinamento.situacao === 'Agendado') {
       this.trenamentoFinalizado = false;
     } else {
@@ -74,6 +84,15 @@ export class ListatreinamentoComponent implements OnInit {
     this.router.navigate([ '/consfuncionario']);
   }
 
+  atualizarParticipante(participante: Treinamentoparticipante) {
+    for (let i = 0; i < this.participantes.length; i++) {
+      if (this.participantes[i].funcionario.idfuncionario === participante.funcionario.idfuncionario) {
+        this.participantes[i] = participante;   
+        i = this.participantes.length+100;
+      }
+    }
+  }
+
   presentaNota(participante: Treinamentoparticipante) {
     this.participante = participante;
     this.nota = participante.nota;
@@ -85,14 +104,15 @@ export class ListatreinamentoComponent implements OnInit {
     this.showModalNotasOnClick.hide();
     this.participante.nota = this.nota;
     this.participante.compareceu = this.compareceu;
-  //  this.treinamentoService.salvarParticipante(this.participante).subscribe(
-    //  resposta => {
-      //  this.participante = resposta as any;
-     // },
-    ///  err => {
-     //   console.log(err.error.erros.join(' '));
-    //  }
-   // );
+    this.treinamentoService.salvarNotaParticipante(this.participante).subscribe(
+      resposta => {
+        this.participante = resposta as any;
+        this.atualizarParticipante(this.participante);
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
   }
 
   cancelarNota() {
