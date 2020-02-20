@@ -31,10 +31,10 @@ export class CadprodutoComponent implements OnInit {
 
   ngOnInit() {
     this.produtogrupo = new Produtogrupo();
-    this.produtogrupo.descricao = '';
     this.listarProdutoGrupo();
     this.estoque = this.estoqueService.getEstoque();
     if (this.estoque == null) {
+      this.produtogrupo.descricao = '';
       this.estoque = new Estoque();
       this.estoque.produto = new Produto();
       this.formulario = this.formBuilder.group({
@@ -49,6 +49,7 @@ export class CadprodutoComponent implements OnInit {
         }),
       });
     } else {
+      this.produtogrupo = this.estoque.produto.produtogrupo;
       this.formulario = this.formBuilder.group({
 
         idestoque: this.estoque.idestoque,

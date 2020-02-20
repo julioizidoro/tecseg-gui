@@ -15,7 +15,7 @@ export class ConsclienteComponent implements OnInit {
     formulario: FormGroup;
     isFirstOpen = false;
     oneAtATime: true;
-
+    
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -58,5 +58,14 @@ export class ConsclienteComponent implements OnInit {
     this.clientesService.setCliente(cliente);
     this.router.navigate(['/cadclientes']);
  }
+
+ selecionarCliente(clienteSelecionado: Clientes) {
+  if (this.clientesService.sgetRota() === 'contasr') {
+      this.clientesService.setRota(null);
+      this.clientesService.setCliente(clienteSelecionado);
+      this.router.navigate(['/cadreceber']);
+      console.log('parar');
+  } 
+}
 
 }

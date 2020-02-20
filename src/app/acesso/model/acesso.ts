@@ -25,5 +25,8 @@ export class Acesso {
     epicontrole: boolean;
     uniformes: boolean;
     epi: boolean;
+    epibaixa: boolean;
+    contas: boolean;
+    contausuario: boolean;
 
 }

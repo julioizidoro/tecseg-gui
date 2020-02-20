@@ -280,6 +280,19 @@ exportarSalutar() {
       }  
   }
 
+  menuFinanceiro(menu: string) {
+    let permitir = false;
+      if (menu === 'cr') {
+        if (this.authService.getUsuario().acesso.contas) {
+          permitir = true;
+          this.router.navigate(['/consreceber']);
+        } 
+      } 
+      if (!permitir) {
+        this.alertService.showAlertDanger("Acesso negado.");
+      }  
+  }
+
   menuEPI(menu: string) {
     let permitir = false;
       if (menu === 'epi') {

@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 export class ClientesService {
 
   private cliente: Clientes;
+  private rota: string;
 
   constructor(
     private httpClient: HttpClient,
@@ -21,6 +22,14 @@ export class ClientesService {
 
   getCliente() {
     return this.cliente;
+  }
+
+  setRota(rota: string) {
+    this.rota = rota;
+  }
+
+  sgetRota() {
+    return this.rota;
   }
 
   pesquisar(nome: string, email: string, tipo: string): Observable<Clientes> {

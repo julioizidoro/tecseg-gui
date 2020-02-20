@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { ContasService } from '../contas.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/usuario/login/auth.service';
+import { ClientesService } from 'src/app/clientes/clientes.service';
 
 @Component({
   selector: 'app-cadcontas',
@@ -23,20 +24,29 @@ export class CadcontasComponent implements OnInit {
   habilitar: string;
   receber: boolean;
 
+
   constructor(
     private contasService: ContasService,
     private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private clienteService: ClientesService,
   ) {
     this.conta = this.contasService.getContas();
   }
 
   ngOnInit() {
     this.receber = this.contasService.getReceber();
-    this.clienteSelecionado = new Clientes();
-    this.clienteSelecionado.nome = '';
-    this.nomeCliente = '';
+    this.clienteSelecionado = this.clienteService.getCliente();
+    console.log('parar');
+    if (this.clienteSelecionado == null) {
+      this.clienteSelecionado = new Clientes();  
+      this.clienteSelecionado.nome = '';
+      this.nomeCliente = 'Nome do cliente'
+    } else {
+      this.nomeCliente = this.clienteSelecionado.nome;
+      this.clienteService.setCliente(null);
+    }
     this.setFormulario();
     if (this.conta != null) {
       this.clienteSelecionado = this.conta.clientes;
@@ -55,15 +65,12 @@ export class CadcontasComponent implements OnInit {
       });
     } else {
       this.conta = new Contas();
-      this.clienteSelecionado = this.contasService.getCliente();
-      if (this.clienteSelecionado != null) {
-        this.nomeCliente = this.clienteSelecionado.nome;
-      }
     }
   }
 
   consultaCliente() {
-    this.router.navigate(['/consCliente', 'contasr']);
+    this.clienteService.setRota('contasr');
+    this.router.navigate(['/consclientes']);
   }
 
   salvar() {
@@ -84,7 +91,7 @@ export class CadcontasComponent implements OnInit {
         this.conta = resposta as any;
         this.contasService.setContas(null);
         this.contasService.setICliente(null);
-        this.router.navigate(['/consconta']);
+        this.router.navigate(['/consreceber']);
       },
       err => {
         console.log(err.error.erros.join(' '));
@@ -94,7 +101,9 @@ export class CadcontasComponent implements OnInit {
 
   cancelar() {
     this.formulario.reset();
-    this.router.navigate(['/conconta']);
+    this.contasService.setContas(null);
+    this.contasService.setICliente(null);
+    this.router.navigate(['/consreceber']);
   }
 
   setFormulario() {

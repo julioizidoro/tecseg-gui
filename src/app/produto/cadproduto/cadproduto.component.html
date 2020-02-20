@@ -9,13 +9,19 @@
     <div style="width:100%;">
         <form [formGroup]="formulario">
             <div formGroupName="produto" class="row">
-                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-1">
+                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-2">
                    
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-8">
                     <label for="descricao">Descrição</label>
                     <input type="text" class="form-control" id="descricao" placeholder="Descrição"
                         formControlName="descricao">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-2">
+                   
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-2">
+                   
                 </div>
 
                 <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
@@ -24,16 +30,11 @@
                         <option value="UN">Unidade</option>
                         <option value="KG">Kilograma</option>
                         <option value="MT">Metro</option>
+                        <option value="PC">Peça</option>
                     </select>
                 </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-1">
-                   
-                </div>
-                <div class="form-group col-xs-12 col-sm-12 col-md-1 col-lg-1">
-                   
-                </div>
 
-                <div class="form-group col-md-4" >
+                <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
                     <label for="grupo">Grupo</label>
                     <select class="form-control" formControlName="produtogrupo"  [compareWith]="compararProdutoGrupo" (change)="setProdutoGrupo()" >
                         <option *ngFor="let produtogrupo of listaProdutoGrupo" [ngValue]="produtogrupo"> {{ produtogrupo.descricao }}</option>
@@ -46,13 +47,6 @@
     </div>
   
    
-
-    <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
-        <label for="estoqueminimo">Estoque minimo</label>
-        <input type="number" class="form-control" id="estoqueminimo" placeholder="0,000"
-            formControlName="quantidademinima">
-    </div>
-  
 
     
     <div class="mt-3 w-100 text-right">

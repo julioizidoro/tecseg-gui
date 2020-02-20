@@ -81,4 +81,9 @@ export class ContasService {
   pesquisarReceberVencimentoCR(dataInicial: string, dataFinal: string, nome: string):  Observable<any> {
     return this.httpCliente.post<any>(env.baseApiUrl + 'cr/dvreceber/', dataInicial + '/' + dataFinal + '/' + nome );
   }
+
+  // Todas contas receber DashBoard
+  getTodasDashboardCR():  Observable<any> {
+    return this.httpCliente.get<any>(env.baseApiUrl + 'cr/todas/');
+  }
 }
