@@ -5,6 +5,7 @@ import { Salutar } from './model/salutar';
 import { Loja } from '../loja/model/loja';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Salutarfuncionario } from './model/salutarfuncionario';
+import { PagSalutar } from './model/PagSalutar';
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +70,10 @@ export class SalutarService {
 
   salvarSalutarFuncionario(salutarFuncionario: Salutarfuncionario[]): Observable<any> {
     return this.httpClient.post<any>(env.baseApiUrl + 'salutarfuncionario/salvar', salutarFuncionario);
+  }
+
+  calcularValorSalutar(dataincial: Date, datafinal: Date, idloja: number) : Observable<any> {
+    return this.httpClient.get<any>(env.baseApiUrl + 'asocontrole/dataexame/' + dataincial + '/' + datafinal + '/' + idloja);
   }
 
 

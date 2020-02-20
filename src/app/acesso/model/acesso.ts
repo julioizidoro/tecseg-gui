@@ -28,5 +28,6 @@ export class Acesso {
     epibaixa: boolean;
     contas: boolean;
     contausuario: boolean;
+    calculosalutar: boolean;
 
 }

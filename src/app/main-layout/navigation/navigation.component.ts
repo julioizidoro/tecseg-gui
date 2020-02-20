@@ -261,6 +261,11 @@ exportarSalutar() {
           permitir = true;
           this.router.navigate(['/conssalutar']);
         } 
+      }  else if (menu === 'calculosalutar') {
+        if (this.authService.getUsuario().acesso.calculosalutar) {
+          permitir = true;
+          this.router.navigate(['/pagsalutar']);
+        } 
       } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
