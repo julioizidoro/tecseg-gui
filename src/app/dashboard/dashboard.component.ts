@@ -66,13 +66,14 @@ export class DashboardComponent implements OnInit {
   }
 
   gerarDashBoardComercial() {
+    console.log('comercial');
     let dataInicial: Date;
     let dataFinal: Date;
     dataInicial = new Date();
     dataFinal = new Date();
     dataInicial.setDate(dataInicial.getDate() - 15);
     dataFinal.setDate(dataFinal.getDate() + 30)
-    this.contasService.pesquisarTodasVencimentoCR((moment(dataInicial, 'dd/MM/yyyy').format('dd/MM/yyyy')), (moment(dataFinal, 'dd/MM/yyyy').format('dd/MM/yyyy')), '@').subscribe(
+    this.contasService.pesquisarTodasVencimentoCR(((dataInicial.getDate(), 'dd/MM/yyyy')), (dataFinal.getDate(), 'dd/MM/yyyy'), '@').subscribe(
       resposta => {
         this.listaContas = resposta as any;
       },

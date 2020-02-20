@@ -40,7 +40,7 @@ export class ClientesService {
   }
 
   getAniversariantes(): Observable<Clientes> {
-    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/aniversario');
+    return this.httpClient.get<Clientes>(env.baseApiUrl + 'clientes/aniversariantes');
   }
 
 }

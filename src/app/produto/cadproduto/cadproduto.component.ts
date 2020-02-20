@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EstoqueService } from 'src/app/estoque/estoque.service';
 import { Produto } from '../model/produto';
+import { Produtogrupo } from 'src/app/produtogrupo/model/produtogrupo';
+import { ProdutogrupoService } from 'src/app/produtogrupo/produtogrupo.service';
+import { TypeaheadOptions } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-cadproduto',
@@ -16,14 +19,20 @@ export class CadprodutoComponent implements OnInit {
    formulario: FormGroup;
    unidade: string;
    materiaprima : boolean;
+   listaProdutoGrupo: Produtogrupo[];
+   produtogrupo: Produtogrupo;
    
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private estoqueService: EstoqueService,
+    private produtoGrupoService: ProdutogrupoService,
   ) { }
 
   ngOnInit() {
+    this.produtogrupo = new Produtogrupo();
+    this.produtogrupo.descricao = '';
+    this.listarProdutoGrupo();
     this.estoque = this.estoqueService.getEstoque();
     if (this.estoque == null) {
       this.estoque = new Estoque();
@@ -36,6 +45,7 @@ export class CadprodutoComponent implements OnInit {
           idpoduto: [null],
           descricao: [null],
           unidade: [null],
+          produtogrupo: [null],
         }),
       });
     } else {
@@ -48,10 +58,23 @@ export class CadprodutoComponent implements OnInit {
           idpoduto: this.estoque.produto.idproduto,
           descricao: this.estoque.produto.descricao,
           unidade: this.estoque.produto.unidade,
+          grupoproduto: this.estoque.produto.produtogrupo,
         }),
       });
     }
     
+  }
+
+  listarProdutoGrupo() {
+    this.produtoGrupoService.listar().subscribe(
+      resposta => {
+        this.listaProdutoGrupo = resposta as any;
+        console.log(this.listaProdutoGrupo);
+      },
+      error => {
+        console.log(JSON.stringify(error)); 
+      }
+    );
   }
 
   setUnidade() {
@@ -86,6 +109,14 @@ export class CadprodutoComponent implements OnInit {
   cancelar() {
     this.estoqueService.setEstoque(null);
     this.router.navigate([ '/consproduto']);
+  }
+
+  compararProdutoGrupo(obj1, obj2) {
+    return obj1 && obj2 ? obj1.idloja === obj2.idloja : obj1 === obj2;
+  }
+
+  setProdutoGrupo() {
+    this.produtogrupo = this.formulario.get('produtogrupo').value;
   }
 }
 

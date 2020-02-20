@@ -68,7 +68,8 @@ export class ContasService {
 
   // Todas com dataVencimento
   pesquisarTodasVencimentoCR(dataInicial: string, dataFinal: string, nome: string):  Observable<any> {
-    return this.httpCliente.post<any>(env.baseApiUrl + 'cr/dvtodas/', dataInicial + '/' + dataFinal + '/' + nome );
+    console.log('parar');
+    return this.httpCliente.get<any>(env.baseApiUrl + 'cr/dvtodas/' + dataInicial + '/' + dataFinal + '/' + nome );
   }
 
   // Recebidas com dataVencimento dvrecebidas/{datainicial}/{datafinal}/{nome}
