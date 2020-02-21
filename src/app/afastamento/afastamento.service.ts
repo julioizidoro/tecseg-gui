@@ -10,28 +10,35 @@ import { Historicosituacao } from './model/historicosituacao';
 })
 export class AfastamentoService {
 
-  private codigoAfastamento : Codigoafastamento;
+  private historico: Historicosituacao;
 
   constructor( private httpClient: HttpClient ) { }
 
-  getCodigoAfastamento() {
-    return this.codigoAfastamento;
+  setHistorico(historico: Historicosituacao) {
+    this.historico = historico;
   }
 
-  setCodigoAfastamento(codigoAfastamento : Codigoafastamento) {
-    this.codigoAfastamento = codigoAfastamento;
+  getHistorico() {
+    return this.historico;
   }
 
-  listar(): Observable<Codigoafastamento> {
-    return this.httpClient.get<Codigoafastamento>(env.baseApiUrl + 'codafastamentoasotipo');
+  //Codigo Afastamento
+  
+  listar(descricao: string): Observable<Codigoafastamento> {
+    return this.httpClient.get<Codigoafastamento>(env.baseApiUrl + 'codafastamento/' + descricao);
   }
 
   getId(id: number): Observable<Codigoafastamento> {
-    return this.httpClient.get<Codigoafastamento>(env.baseApiUrl + 'codafastamentoasotipo/id/' + id);
+    return this.httpClient.get<Codigoafastamento>(env.baseApiUrl + 'codafastamento/id/' + id);
   }
 
   salvar(historico: Historicosituacao): Observable<any> {
+    console.log('aqui');
     return this.httpClient.post<any>(env.baseApiUrl + 'historicosituacao/salvar', historico);
+  }
+
+  listarHistorico(): Observable<Historicosituacao> {
+    return this.httpClient.get<Historicosituacao>(env.baseApiUrl + 'historicosituacao/listar');
   }
 
   

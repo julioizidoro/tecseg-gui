@@ -6,7 +6,8 @@ export class Historicosituacao {
 
     idhistoricosituacao: number;
     data: Date;
+    observacao: string;
     funcionario: Funcionario;
     codigoafastamento: Codigoafastamento;
-    usuairo: Usuario;
+    usuario: Usuario;
 }

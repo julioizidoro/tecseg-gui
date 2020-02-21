@@ -254,7 +254,7 @@ exportarSalutar() {
       if (menu === 'afastamento') {
         if (this.authService.getUsuario().acesso.afastamento) {
           permitir = true;
-          //this.router.navigate(['/consasoagenda']);
+          this.router.navigate(['/consafastamento']);
         } 
       } else if (menu === 'salutar') {
         if (this.authService.getUsuario().acesso.salutar) {
