@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/usuario/login/auth.service';
 export class CadtreinamentoComponent implements OnInit {
   formulario: FormGroup;
   treinamentostipo: Treinamentotipo[];
+  treinamentotipoSelecionado: Treinamentotipo;
   treinamento: Treinamento;
   public maskHora = [/[0-9]/, /[0-9]/, ':', /[0-9]/, /[0-9]/];
 
@@ -27,6 +28,7 @@ export class CadtreinamentoComponent implements OnInit {
   ngOnInit() {
     this.treinamento = this.treinamentoService.getTreinamento();
     if (this.treinamento != null) {
+      this.treinamentotipoSelecionado = this.treinamento.treinamentotipo;
       this.formulario = this.formBuilder.group({
         idtreinamento: this.treinamento.idtreinamento,
         data: this.treinamento.data,
@@ -65,9 +67,9 @@ export class CadtreinamentoComponent implements OnInit {
   }
 
   setTreinamentoTipo() {
-    const tipo = this.formulario.get('treinamentotipo').value;
-    if ( tipo != null ) {
-      this.formulario.get('conteudo').setValue(tipo.conteudo);
+    this.treinamentotipoSelecionado = this.formulario.get('treinamentotipo').value;
+    if ( this.treinamentotipoSelecionado != null ) {
+      this.formulario.get('conteudo').setValue(this.treinamentotipoSelecionado.conteudo);
     }
   }
 

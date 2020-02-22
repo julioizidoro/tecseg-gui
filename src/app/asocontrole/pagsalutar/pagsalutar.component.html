@@ -22,6 +22,14 @@
                     <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
                  </select>  
             </div>
+
+            <div class="form-group col-md-4">
+              <label for="loja">Clinica</label>
+              <select class="form-control" formControlName="clinica"  [compareWith]="compararClinica" (change)="setClinica()">
+                  <option *ngFor="let clinica of Clinicas" [ngValue]="clinica"> {{ clinica.nome }}</option>
+               </select>  
+            </div>
+
             <div class="form-group col-md-3">
                 <label for="datainicial">Data Inicial</label>
                 <input type="date" class="form-control" id="datainicial" placeholder="Data Inicial"

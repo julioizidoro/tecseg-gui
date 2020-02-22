@@ -12,6 +12,7 @@ export class Treinamento {
     local: string;
     cidade: string;
     situacao: string;
+    datavencimento: Date;
     treinamentotipo: Treinamentotipo;
     usuario: Usuario;
 
