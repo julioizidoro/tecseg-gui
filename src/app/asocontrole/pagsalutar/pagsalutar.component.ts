@@ -35,6 +35,7 @@ export class PagsalutarComponent implements OnInit {
     this.pagSalutar  = new PagSalutar();
     this.pagSalutar.loja = new Loja();
     this.pagSalutar.loja.nome = '';
+    
     this.formulario = this.formBuilder.group({
       loja: [null],
       clinica: [null],
