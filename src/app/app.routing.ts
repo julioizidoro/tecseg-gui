@@ -27,7 +27,6 @@ import { CadprodutoComponent } from './produto/cadproduto/cadproduto.component';
 import { ConsprodutoComponent } from './produto/consproduto/consproduto.component';
 import { ConscontasComponent } from './contas/conscontas/conscontas.component';
 import { CadcontasComponent } from './contas/cadcontas/cadcontas.component';
-import { PagsalutarComponent } from './asocontrole/pagsalutar/pagsalutar.component';
 import { ConsafastamentoComponent } from './afastamento/consafastamento/consafastamento.component';
 import { CadafastamentoComponent } from './afastamento/cadafastamento/cadafastamento.component';
 
@@ -62,7 +61,7 @@ const APP_ROUTER: Routes = [
   { path: 'cadreceber', component: CadcontasComponent },
   { path: 'consafastamento', component: ConsafastamentoComponent },
   { path: 'cadafastamento', component: CadafastamentoComponent },
-  { path: 'pagsalutar', component: PagsalutarComponent },
+  
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTER);

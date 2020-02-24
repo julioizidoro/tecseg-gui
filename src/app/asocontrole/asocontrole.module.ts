@@ -18,11 +18,10 @@ import { SalutarService } from './salutar.service';
 import { routing } from '../app.routing';
 import { CadsalutarComponent } from './salutar/cadsalutar/cadsalutar.component';
 import { VissalutarComponent } from './salutar/vissalutar/vissalutar.component';
-import { PagsalutarComponent } from './pagsalutar/pagsalutar.component';
 
 
 @NgModule({
-  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent, VissalutarComponent, PagsalutarComponent],
+  declarations: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent, VissalutarComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -36,7 +35,7 @@ import { PagsalutarComponent } from './pagsalutar/pagsalutar.component';
     TextMaskModule,
     routing,
   ],
-  exports: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent, PagsalutarComponent],
+  exports: [CadasocontroleComponent, ConsasocontroleComponent, ListaasofuncionarioComponent, ConssalutarComponent, CadsalutarComponent,],
   providers: [
     AsocontroleService,
     FuncaoService,

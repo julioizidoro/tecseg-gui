@@ -1,46 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Loja } from 'src/app/loja/model/loja';
+import { PagSalutar } from 'src/app/asocontrole/model/PagSalutar';
+import { Clinica } from '../../model/clinica';
 import { LojaService } from 'src/app/loja/loja.service';
-import { SalutarService } from '../salutar.service';
-import { PagSalutar } from '../model/PagSalutar';
-import { Clinica } from 'src/app/clinica/model/clinica';
-import { ClinicaService } from 'src/app/clinica/clinica.service';
+import { SalutarService } from 'src/app/asocontrole/salutar.service';
+import { ClinicaService } from '../../clinica.service';
+import { ClinicapagtoService } from '../clinicapagto.service';
+import { Clinicapagto } from '../../model/Clinicapagto';
 
 @Component({
-  selector: 'app-pagsalutar',
-  templateUrl: './pagsalutar.component.html',
-  styleUrls: ['./pagsalutar.component.scss']
+  selector: 'app-cons',
+  templateUrl: './cons.component.html',
+  styleUrls: ['./cons.component.scss']
 })
-export class PagsalutarComponent implements OnInit {
+export class ConsComponent implements OnInit {
 
   formulario: FormGroup;
   lojas: Loja[];
   lojaSelecionada: Loja;
   isFirstOpen = false;
   oneAtATime: true;
-  pagSalutar: PagSalutar;
+  listaClinicaPagto: Clinicapagto[];
   clinica: Clinica;
   clinicas: Clinica[];
 
   constructor(
     private formBuilder: FormBuilder,
     private lojaService: LojaService,
-    private salutarService: SalutarService,
+    private clinicaPagtoService: ClinicapagtoService,
     private clinicaService: ClinicaService,
   ) { }
 
   ngOnInit(): void {
     this.carregarComboBox();
-    this.pagSalutar  = new PagSalutar();
-    this.pagSalutar.loja = new Loja();
-    this.pagSalutar.loja.nome = '';
+    
     
     this.formulario = this.formBuilder.group({
       loja: [null],
       clinica: [null],
-      datainicial: Date,
-      datafinal: Date,
+      mes: Date,
+      ano: Date,
     });
     this.formulario.reset();
     this.lojaSelecionada = null;
@@ -71,14 +71,20 @@ export class PagsalutarComponent implements OnInit {
     this.clinica = this.formulario.get('clinica').value;
   }
 
-calcular() {
-    const dataI  = this.formulario.get('datainicial').value;
-    const dataF = this.formulario.get('datafinal').value;
-    this.salutarService.calcularValorSalutar(dataI, dataF, this.lojaSelecionada.idloja).subscribe(
+consultar() {
+    this.clinicaPagtoService.listarClinicaPagto().subscribe(
       resposta => {
-        this.pagSalutar = resposta as any;
+        this.listaClinicaPagto = resposta as any;
       }
     );
+}
+
+pesquisar(){
+
+}
+
+editar(clinicaPagto: Clinicapagto) {
+  
 }
 
 limpar() {

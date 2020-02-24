@@ -72,9 +72,6 @@ export class SalutarService {
     return this.httpClient.post<any>(env.baseApiUrl + 'salutarfuncionario/salvar', salutarFuncionario);
   }
 
-  calcularValorSalutar(dataincial: Date, datafinal: Date, idloja: number) : Observable<any> {
-    return this.httpClient.get<any>(env.baseApiUrl + 'asocontrole/dataexame/' + dataincial + '/' + datafinal + '/' + idloja);
-  }
-
+ 
 
 }
