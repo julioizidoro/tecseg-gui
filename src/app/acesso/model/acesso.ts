@@ -29,5 +29,5 @@ export class Acesso {
     contas: boolean;
     contausuario: boolean;
     calculosalutar: boolean;
-
+    relseguranca: boolean;
 }

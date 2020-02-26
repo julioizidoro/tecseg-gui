@@ -31,6 +31,8 @@ import { ConsafastamentoComponent } from './afastamento/consafastamento/consafas
 import { CadafastamentoComponent } from './afastamento/cadafastamento/cadafastamento.component';
 import { ConsComponent } from './clinica/clinicapagto/cons/cons.component';
 import { CadpagtoComponent } from './clinica/clinicapagto/cadpagto/cadpagto.component';
+import { ConsrelatorioComponent } from './relatorioseguranca/relatorio/consrelatorio/consrelatorio.component';
+import { CaditemComponent } from './relatorioseguranca/item/caditem/caditem.component';
 
 
 const APP_ROUTER: Routes = [
@@ -65,6 +67,9 @@ const APP_ROUTER: Routes = [
   { path: 'cadafastamento', component: CadafastamentoComponent },
   { path: 'consclinicapagto', component: ConsComponent },
   { path: 'cadclinicapagto', component: CadpagtoComponent },
+  { path: 'consrs', component: ConsrelatorioComponent },
+  { path: 'cadrsitem', component: CaditemComponent },
+  
   
 ];
 

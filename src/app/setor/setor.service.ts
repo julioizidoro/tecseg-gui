@@ -13,6 +13,6 @@ export class SetorService {
 
   listar(): Observable<Setor> {
     return this.httpClient.get<Setor>(env.baseApiUrl + 'setor');
-
   }
+  
 }

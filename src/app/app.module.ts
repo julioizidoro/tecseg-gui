@@ -35,6 +35,7 @@ import { FornecedorModule } from './fornecedor/fornecedor.module';
 import { ProdutogrupoModule } from './produtogrupo/produtogrupo.module';
 import { ProdutoModule } from './produto/produto.module';
 import { ContasModule } from './contas/contas.module';
+import { RelatoriosegurancaModule } from './relatorioseguranca/relatorioseguranca.module';
 
 
 
@@ -82,7 +83,7 @@ registerLocaleData(br, 'pt-BR');
     ProdutoModule,
     ProdutogrupoModule,
     ContasModule,
-
+    RelatoriosegurancaModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },

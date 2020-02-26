@@ -1,0 +1,69 @@
+<br /><br />
+<div class="page-header">
+    <div class="container-fluid">
+        <h3>
+            Consulta de Relatório de Segurança
+        </h3>
+        <hr />
+    </div>
+    <form [formGroup]="formulario">
+        <div class="container-fluid" style="width:100%;">
+            <div class="w-100">
+                <button type="button" style="float:right;" class="btn btn-success font-weight-light" 
+                    routerLink="/cadproduto">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <a class="ml-2">Adicionar</a>
+                </button>
+            </div>
+            <br><br>
+            <div class="w-100">
+                <accordion [closeOthers]="oneAtATime">
+                    <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen" class="primary">
+                        <div class="row">
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </div>
+
+            <div class="table-responsive-lg">
+                <table class="table table-striped">
+                    <thead>
+                        <tr
+                            class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                            <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                            <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+                            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situção</th>
+                            <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
+                                style="text-align: center;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let rs of listaRS"
+                            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                                {{rs.data}}</td>
+                            <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                                {{rs.loja.nome}}</td>
+                            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                                style="border: none;">{{rs.situacao}}</td>
+                            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+
+                                <button type="button" style="float:right;" class="btn btn-light font-weight-light mr-1 p-1" 
+                                    (click)="editar(rs)" title="Editar">
+                                    <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                                </button>
+                                <div >
+                                    <button type="button" style="float:right;"
+                                        class="btn btn-light font-weight-light mr-1 p-1" 
+                                        title="Itens" (click)="itens(rs)">
+                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>

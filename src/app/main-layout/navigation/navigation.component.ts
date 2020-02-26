@@ -266,6 +266,11 @@ exportarSalutar() {
           permitir = true;
           this.router.navigate(['/consclinicapagto']);
         } 
+      }  else if (menu === 'relseguranca') {
+        if (this.authService.getUsuario().acesso.relseguranca) {
+          permitir = true;
+          this.router.navigate(['/consrs']);
+        } 
       } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
