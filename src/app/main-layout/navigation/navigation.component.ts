@@ -264,7 +264,7 @@ exportarSalutar() {
       }  else if (menu === 'calculosalutar') {
         if (this.authService.getUsuario().acesso.calculosalutar) {
           permitir = true;
-          this.router.navigate(['/pagsalutar']);
+          this.router.navigate(['/consclinicapagto']);
         } 
       } 
       if (!permitir) {

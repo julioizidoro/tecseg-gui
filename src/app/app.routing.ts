@@ -29,6 +29,8 @@ import { ConscontasComponent } from './contas/conscontas/conscontas.component';
 import { CadcontasComponent } from './contas/cadcontas/cadcontas.component';
 import { ConsafastamentoComponent } from './afastamento/consafastamento/consafastamento.component';
 import { CadafastamentoComponent } from './afastamento/cadafastamento/cadafastamento.component';
+import { ConsComponent } from './clinica/clinicapagto/cons/cons.component';
+import { CadpagtoComponent } from './clinica/clinicapagto/cadpagto/cadpagto.component';
 
 
 const APP_ROUTER: Routes = [
@@ -61,6 +63,8 @@ const APP_ROUTER: Routes = [
   { path: 'cadreceber', component: CadcontasComponent },
   { path: 'consafastamento', component: ConsafastamentoComponent },
   { path: 'cadafastamento', component: CadafastamentoComponent },
+  { path: 'consclinicapagto', component: ConsComponent },
+  { path: 'cadclinicapagto', component: CadpagtoComponent },
   
 ];
 
