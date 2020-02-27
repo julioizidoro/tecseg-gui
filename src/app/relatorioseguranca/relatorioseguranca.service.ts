@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment.prod';
 import { Relatorioseguranca } from './model/relatorioseguranca';
 import { Relatoriosegurancaitens } from './model/relatoriosegurancaitens';
+import { Relitem } from './model/relitem';
 
 
 
@@ -14,6 +15,7 @@ export class RelatoriosegurancaService {
 
   private rs: Relatorioseguranca;
   private rsItem: Relatoriosegurancaitens;
+  private relItem : Relitem;
 
 
   constructor(
@@ -36,6 +38,14 @@ export class RelatoriosegurancaService {
     return this.rs;
   }
 
+  getRelItem() {
+    return this.relItem;
+  }
+
+  setRelItem(relItem: Relitem) {
+    this.relItem = relItem;
+  }
+  
 //Relatorio
   listar(): Observable<Relatorioseguranca> {
     return this.httpClient.get<Relatorioseguranca>(env.baseApiUrl + 'relseguranca/listar');

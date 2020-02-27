@@ -39,7 +39,8 @@ export class ConsrelatorioComponent implements OnInit {
   }
 
   editar(rs: Relatorioseguranca) {
-
+    this.rsService.setRS(rs);
+    this.router.navigate(['/cadrs']);
   }
 
   itens(rs: Relatorioseguranca) {

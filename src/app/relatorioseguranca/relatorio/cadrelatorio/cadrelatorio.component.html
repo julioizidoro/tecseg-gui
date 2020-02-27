@@ -1,1 +1,186 @@
-<p>cadrelatorio works!</p>
+<br/><br/>
+<div class="page-header">
+  <div class="container-fluid">
+    <h3>
+      Relatório de Segurança
+    </h3>
+    <hr/>
+  </div>
+
+
+<div style="width: 100%;">
+
+
+  <form [formGroup]="formulario">
+  <div class="row">
+
+    <div class="form-group col-md-4 col-sm-12">
+        <label for="data">Data</label>
+        <input type="date" class="form-control" id="data" 
+        formControlName="data" >
+      </div>
+
+      <div class="form-group col-md-5 col-sm-12" >
+        <label for="loja">Loja</label>
+        <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
+            <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
+         </select>
+      
+    </div>
+
+
+     
+
+    </div>
+
+    <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Foto</th>
+                    <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of relItens"
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                      <div class="form-group">
+                        <input type="file" name="image" (change)="fileProgress($event, item)" />
+                    </div>
+                    <div class="image-preview mb-3" *ngIf="item.previewUrl">
+                        <img [src]="item.previewUrl" height="150" />                 
+                    </div>
+         
+                     
+                    <div class="form-group">
+                        <button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+                    </div>
+                    <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                        <div class="form-group col-md-12" >
+                            <label for="constatacao">Constatação</label>
+                            <textarea class="form-control" id="constatacao"  [value]="item.item.constatacao" readonly></textarea>
+                        </div>
+                        <div class="form-group col-md-12" >
+                            <label for="adequacao">Adequação</label>
+                            <textarea class="form-control" id="adequacao"  [value]="item.item.adequacao" readonly></textarea>
+                        </div>
+                    
+                    </td>
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+
+                        <button type="button" style="float:right;" class="btn btn-light font-weight-light mr-1 p-1" 
+                            (click)="openModalUpload(item)" title="Editar">
+                            <i class="fa fa-pencil-alt" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+<br/>
+<div class="w-100 text-right">
+  <button type="button" class="btn btn-primary" (click)="salvarRelatorio()">
+    <i class="fa fa-floppy-o" aria-hidden="true"></i>
+    Salvar
+  </button>
+  <button type="submit" class="btn btn-danger" style="margin-left:1%;" (click)="cancelarRelatorio()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+    Cancelar
+  </button>
+
+</div>
+
+
+
+<br/>
+
+
+</form>
+
+</div>
+</div>
+
+
+<!-- Modal Alteração  -->
+<div mdbModal #modalItens="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Item do Relatório</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalItens.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="itensformulario">
+          <div class="row">
+            <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+              <label for="constatacao">Constatação</label>
+              <textarea class="form-control" id="constatacao" formControlName="constatacao"></textarea>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+              <label for="adequacao">Adequação</label>
+              <textarea class="form-control" id="adequacao" formControlName="adequacao"></textarea>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <br />
+        <div class="w-100 text-right">
+          <button type="button" class="btn btn-primary" (click)="salvarItem()">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Salvar
+          </button>
+          <button type="submit" class="btn btn-danger" style="margin-left:1%;" (click)="modalItens.hide()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+            Cancelar
+          </button>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Upload  
+
+<div mdbModal #modalUpload="mdb-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myBasicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content p-3">
+            <div class="modal-header">
+                <p class="heading lead">Upload de Foto</p>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFileFluxo" (change)="onChange($event)" />
+                <label class="custom-file-label" for="customFileFluxo" id="customFileLabelFluxo">Selecionar arquivo</label>
+                
+            </div>
+            <div style="margin-top: 10px;"> 
+                <button type="submit" class="btn btn-primary" (click)="onUpload()" [disabled]="!file" >
+                    Upload
+                </button>
+            </div>
+            <form [formGroup]="formulario">
+            
+        </form>
+            <div>
+                    <button type="button" class="btn btn-primary"  (click)="modalUpload.hide()" >
+                            Fechar
+                    </button>   
+            </div>
+        </div>
+    </div>
+</div>-->

@@ -33,6 +33,7 @@ import { ConsComponent } from './clinica/clinicapagto/cons/cons.component';
 import { CadpagtoComponent } from './clinica/clinicapagto/cadpagto/cadpagto.component';
 import { ConsrelatorioComponent } from './relatorioseguranca/relatorio/consrelatorio/consrelatorio.component';
 import { CaditemComponent } from './relatorioseguranca/item/caditem/caditem.component';
+import { CadrelatorioComponent } from './relatorioseguranca/relatorio/cadrelatorio/cadrelatorio.component';
 
 
 const APP_ROUTER: Routes = [
@@ -68,6 +69,7 @@ const APP_ROUTER: Routes = [
   { path: 'consclinicapagto', component: ConsComponent },
   { path: 'cadclinicapagto', component: CadpagtoComponent },
   { path: 'consrs', component: ConsrelatorioComponent },
+  { path: 'cadrs', component: CadrelatorioComponent },
   { path: 'cadrsitem', component: CaditemComponent },
   
   
