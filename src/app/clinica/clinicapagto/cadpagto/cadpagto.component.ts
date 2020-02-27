@@ -6,7 +6,6 @@ import { Clinica } from '../../model/clinica';
 import { LojaService } from 'src/app/loja/loja.service';
 import { ClinicapagtoService } from '../clinicapagto.service';
 import { ClinicaService } from '../../clinica.service';
-import { PagSalutar } from 'src/app/asocontrole/model/PagSalutar';
 
 @Component({
   selector: 'app-cadpagto',

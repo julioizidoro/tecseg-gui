@@ -5,7 +5,6 @@ import { Salutar } from './model/salutar';
 import { Loja } from '../loja/model/loja';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Salutarfuncionario } from './model/salutarfuncionario';
-import { PagSalutar } from './model/PagSalutar';
 
 @Injectable({
   providedIn: 'root'

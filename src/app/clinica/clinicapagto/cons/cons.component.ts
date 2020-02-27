@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Loja } from 'src/app/loja/model/loja';
-import { PagSalutar } from 'src/app/asocontrole/model/PagSalutar';
 import { Clinica } from '../../model/clinica';
 import { LojaService } from 'src/app/loja/loja.service';
 import { SalutarService } from 'src/app/asocontrole/salutar.service';
