@@ -71,7 +71,7 @@ setSetor() {
 
 salvar() {
   this.rsItem = this.formulario.value;
-  this.rsItem.urlfoto = 'c:\\relfotos\\' + this.nomeArquivo;
+  this.rsItem.urlfoto = this.nomeArquivo;
   this.rsItem.relatorioseguranca = this.rsService.getRS();
   this.formulario.reset();
     this.rsService.salvarItens(this.rsItem).subscribe(resposta => {

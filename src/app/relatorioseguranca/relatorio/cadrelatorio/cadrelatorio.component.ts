@@ -10,6 +10,7 @@ import { Loja } from 'src/app/loja/model/loja';
 import { LojaService } from 'src/app/loja/loja.service';
 import { Relitem } from '../../model/relitem';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { roLocale } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-cadrelatorio',
@@ -27,7 +28,7 @@ export class CadrelatorioComponent implements OnInit {
   itensformulario: FormGroup;
   
 
-  @ViewChild('modelItens', ) public showModalItensOnClick: ModalDirective;
+  @ViewChild('modalItens', ) public showModalItensOnClick: ModalDirective;
   @ViewChild('modalUpload', ) public showModalUploadOnClick: ModalDirective;
   
 
@@ -42,6 +43,7 @@ export class CadrelatorioComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarComboBox();
+    this.iniciarFormulario();
     this.rs = this.rsService.getRS();
     if (this.rs!=null) {
       this.formulario = this.formBuilder.group({
@@ -57,6 +59,7 @@ export class CadrelatorioComponent implements OnInit {
           for (let item of this.rsItens ) {
             let rel = new  Relitem();
             rel.item = item;
+            rel.alterouItem = false;
             this.relItens.push(rel);
           }
         }
@@ -72,7 +75,7 @@ export class CadrelatorioComponent implements OnInit {
   }
 
   iniciarFormulario() {
-    this.formulario = this.formBuilder.group({
+    this.itensformulario = this.formBuilder.group({
       idrelatoriosegurancaitens: [null],
       constatacao: [null],
       adequacao: [null],
@@ -82,21 +85,13 @@ export class CadrelatorioComponent implements OnInit {
     });
   }
 
-  salvarItem() {
-    let rsItem = new Relatoriosegurancaitens();
-    let relItem = new Relitem();
-    rsItem = this.itensformulario.value();
-    
-    this.rsService.salvarItens(rsItem).subscribe(
-      resposta => {
-        rsItem = resposta as any;
-        relItem.item = rsItem;
-        let index = this.relItens.indexOf(relItem);
-        this.relItens[index] = relItem;
-        this.rsService.setRelItem(null);
+  salvarItem(relItem: Relitem, id: number) {
+    this.rsService.salvarItens(relItem.item).subscribe(
+    resposta => {
+        let rsItem = resposta as any;
+        this.relItens[id].alterouItem = false;
       }
-    );
-    this.showModalItensOnClick.hide();
+    )
   }
 
   salvarRelatorio() {
@@ -133,7 +128,7 @@ export class CadrelatorioComponent implements OnInit {
 
   openModalItens(relItem: Relitem) {
     this.itensformulario.reset();
-    this.formulario = this.formBuilder.group({
+    this.itensformulario = this.formBuilder.group({
       idrelatoriosegurancaitens: relItem.item.idrelatoriosegurancaitens,
       constatacao: relItem.item.constatacao,
       adequacao: relItem.item.adequacao,
@@ -150,10 +145,19 @@ export class CadrelatorioComponent implements OnInit {
     this.showModalUploadOnClick.show();
   }
 
-  
- 
-
- 
+  fileAll(fileInput: any) {
+    console.log('aqui');
+    for (let i=0;i<this.relItens.length;i++){
+      for(let n=0;n<fileInput.target.files.length;n++){
+        let file = <File>fileInput.target.files[n];
+        if (this.relItens[i].item.urlfoto == file.name) {
+          this.relItens[i].file = file;
+          this.relItens[i].previewUrl = this.preview(this.relItens[i]);
+          n = 1000000;
+        }
+      }
+    }
+  }
 
 
  fileProgress(fileInput: any, relItem: Relitem) {
@@ -175,10 +179,18 @@ reader.onload = (_event) => {
   let index = this.relItens.indexOf(relItem);
   this.relItens[index] = relItem;
 }
+return relItem.previewUrl;
 }
 
 onSubmit() {
 
+}
+
+alterouItem(id, event: any) {
+  this.relItens[id].item.adequacao = this.relItens[id].item.adequacao + event.target.textContent;
+  console.log(this.relItens[id].alterouItem);
+  this.relItens[id].alterouItem = true;
+  console.log(this.relItens[id].alterouItem);
 }
 
 
