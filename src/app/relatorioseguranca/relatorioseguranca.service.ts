@@ -16,11 +16,20 @@ export class RelatoriosegurancaService {
   private rs: Relatorioseguranca;
   private rsItem: Relatoriosegurancaitens;
   private relItem : Relitem;
+  private novo: boolean;
 
 
   constructor(
     private httpClient: HttpClient
   ) { }
+
+  setNovo(novo: boolean) {
+    this.novo = novo;
+  }
+
+  getNovo(){
+    return this.novo;
+  }
 
   setRS(rs: Relatorioseguranca) {
     this.rs = rs;
@@ -52,7 +61,7 @@ export class RelatoriosegurancaService {
   }
 
   salvar(rs: Relatorioseguranca): Observable<any> {
-    return this.httpClient.post<any>(env.baseApiUrl + 'relSeguranca/salvar', rs);
+    return this.httpClient.post<any>(env.baseApiUrl + 'relseguranca/salvar', rs);
   }
 
   //Itens

@@ -19,7 +19,7 @@ export class CaditemComponent implements OnInit {
   setor: Setor;
   listaSetor: Setor[];
   nomeArquivo: string;
-
+  
   constructor(
     private rsService: RelatoriosegurancaService,
     private router: Router,

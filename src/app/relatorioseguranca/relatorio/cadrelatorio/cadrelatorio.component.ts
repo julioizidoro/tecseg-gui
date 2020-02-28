@@ -27,10 +27,10 @@ export class CadrelatorioComponent implements OnInit {
   lojaSelecionada: Loja;
   itensformulario: FormGroup;
   idItem: number;
+  novo: boolean;
   
 
   @ViewChild('modalItens', ) public showModalItensOnClick: ModalDirective;
-  @ViewChild('modalUpload', ) public showModalUploadOnClick: ModalDirective;
   
 
 
@@ -43,6 +43,7 @@ export class CadrelatorioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.novo = this.rsService.getNovo();
     this.carregarComboBox();
     this.iniciarFormulario();
     this.rs = this.rsService.getRS();
@@ -65,6 +66,7 @@ export class CadrelatorioComponent implements OnInit {
         }
       );
     } else {
+      console.log('form');
       this.formulario = this.formBuilder.group({
         idrelatorioseguranca: [null],
         data: [null],
@@ -111,6 +113,7 @@ export class CadrelatorioComponent implements OnInit {
 
   cancelarRelatorio() {
     this.formulario.reset();
+    this.rsService.setNovo(false);
     this.rsService.setRS(null);
     this.router.navigate(['/consrs']);
   }

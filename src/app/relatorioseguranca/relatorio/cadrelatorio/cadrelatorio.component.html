@@ -26,7 +26,7 @@
             <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
          </select>
           <br/>  
-         <div class="form-group">
+         <div *ngIf="!novo" class="form-group">
           <input type="file" name="image1" (change)="fileAll($event)" accept="image/jpeg,image/png" multiple />
       </div>
       
@@ -37,7 +37,7 @@
 
     </div>
 
-    <div class="table-responsive-lg">
+    <div *ngIf="!novo"  class="table-responsive-lg">
         <table class="table table-striped">
             <thead>
           
@@ -56,7 +56,9 @@
          
                      
                     <div class="form-group">
-                        <button class="btn btn-primary"  (click)="onSubmit(id)">Upload</button>
+                        <button class="btn btn-primary"  (click)="onSubmit(id)" title="Upload da Imagem">Upload
+                          <i class="fas fa-cloud-upload-alt"></i>
+                        </button>
                     </div>
                     </td>
                  
@@ -69,7 +71,9 @@
          
                      
                     <div class="form-group">
-                        <button class="btn btn-primary"  (click)="removerFoto(id)">Remover</button>
+                        <button class="btn btn-primary"  (click)="removerFoto(id)" title="Remover Imagem">Remover
+                          <i class="far fa-trash-alt"></i>
+                        </button>
                     </div>
                     </td>
                     <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">

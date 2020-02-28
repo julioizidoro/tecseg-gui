@@ -3,6 +3,8 @@ import { Relatorioseguranca } from '../../model/relatorioseguranca';
 import { RelatoriosegurancaService } from '../../relatorioseguranca.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { environment as env } from '../../../../environments/environment.prod';
+
 
 @Component({
   selector: 'app-consrelatorio',
@@ -38,7 +40,14 @@ export class ConsrelatorioComponent implements OnInit {
     );
   }
 
+  novo() {
+    this.rsService.setNovo(true);
+    this.rsService.setRS(null);
+    this.router.navigate(['/cadrs']);
+  }
+
   editar(rs: Relatorioseguranca) {
+    this.rsService.setNovo(false);
     this.rsService.setRS(rs);
     this.router.navigate(['/cadrs']);
   }
@@ -46,6 +55,11 @@ export class ConsrelatorioComponent implements OnInit {
   itens(rs: Relatorioseguranca) {
     this.rsService.setRS(rs);
     this.router.navigate(['cadrsitem']);
+  }
+
+  imprimir(rs: Relatorioseguranca) {
+    const uri =  env.baseApiUrl + 'relseguranca/rs/' + rs.idrelatorioseguranca;
+    return uri;
   }
 
 }
