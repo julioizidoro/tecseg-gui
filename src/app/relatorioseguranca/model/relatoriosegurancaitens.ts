@@ -7,6 +7,7 @@ export class Relatoriosegurancaitens {
     constatacao: string;
     adequacao: string;
     urlfoto: string;
+    uploadimagem: boolean;
     relatorioseguranca: Relatorioseguranca;
     setor: Setor;
 }

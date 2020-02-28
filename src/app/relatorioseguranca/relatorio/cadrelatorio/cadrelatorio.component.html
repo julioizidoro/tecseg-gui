@@ -45,7 +45,7 @@
             <tbody>
                 <tr *ngFor="let item of relItens; let id = index"
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    <td *ngIf="!item.item.uploadimagem" class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                       <div class="form-group">
                         <input type="file" name="image" (change)="fileProgress($event, item)" 
                          accept="image/jpeg,image/png" />
@@ -56,8 +56,22 @@
          
                      
                     <div class="form-group">
-                        <button class="btn btn-primary"  (click)="onSubmit()">Upload</button>
+                        <button class="btn btn-primary"  (click)="onSubmit(id)">Upload</button>
                     </div>
+                    </td>
+                 
+
+                    <!-- Imagem Upload -->
+                    <td *ngIf="item.item.uploadimagem" class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    <div class="image-preview mb-3" >
+                      <img src={{item.item.urlfoto}} height="150" />                 
+                    </div>
+         
+                     
+                    <div class="form-group">
+                        <button class="btn btn-primary"  (click)="removerFoto(id)">Remover</button>
+                    </div>
+                    </td>
                     <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                         <div class="form-group col-md-12" >
                             <label for="constatacao">Constatação</label>
@@ -69,6 +83,8 @@
                         </div>
                     
                     </td>
+
+
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                       <button class="btn btn-primary"  (click)="openModalItens(id)" >Editar</button>
                     </td>

@@ -144,11 +144,7 @@ export class CadrelatorioComponent implements OnInit {
     this.showModalItensOnClick.show();
   }
 
-  openModalUpload(rsItem: Relatoriosegurancaitens) {
-    this.rsService.setRSItem(rsItem);
-    this.showModalUploadOnClick.show();
-  }
-
+ 
   fileAll(fileInput: any) {
     console.log('aqui');
     for (let i=0;i<this.relItens.length;i++){
@@ -186,9 +182,51 @@ reader.onload = (_event) => {
 return relItem.previewUrl;
 }
 
-onSubmit() {
-
+onSubmit(id: number) {
+  let filename = this.relItens[id].file.name;
+  let nome = '';
+  for (let i = filename.length - 1; i > 0; i--) {
+    if (filename[i] !== '.' ) {
+       nome = filename[i] + nome;
+    } else {
+      i = -100;
+    }
+  }
+  const iditem = this.relItens[id].item.idrelatoriosegurancaitens;
+  filename = iditem.toString() + '.' + nome;
+  this.rsService.upload(this.relItens[id].file, filename).subscribe(
+      resposta => {
+        const uri = resposta as any;
+        this.relItens[id].item.urlfoto = 'https://tecseg-img.s3.us-east-2.amazonaws.com/rs/' + filename;
+        this.relItens[id].item.uploadimagem = true;
+        this.rsService.salvarItens(this.relItens[id].item).subscribe(
+         resposta1 => {
+           this.relItens[id].item = resposta1 as any;
+         },
+         err1 => {
+           console.log(err1.error.erros.join(' '));
+          }
+         );
+      },
+      err => {
+       console.log(err.error.erros.join(' '));
+      }
+   );
 }
+
+removerFoto(id: number) {
+  this.relItens[id].item.urlfoto = "sem foto";
+  this.relItens[id].item.uploadimagem = false;
+  this.rsService.salvarItens(this.relItens[id].item).subscribe(
+    resposta1 => {
+      this.relItens[id].item = resposta1 as any;
+    },
+    err1 => {
+      console.log(err1.error.erros.join(' '));
+    }
+  );
+}
+
 
 
 

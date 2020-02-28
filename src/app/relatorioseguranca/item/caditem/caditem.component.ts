@@ -39,6 +39,7 @@ export class CaditemComponent implements OnInit {
         constatacao: [null],
         adequacao: [null],
         urlfotos: [null],
+        uploadimagem: [null],
         relatorioseguranca: [null],
         setor: [null],
 
@@ -72,6 +73,7 @@ setSetor() {
 salvar() {
   this.rsItem = this.formulario.value;
   this.rsItem.urlfoto = this.nomeArquivo;
+  this.rsItem.uploadimagem = false;
   this.rsItem.relatorioseguranca = this.rsService.getRS();
   this.formulario.reset();
     this.rsService.salvarItens(this.rsItem).subscribe(resposta => {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment.prod';
 import { Relatorioseguranca } from './model/relatorioseguranca';
@@ -66,6 +66,14 @@ export class RelatoriosegurancaService {
     console.log(rsitem.adequacao);
     rsitem.relatorioseguranca = this.rs;
     return this.httpClient.post<any>(env.baseApiUrl + 'rsitens/salvar', rsitem);
+  }
+
+  upload(file: File, fileName: string): Observable<any> {
+    const uri = env.baseApiUrl + 'rsitens/picture';
+    const formData = new FormData();
+    formData.append('file', file, fileName);
+    const request = new HttpRequest('POST', uri, formData);
+    return this.httpClient.request(request);
   }
 
 }
