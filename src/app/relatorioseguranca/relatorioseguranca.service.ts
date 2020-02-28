@@ -63,6 +63,7 @@ export class RelatoriosegurancaService {
 
   salvarItens(rsitem: Relatoriosegurancaitens): Observable<any> {
     console.log('aqui');
+    console.log(rsitem.adequacao);
     rsitem.relatorioseguranca = this.rs;
     return this.httpClient.post<any>(env.baseApiUrl + 'rsitens/salvar', rsitem);
   }

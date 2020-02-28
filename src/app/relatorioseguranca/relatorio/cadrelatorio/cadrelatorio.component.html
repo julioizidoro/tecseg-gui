@@ -56,21 +56,21 @@
          
                      
                     <div class="form-group">
-                        <button class="btn btn-primary"  (click)="onSubmit()">Salvar</button>
+                        <button class="btn btn-primary"  (click)="onSubmit()">Upload</button>
                     </div>
                     <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                         <div class="form-group col-md-12" >
                             <label for="constatacao">Constatação</label>
-                            <textarea class="form-control" id="constatacao"  [value]="item.item.constatacao" (keydown)="alterouItem(id,  $event)" ></textarea>
+                            <textarea class="form-control" id="constatacao"  [value]="item.item.constatacao"  ></textarea>
                         </div>
                         <div class="form-group col-md-12" >
                             <label for="adequacao">Adequação</label>
-                            <textarea class="form-control" id="adequacao"  [value]="item.item.adequacao"   (keydown)="alterouItem(id,  $event)"></textarea>
+                            <textarea class="form-control" id="adequacao"  [value]="item.item.adequacao"   ></textarea>
                         </div>
                     
                     </td>
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <button class="btn btn-primary"  (click)="salvarItem(item, id)" [disabled]="!item.alterouItem">Salvar</button>
+                      <button class="btn btn-primary"  (click)="openModalItens(id)" >Editar</button>
                     </td>
                 </tr>
             </tbody>
@@ -101,7 +101,7 @@
 </div>
 
 
-<!-- Modal Alteração  
+<!-- Modal Alteração  -->
 <div mdbModal #modalItens="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
   <div class="modal-dialog modal-lg" role="document">
@@ -116,11 +116,11 @@
       <div class="modal-body">
         <form [formGroup]="itensformulario">
           <div class="row">
-            <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <label for="constatacao">Constatação</label>
               <textarea class="form-control" id="constatacao" formControlName="constatacao"></textarea>
             </div>
-            <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <label for="adequacao">Adequação</label>
               <textarea class="form-control" id="adequacao" formControlName="adequacao"></textarea>
             </div>
@@ -147,7 +147,7 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>
 
 
 

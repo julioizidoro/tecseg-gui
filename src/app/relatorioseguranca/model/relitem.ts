@@ -4,5 +4,4 @@ export class Relitem {
     item : Relatoriosegurancaitens;
     file: File;
     previewUrl:any;
-    alterouItem: boolean;
 }

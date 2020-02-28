@@ -26,6 +26,7 @@ export class CadrelatorioComponent implements OnInit {
   lojas: Loja[];
   lojaSelecionada: Loja;
   itensformulario: FormGroup;
+  idItem: number;
   
 
   @ViewChild('modalItens', ) public showModalItensOnClick: ModalDirective;
@@ -59,7 +60,6 @@ export class CadrelatorioComponent implements OnInit {
           for (let item of this.rsItens ) {
             let rel = new  Relitem();
             rel.item = item;
-            rel.alterouItem = false;
             this.relItens.push(rel);
           }
         }
@@ -85,11 +85,14 @@ export class CadrelatorioComponent implements OnInit {
     });
   }
 
-  salvarItem(relItem: Relitem, id: number) {
-    this.rsService.salvarItens(relItem.item).subscribe(
+  salvarItem() {
+    let rsItem = new Relatoriosegurancaitens();
+    rsItem = this.itensformulario.value;
+    this.relItens[this.idItem].item = rsItem;
+    this.rsService.salvarItens(rsItem).subscribe(
     resposta => {
         let rsItem = resposta as any;
-        this.relItens[id].alterouItem = false;
+        this.showModalItensOnClick.hide();
       }
     )
   }
@@ -126,8 +129,10 @@ export class CadrelatorioComponent implements OnInit {
     });
   }
 
-  openModalItens(relItem: Relitem) {
+  openModalItens(id: number) {
     this.itensformulario.reset();
+    this.idItem = id;
+    let relItem = this.relItens[id];
     this.itensformulario = this.formBuilder.group({
       idrelatoriosegurancaitens: relItem.item.idrelatoriosegurancaitens,
       constatacao: relItem.item.constatacao,
@@ -136,7 +141,6 @@ export class CadrelatorioComponent implements OnInit {
       relatorioseguranca: relItem.item.relatorioseguranca,
       setor: relItem.item.setor,
     });
-    this.rsService.setRelItem(relItem);
     this.showModalItensOnClick.show();
   }
 
@@ -186,12 +190,6 @@ onSubmit() {
 
 }
 
-alterouItem(id, event: any) {
-  this.relItens[id].item.adequacao = this.relItens[id].item.adequacao + event.target.textContent;
-  console.log(this.relItens[id].alterouItem);
-  this.relItens[id].alterouItem = true;
-  console.log(this.relItens[id].alterouItem);
-}
 
 
 
