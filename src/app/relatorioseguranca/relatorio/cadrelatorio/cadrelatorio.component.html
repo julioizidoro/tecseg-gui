@@ -45,37 +45,35 @@
             <tbody>
                 <tr *ngFor="let item of relItens; let id = index"
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td *ngIf="!item.item.uploadimagem" class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <div class="form-group">
-                        <input type="file" name="image" (change)="fileProgress($event, item)" 
-                         accept="image/jpeg,image/png" />
-                    </div>
-                    <div class="image-preview mb-3" *ngIf="item.previewUrl">
-                        <img [src]="item.previewUrl" height="150" />                 
-                    </div>
-         
-                     
-                    <div class="form-group">
-                        <button class="btn btn-primary"  (click)="onSubmit(id)" title="Upload da Imagem">Upload
-                          <i class="fas fa-cloud-upload-alt"></i>
+                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                      <div *ngIf="!item.item.uploadimagem" class="form-group">
+                        <input type="file" name="image" (change)="fileProgress($event, id)" accept="image/jpeg,image/png" />
+                      </div>
+                      <div *ngIf="item.file" class="image-preview mb-3" >
+                        <img [src]="item.previewUrl" height="150" />
+                      </div>
+                      <div *ngIf="!item.file" class="image-preview mb-3">
+                        <img src={{item.item.urlfoto}} height="150" />
+                      </div>
+                    
+                    
+                      <div *ngIf="!item.item.uploadimagem" class="form-group">
+                        <button class="btn btn-success"  (click)="onSubmit(id)" title="Upload da Imagem"
+                          [disabled]="!item.file"><i class="fas fa-cloud-upload-alt" ></i>
+                          Upload
+                          
                         </button>
-                    </div>
-                    </td>
-                 
-
-                    <!-- Imagem Upload -->
-                    <td *ngIf="item.item.uploadimagem" class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                    <div class="image-preview mb-3" >
-                      <img src={{item.item.urlfoto}} height="150" />                 
-                    </div>
-         
-                     
-                    <div class="form-group">
-                        <button class="btn btn-primary"  (click)="removerFoto(id)" title="Remover Imagem">Remover
+                      </div>
+                    
+                      <div *ngIf="item.item.uploadimagem" class="form-group">
+                        <button class="btn btn-success" (click)="removerFoto(id)" title="Remover Imagem">
                           <i class="far fa-trash-alt"></i>
+                          Remover
+                        
                         </button>
-                    </div>
-                    </td>
+                      </div>
+                    </td>               
+                    
                     <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                         <div class="form-group col-md-12" >
                             <label for="constatacao">Constatação</label>
@@ -90,7 +88,9 @@
 
 
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      <button class="btn btn-primary"  (click)="openModalItens(id)" >Editar</button>
+                      <button class="btn btn-success"  (click)="openModalItens(id)" >
+                        <i class="fa fa-pencil-alt"></i> 
+                        Editar</button>
                     </td>
                 </tr>
             </tbody>

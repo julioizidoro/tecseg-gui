@@ -85,4 +85,8 @@ export class RelatoriosegurancaService {
     return this.httpClient.request(request);
   }
 
+  deletaFile(nome: string): Observable<any> {
+     return this.httpClient.delete<any>(env.baseApiUrl + 'rsitens/delete/file/' + nome);
+   }
+
 }

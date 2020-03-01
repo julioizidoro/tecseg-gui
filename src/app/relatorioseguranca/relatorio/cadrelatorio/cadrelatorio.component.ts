@@ -11,6 +11,8 @@ import { LojaService } from 'src/app/loja/loja.service';
 import { Relitem } from '../../model/relitem';
 import { ModalDirective } from 'angular-bootstrap-md';
 import { roLocale } from 'ngx-bootstrap';
+import { AngularValidateBrLibModule } from 'angular-validate-br';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cadrelatorio',
@@ -82,6 +84,8 @@ export class CadrelatorioComponent implements OnInit {
       constatacao: [null],
       adequacao: [null],
       urlfoto: [null],
+      uploadimagem: [null],
+      nomefile: [null],
       relatorioseguranca: [null],
       seotr: [null],
     });
@@ -141,6 +145,8 @@ export class CadrelatorioComponent implements OnInit {
       constatacao: relItem.item.constatacao,
       adequacao: relItem.item.adequacao,
       urlfoto: relItem.item.urlfoto,
+      uploadimagem: relItem.item.uploadimagem,
+      nomefile: relItem.item.nomefile,
       relatorioseguranca: relItem.item.relatorioseguranca,
       setor: relItem.item.setor,
     });
@@ -155,7 +161,7 @@ export class CadrelatorioComponent implements OnInit {
         let file = <File>fileInput.target.files[n];
         if (this.relItens[i].item.urlfoto == file.name) {
           this.relItens[i].file = file;
-          this.relItens[i].previewUrl = this.preview(this.relItens[i]);
+          this.relItens[i].previewUrl = this.preview(i);
           n = 1000000;
         }
       }
@@ -163,26 +169,24 @@ export class CadrelatorioComponent implements OnInit {
   }
 
 
- fileProgress(fileInput: any, relItem: Relitem) {
-  relItem.file = <File>fileInput.target.files[0];
-  this.preview(relItem);
+ fileProgress(fileInput: any, id: number) {
+  this.relItens[id].file = <File>fileInput.target.files[0];
+  this.preview(id);
 }
 
-preview(relItem: Relitem) {
+preview(id: number) {
 // Show preview 
-var mimeType = relItem.file.type;
+var mimeType = this.relItens[id].file.type;
 if (mimeType.match(/image\/*/) == null) {
   return;
 }
 
 var reader = new FileReader();      
-reader.readAsDataURL(relItem.file); 
+reader.readAsDataURL(this.relItens[id].file); 
 reader.onload = (_event) => { 
-  relItem.previewUrl = reader.result;
-  let index = this.relItens.indexOf(relItem);
-  this.relItens[index] = relItem;
+  this.relItens[id].previewUrl = reader.result;
 }
-return relItem.previewUrl;
+return this.relItens[id].previewUrl;
 }
 
 onSubmit(id: number) {
@@ -201,6 +205,7 @@ onSubmit(id: number) {
       resposta => {
         const uri = resposta as any;
         this.relItens[id].item.urlfoto = 'https://tecseg-img.s3.us-east-2.amazonaws.com/rs/' + filename;
+        this.relItens[id].item.nomefile = filename;
         this.relItens[id].item.uploadimagem = true;
         this.rsService.salvarItens(this.relItens[id].item).subscribe(
          resposta1 => {
@@ -218,16 +223,32 @@ onSubmit(id: number) {
 }
 
 removerFoto(id: number) {
+  const nome = this.relItens[id].item.nomefile;
   this.relItens[id].item.urlfoto = "sem foto";
   this.relItens[id].item.uploadimagem = false;
-  this.rsService.salvarItens(this.relItens[id].item).subscribe(
-    resposta1 => {
-      this.relItens[id].item = resposta1 as any;
+  this.relItens[id].previewUrl = null;
+  this.relItens[id].file = null;
+  this.rsService.deletaFile(nome).subscribe(
+    resposta2 => {
+      resposta2 as any;
+      this.rsService.salvarItens(this.relItens[id].item).subscribe(
+        resposta1 => {
+          this.relItens[id].item = resposta1 as any;
+         
+        },
+        err1 => {
+          console.log(err1.error.erros.join(' '));
+        }
+      );
     },
-    err1 => {
-      console.log(err1.error.erros.join(' '));
+    err2 => {
+      console.log(err2.error.erros.join(' '));
     }
   );
+  
+  
+  
+  
 }
 
 
