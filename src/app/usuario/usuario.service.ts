@@ -58,9 +58,10 @@ export class UsuarioService {
   }
 
   getwinker(): Observable<any> {
-    const uri = "https://app.winker.com.br/intra/admCondominio/unidade/cobranca/";
+    const uri = "https://cors-anywhere.herokuapp.com/https://app.winker.com.br/intra/admCondominio/unidade/cobranca/";
     const formData = new FormData();
-    ///formData.append('file', file, fileName);
+    //formData.append('file', file, fileName);
+  
     let parametro = '{"query":{"situacao":"Em Aberto","filtros":{"p11eriodo":{"startDate":"2020-01-01T00:00:00.000Z","endDate":"2020-01-31T23:59:59.999Z"},"administradora":null,"condominio":null,"page":11,"unidade":null}}}';
     const request = new HttpRequest('POST', uri, parametro);
     return this.httpClient.request(request);

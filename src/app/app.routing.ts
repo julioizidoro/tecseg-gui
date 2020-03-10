@@ -34,6 +34,7 @@ import { CadpagtoComponent } from './clinica/clinicapagto/cadpagto/cadpagto.comp
 import { ConsrelatorioComponent } from './relatorioseguranca/relatorio/consrelatorio/consrelatorio.component';
 import { CaditemComponent } from './relatorioseguranca/item/caditem/caditem.component';
 import { CadrelatorioComponent } from './relatorioseguranca/relatorio/cadrelatorio/cadrelatorio.component';
+import { AutorizacaolaboratorioComponent } from './asoagenda/autorizacaolaboratorio/autorizacaolaboratorio.component';
 
 
 const APP_ROUTER: Routes = [
@@ -71,6 +72,7 @@ const APP_ROUTER: Routes = [
   { path: 'consrs', component: ConsrelatorioComponent },
   { path: 'cadrs', component: CadrelatorioComponent },
   { path: 'cadrsitem', component: CaditemComponent },
+  { path: 'autorizacaoexame', component: AutorizacaolaboratorioComponent },
   
   
 ];

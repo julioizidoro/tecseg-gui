@@ -15,7 +15,6 @@ import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 import { FuncionarioService } from 'src/app/funcionario/funcionario.service';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Agendaexame } from '../model/agendaexame';
-import { Exame } from 'src/app/asocontrole/model/exame';
 import { AlertModelService } from 'src/app/share/alert-model.service';
 import { Autlaboratorio } from '../model/autlaboratorio';
 
@@ -308,6 +307,11 @@ export class ConsasoagendaComponent implements OnInit {
       }
     }
     
+  }
+
+  autorizacaoExame(asoAgenda: Asoagenda) {
+    this.asoagendaService.setAsoAgenda(asoAgenda);
+    this.router.navigate(['/autorizacaoexame']);
   }
 
   
