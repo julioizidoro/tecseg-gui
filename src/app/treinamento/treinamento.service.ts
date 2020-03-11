@@ -47,6 +47,21 @@ getTreinamentoTipo() {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/salvar', treinamento);
   }
 
+  //Pesquisar todos
+  pesquisarTodos(datainicial: Date, datafinal: Date, situacao: string): Observable<Treinamento> {
+    return this.httpClient.get<Treinamento>(env.baseApiUrl + 'treinamentos/' + datainicial + '/' + datafinal + '/' + situacao);
+  }
+
+  //Pesquisar data
+  pesquisarData(datainicial: Date, datafinal: Date): Observable<Treinamento> {
+    return this.httpClient.get<Treinamento>(env.baseApiUrl + 'treinamentos/' + datainicial + '/' + datafinal);
+  }
+
+  //Pesquisar situacao
+  pesquisarSituacao(situacao: string): Observable<Treinamento> {
+    return this.httpClient.get<Treinamento>(env.baseApiUrl + 'treinamentos/situacao/' + situacao);
+  }
+
 
   /* Teeinamento Tipo */
 
@@ -66,11 +81,17 @@ getTreinamentoTipo() {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentotipo/salvar', treinamento);
   }
 
+  
+
 
   /* Treinamento participante */
 
   listarParticipante(id: number): Observable<Treinamentoparticipante> {
     return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/' + id );
+  }
+
+  listarTreinamentosVencidos(): Observable<Treinamentoparticipante> {
+    return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/vencidos');
   }
 
   salvarParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {

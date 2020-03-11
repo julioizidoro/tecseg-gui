@@ -61,7 +61,9 @@ export class AutorizacaolaboratorioComponent implements OnInit {
   imprimir() {
     let ex ='';
     for (let auto of this.listaAutorizacao){
-      ex = ex + '( X ) ' + auto.agendaexame.asotipo.nome + '     ';
+      if (auto.selecionado) {
+        ex = ex + '( X ) ' + auto.agendaexame.asotipo.nome + '     ';
+      }
     }
     const uri = env.baseApiUrl + 'agendaexame/autorizacaounidos/' + this.asoAgenda.idasoagenda + '/' + ex;
     return uri;

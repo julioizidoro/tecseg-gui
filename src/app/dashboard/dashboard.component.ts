@@ -9,6 +9,9 @@ import { ClientesService } from '../clientes/clientes.service';
 import { ContasService } from '../contas/contas.service';
 import { AuthService } from '../usuario/login/auth.service';
 import * as moment from 'moment';
+import { Treinamentoparticipante } from '../treinamento/model/treinamentoparticipante';
+import { Funcionario } from '../funcionario/model/funcionario';
+import { FuncionarioService } from '../funcionario/funcionario.service';
 
 
 @Component({
@@ -27,6 +30,8 @@ export class DashboardComponent implements OnInit {
   listaClientes: Clientes[];
   master:boolean;
   comercial: boolean;
+  listaParticipantes: Treinamentoparticipante[];
+  listaAniversario: Funcionario[]; 
 
   constructor(
     private asoAgendaService: AsoagendaService,
@@ -34,11 +39,14 @@ export class DashboardComponent implements OnInit {
     private clientesService: ClientesService,
     private contasService: ContasService,
     private authService: AuthService,
+    private funcionarioService: FuncionarioService,
   ) {
     this.clicked = this.clicked === undefined ? false : true;
   }
 
   ngOnInit() {
+    this.listarAniversariosFuncionarios();
+    this.listarTreinamentosVencidos();
     if (this.authService.getUsuario().acesso.nome === 'Master') {
       this.master = true;
       this.comercial = false;
@@ -78,6 +86,28 @@ export class DashboardComponent implements OnInit {
     this.clientesService.getAniversariantes().subscribe(
       resposta => {
         this.listaClientes = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
+  }
+
+  listarTreinamentosVencidos() {
+    this.treinamentoService.listarTreinamentosVencidos().subscribe(
+      resposta => {
+        this.listaParticipantes = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
+  }
+
+  listarAniversariosFuncionarios() {
+    this.funcionarioService.getAniversariantes().subscribe(
+      resposta => {
+        this.listaAniversario = resposta as any;
       },
       err => {
         console.log(err.error.erros.join(' '));

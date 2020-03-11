@@ -74,5 +74,9 @@ export class FuncionarioService {
     return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/lojasalutar/' +  id + '/' + datainicial + '/' + datafinal);
   }
 
+  getAniversariantes(): Observable<Funcionario> {
+    return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/aniversariantes');
+  }
+
 }
 

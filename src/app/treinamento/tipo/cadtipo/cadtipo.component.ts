@@ -28,19 +28,19 @@ export class CadtipoComponent implements OnInit {
       this.formulario = this.formBuilder.group({
         idtreinamentotipo: [null],
         nome: [null, Validators.required],
-        complementotitulo: [null],
         periodicidade: [null, Validators.required],
         tipo: [null],
         conteudo:[null],
+        complementotitulo: [null],
       });
     } else {
       this.formulario = this.formBuilder.group({
           idtreinamentotipo: this.treinamento.idtreinamentotipo,
           nome: [this.treinamento.nome, Validators.required],
-          complementotitulo: [this.treinamento.complementotitulo, Validators.required],
           periodicidade: [this.treinamento.periodicidade, Validators.required],
           tipo: this.treinamento.tipo,
           conteudo: this.treinamento.conteudo,
+          complementotitulo: [this.treinamento.complementotitulo, Validators.required],
         });
     }
 

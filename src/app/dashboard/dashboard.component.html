@@ -143,7 +143,111 @@
 </div>
 <!--Grid row-->
 
+<!-- Segundo linha master -->
 
+<!--Grid row-->
+
+<div *ngIf="master" class="row wow fadeIn">
+
+    <!--Grid column-->
+    <div  class="col-md-6 mb-4">
+
+        <!--Card-->
+        <mdb-card>
+            <div class="card-header" style="background-color: green; color: white;">Treinamentos Vencidos</div>
+            <!--Card content-->
+            <mdb-card-body>
+
+                <!-- Table  -->
+                <table class="table table-hover">
+                    <!-- Table head -->
+                    <thead class="blue-grey lighten-4">
+                    <tr
+                        class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                        <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                        <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                        <th class="col-lg-6 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Treinamento</th>
+                    </tr>
+                    </thead>
+                    <!-- Table head -->
+
+                    <!-- Table body -->
+                    <tbody>
+                        <tr *ngFor="let p of listaParticipantes" 
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    {{p.funcionario.nome}}</td>
+                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ p.treinamento.datavencimento | date: 'dd/MM/yyyy' }}</td>
+                    <td class="col-lg-5 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ p.treinamento.treinamentotipo.nome }}</td>
+                    
+                  
+                </tr>
+                    </tbody>
+                    <!-- Table body -->
+                </table>
+                <!-- Table  -->
+
+            </mdb-card-body>
+
+        </mdb-card>
+        <!--/.Card-->
+
+    </div>
+
+<!--Grid column-->
+<div  class="col-md-6 mb-4">
+
+    <!--Card-->
+    <mdb-card>
+        <div class="card-header" style="background-color: green; color: white;">Lista de Aniversáriantes</div>
+        <!--Card content-->
+        <mdb-card-body>
+           <!-- Table  -->
+           <table class="table table-hover">
+            <!-- Table head -->
+            <thead class="blue-grey lighten-4">
+            <tr
+                class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                <th class="col-lg-6 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
+                <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
+            </tr>
+            </thead>
+            <!-- Table head -->
+
+            <!-- Table body -->
+            <tbody>
+                <tr *ngFor="let f of listaAniversario" 
+            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+            <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+            {{f.nome}}</td>
+            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                style="border: none;">{{ f.datanascimento |  date: 'dd/MM/yyyy' }}</td>
+            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                style="border: none;">{{ f.loja.nome }}</td>
+            
+          
+        </tr>
+            </tbody>
+            <!-- Table body -->
+        </table>
+        <!-- Table  -->
+
+        </mdb-card-body>
+
+    </mdb-card>
+    <!--/.Card-->
+
+</div>
+<!--Grid column-->
+
+</div>
+<!--Grid row-->
+
+
+<!-- Fim segunda linha master-->
 
     <div *ngIf="comercial" class="row wow fadeIn">
 

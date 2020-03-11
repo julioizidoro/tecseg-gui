@@ -31,9 +31,9 @@ export class ConstreinamentoComponent implements OnInit {
 
   ngOnInit() {
     this.formulario = this.formBuilder.group({
-      datainicial: Date,
-      datafinal: Date,
-      situacao: [null]
+      datainicial: [null],
+      datafinal: [null],
+      situacao: [null],
     });
     this.consultar();
   }
@@ -92,11 +92,33 @@ listarParticipantes(t: Treinamento) {
 }
 
 pesquisar() {
-
+  console.log('pesquisa');
+  const datainicial = this.formulario.get('datainicial').value;
+  const datafinal = this.formulario.get('datafinal').value;
+  const situacao = this.formulario.get('situacao').value;
+  if ((datainicial!=null) && (datafinal != null) && (situacao != 'Nenhuma')) {
+    this.treinamentoService.pesquisarTodos(datainicial, datafinal, situacao).subscribe(
+      resposta => {
+        this.treinamentos = resposta as any;
+      }
+    );
+  } else if ((datainicial !=null) && (datafinal !=null)) {
+    this.treinamentoService.pesquisarData(datainicial, datafinal).subscribe(
+      resposta => {
+        this.treinamentos = resposta as any;
+      }
+    );
+  } else if (situacao != 'Nenhuma') {
+    this.treinamentoService.pesquisarSituacao(situacao).subscribe(
+      resposta => {
+        this.treinamentos = resposta as any;
+      }
+    );
+  }  
 }
 
 pesquisarLimpar() {
-
+  this.consultar();
 }
 
 }

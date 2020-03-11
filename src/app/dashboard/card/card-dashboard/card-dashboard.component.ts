@@ -1,6 +1,9 @@
 import { DashboardService } from './../../dashboard.service';
 import { Numeroasos } from './../../model/numeroasos';
 import { Component, OnInit } from '@angular/core';
+import { Treinamento } from 'src/app/treinamento/model/treinamento';
+import { Treinamentoparticipante } from 'src/app/treinamento/model/treinamentoparticipante';
+import { Funcionario } from 'src/app/funcionario/model/funcionario';
 
 @Component({
   selector: 'app-card-dashboard',
@@ -14,6 +17,7 @@ export class CardDashboardComponent implements OnInit {
   vencer90: number;
   vencer90m: number;
   wdvencido: string;
+ 
 
   constructor(
     private dashBoardService: DashboardService,
@@ -38,4 +42,5 @@ export class CardDashboardComponent implements OnInit {
     console.log(this.wdvencido);
   }
 
+ 
 }
