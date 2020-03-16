@@ -11,6 +11,7 @@ import { FuncionarioService } from '../funcionario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Validacoes } from 'src/app/campo-controll-erro/validacoes';
 import { ValidateBrService } from 'angular-validate-br';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-cadfuncionario',
@@ -27,6 +28,7 @@ export class CadfuncionarioComponent implements OnInit {
   lojas: Loja[];
   setores: Setor[];
   funcaoSelecionada: Funcao;
+  data: Date;
   lojaSelecionada: Loja;
   setorSelecionado: Setor;
   validateBrService: ValidateBrService;
@@ -68,6 +70,11 @@ export class CadfuncionarioComponent implements OnInit {
         sexo: [null],
         matricula: [null, Validators.required],
         setor: [null],
+        datasituacao: [null],
+        dataexp1: [null],
+        dataexp2: [null],
+        diasexp1: [null],
+        diasexp2: [null],
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
@@ -90,6 +97,11 @@ export class CadfuncionarioComponent implements OnInit {
         sexo: [this.funcionario.sexo],
         matricula: [this.funcionario.matricula, Validators.required],
         setor: [this.setorSelecionado],
+        datasituacao: [this.funcionario.datasituacao],
+        dataexp1: [this.funcionario.dataexp1],
+        dataexp2: [this.funcionario.dataexp2],
+        diasexp1: [this.funcionario.diasexp1],
+        diasexp2: [this.funcionario.diasexp2],
       });
     }
   }
@@ -172,5 +184,25 @@ export class CadfuncionarioComponent implements OnInit {
         alert('Cliente já cadastrado: ' + funcionarioCPF.nome);
       }
     });
+  }
+
+  calcularDataExp2() {
+    let data = new Date();
+    data = this.formulario.get('dataexp1').value;
+    let diasExp2 = this.formulario.get('diasexp2').value;
+    let novaData = new Date();
+    novaData.setDate(data.getDate + diasExp2);
+    this.formulario.get('dataexp2').setValue(novaData); 
+  }
+
+  calcularDataExp1() {
+    this.data.setDate(this.formulario.get('dataadmissao').value);
+    let diasExp1 = this.formulario.get('diasexp1').value;
+    this.data.setDate(this.data.getDate() + 1);
+    console.log(this.data.getDate);
+    this.formulario.patchValue({
+      dataexp1: [this.data.getDate()],
+    });
+   // this.formulario.get('dataexp1').setValue(novaData); 
   }
 }

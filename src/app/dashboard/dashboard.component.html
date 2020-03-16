@@ -154,7 +154,7 @@
 
         <!--Card-->
         <mdb-card>
-            <div class="card-header" style="background-color: green; color: white;">Treinamentos Vencidos</div>
+            <div class="card-header" style="background-color: green; color: white;">Cotnratos de Experiências</div>
             <!--Card content-->
             <mdb-card-body>
 
@@ -164,23 +164,23 @@
                     <thead class="blue-grey lighten-4">
                     <tr
                         class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
-                        <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                        <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
-                        <th class="col-lg-6 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Treinamento</th>
+                        <th class="col-lg-6 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                        <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Dat Exp1</th>
+                        <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Dat Exp2</th>
                     </tr>
                     </thead>
                     <!-- Table head -->
 
                     <!-- Table body -->
                     <tbody>
-                        <tr *ngFor="let p of listaParticipantes" 
+                        <tr *ngFor="let f of listaFuncionarios" 
                     class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                    {{p.funcionario.nome}}</td>
+                    <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                    {{f.nome}}</td>
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ p.treinamento.datavencimento | date: 'dd/MM/yyyy' }}</td>
-                    <td class="col-lg-5 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ p.treinamento.treinamentotipo.nome }}</td>
+                        style="border: none;">{{ f.dataexp1 | date: 'dd/MM/yyyy' }}</td>
+                        <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{ f.dataexp2 | date: 'dd/MM/yyyy' }}</td>
                     
                   
                 </tr>

@@ -22,7 +22,9 @@ export class ListatreinamentoComponent implements OnInit {
   participante: Treinamentoparticipante;
   nota: number;
   compareceu : boolean;
+  numeroparticipantes: number;
   @ViewChild('notas') showModalNotasOnClick: ModalDirective;
+  
 
   constructor(
     private treinamentoService: TreinamentoService,
@@ -48,6 +50,7 @@ export class ListatreinamentoComponent implements OnInit {
     this.treinamentoService.listarParticipante (this.treinamento.idtreinamento).subscribe(
         resposta => {
           this.participantes = resposta as any;
+          this.numeroparticipantes = this.participantes.length;
         },
         err => {
           console.log(err.error.erros.join(' '));

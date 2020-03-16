@@ -71,6 +71,7 @@ export class ConsfuncionarioComponent implements OnInit {
       loja: [null],
       funcao: [null],
       situacao: [null],
+      sexo: [null],
     });
 
   }
@@ -109,17 +110,24 @@ export class ConsfuncionarioComponent implements OnInit {
 
   pesquisar() {
     let nomePesquisa = this.formulario.get('nome').value;
+    let sexo = this.formulario.get('sexo').value;
+    console.log(sexo);
+    if (sexo === 'F') {
+      sexo = 'M' 
+    } else if (sexo==='M') {
+      sexo = 'F';
+    }
     if (nomePesquisa == null) {
       nomePesquisa = '@';
     }
     if ((nomePesquisa.length > 0) && (this.funcaoSelecionada == null) && (this.lojaSelecionada == null)) {
       this.pesquisarNome(nomePesquisa);
     } else if ((this.lojaSelecionada != null) && (this.funcaoSelecionada != null)) {
-      this.pesquisarFuncionarioFuncaoLoja(nomePesquisa);
+      this.pesquisarFuncionarioFuncaoLoja(nomePesquisa, sexo);
     } else if (this.funcaoSelecionada != null) {
-        this.pesquisarFuncao(nomePesquisa);
+        this.pesquisarFuncao(nomePesquisa, sexo);
     } else if (this.lojaSelecionada != null) {
-          this.pesquisarLoja(nomePesquisa);
+          this.pesquisarLoja(nomePesquisa, sexo);
     } else {
       this.pesquisarNome(nomePesquisa);
     }
@@ -140,12 +148,12 @@ export class ConsfuncionarioComponent implements OnInit {
     );
   }
 
-  pesquisarLoja(nomePesquisa: string) {
+  pesquisarLoja(nomePesquisa: string, sexo: any) {
     let situacao = this.formulario.get('situacao').value;
     if (situacao == null) {
       situacao = '@';
     }
-    this.funcionarioService.getFuncionarioLoja(this.lojaSelecionada.idloja, nomePesquisa, situacao).subscribe(
+    this.funcionarioService.getFuncionarioLoja(this.lojaSelecionada.idloja, nomePesquisa, situacao, sexo).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
       },
@@ -155,12 +163,12 @@ export class ConsfuncionarioComponent implements OnInit {
     );
   }
 
-  pesquisarFuncao(nomePesquisa: string) {
+  pesquisarFuncao(nomePesquisa: string, sexo: string) {
     let situacao = this.formulario.get('situacao').value;
     if (situacao == null) {
       situacao = '@';
     }
-    this.funcionarioService.getFuncionarioFuncao(this.funcaoSelecionada.idfuncao, nomePesquisa, situacao).subscribe(
+    this.funcionarioService.getFuncionarioFuncao(this.funcaoSelecionada.idfuncao, nomePesquisa, situacao, sexo).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
       },
@@ -170,13 +178,13 @@ export class ConsfuncionarioComponent implements OnInit {
     );
   }
 
-  pesquisarFuncionarioFuncaoLoja(nomePesquisa: string) {
+  pesquisarFuncionarioFuncaoLoja(nomePesquisa: string, sexo: string) {
     let situacao = this.formulario.get('situacao').value;
     if (situacao == null) {
       situacao = '@';
     }
     this.funcionarioService.getFuncionarioFuncaoLoja(this.lojaSelecionada.idloja,
-      this.funcaoSelecionada.idfuncao, nomePesquisa, situacao ).subscribe(
+      this.funcaoSelecionada.idfuncao, nomePesquisa, situacao, sexo ).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
       },

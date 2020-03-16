@@ -162,7 +162,7 @@
            </app-campo-control-erro>
         </div>
 
-        <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
+        <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
           <label for="sexo">Sexo</label>
           <select class="form-control" formControlName="sexo">
               <option value="M">Masculino</option>
@@ -174,7 +174,7 @@
         </app-campo-control-erro>
       </div>
 
-      <div class="form-group col-md-4 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
+      <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
         <label for="situacao">Situação</label>
         <select class="form-control" formControlName="situacao">
             <option value="Ativo">Ativo</option>
@@ -186,6 +186,28 @@
         msgErro="Situação é obrigatório.">
       </app-campo-control-erro>
     </div>
+
+    <div class="form-group col-md-3 col-sm-12" >
+      <label for="diasexp1">Dias Exp1</label>
+      <input type="number" class="form-control" id="diasexp1"  formControlName="diasexp1" >
+    </div>
+
+    <div class="form-group col-md-3 col-sm-12">
+      <label for="dataexp1">Data Exp1</label>
+      <input type="date" class="form-control" id="dataexp1" formControlName="dataexp1"  >
+    </div>
+
+
+    <div class="form-group col-md-3 col-sm-12" >
+      <label for="diasexp2">Dias Exp2</label>
+      <input type="number" class="form-control" id="diasexp2"  formControlName="diasexp2" >
+    </div>
+
+    <div class="form-group col-md-3 col-sm-12">
+      <label for="dataexp2">Data Exp2</label>
+      <input type="date" class="form-control" id="dataexp2" formControlName="dataexp2"  >
+    </div>
+
 
        
 

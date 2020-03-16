@@ -13,6 +13,7 @@ export class Treinamento {
     cidade: string;
     situacao: string;
     datavencimento: Date;
+    complementotitulo: string;
     treinamentotipo: Treinamentotipo;
     usuario: Usuario;
 

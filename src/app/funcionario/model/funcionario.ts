@@ -21,5 +21,9 @@ export class Funcionario {
   matricula: number;
   setor: Setor;
   datasituacao: Date;
+  dataexp1: Date;
+  dataexp2: Date;
+  diasexp1: number;
+  diasexp2: number;
   participa: boolean;
 }

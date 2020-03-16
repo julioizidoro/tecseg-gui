@@ -94,6 +94,21 @@ getTreinamentoTipo() {
     return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/vencidos');
   }
 
+  //Loja
+  listarTreinamentosVencidosLoja(idloja: number): Observable<Treinamentoparticipante> {
+    return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/vencidos/loja/' + idloja );
+  }
+
+   //Funcao
+   listarTreinamentosVencidosFuncao(idfuncao: number): Observable<Treinamentoparticipante> {
+    return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/vencidos/funcao/' + idfuncao );
+  }
+
+  //Funcao Loja
+  listarTreinamentosVencidosFuncaoLoja(idfuncao: number, idloja: number): Observable<Treinamentoparticipante> {
+    return this.httpClient.get<Treinamentoparticipante>(env.baseApiUrl + 'treinamentos/participantes/vencidos/' + idfuncao  + '/' + idloja);
+  }
+
   salvarParticipante(treinamentoParticipante: Treinamentoparticipante): Observable<any> {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/salvar', treinamentoParticipante);
   }
@@ -112,5 +127,7 @@ getTreinamentoTipo() {
     return this.httpClient.post<any>(env.baseApiUrl + 'treinamentos/participante/deletar', options);*/
     return this.httpClient.delete<any>(env.baseApiUrl + 'treinamentos/participante/deletar/' + treinamentoParticipante.idtreinamentoparticipante);
   }
+
+
 
 }

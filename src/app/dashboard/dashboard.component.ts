@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   listaClientes: Clientes[];
   master:boolean;
   comercial: boolean;
-  listaParticipantes: Treinamentoparticipante[];
+  listaFuncionarios: Funcionario[];
   listaAniversario: Funcionario[]; 
 
   constructor(
@@ -45,9 +45,9 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.listarAniversariosFuncionarios();
-    this.listarTreinamentosVencidos();
     if (this.authService.getUsuario().acesso.nome === 'Master') {
+      this.listarAniversariosFuncionarios();
+      this.listarFuncionariosContratos();
       this.master = true;
       this.comercial = false;
       console.log(this.master);
@@ -93,10 +93,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  listarTreinamentosVencidos() {
-    this.treinamentoService.listarTreinamentosVencidos().subscribe(
+  listarFuncionariosContratos() {
+    this.funcionarioService.findcontrato().subscribe(
       resposta => {
-        this.listaParticipantes = resposta as any;
+        this.listaFuncionarios = resposta as any;
       },
       err => {
         console.log(err.error.erros.join(' '));

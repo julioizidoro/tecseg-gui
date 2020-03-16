@@ -13,6 +13,16 @@
         <input type="text" class="form-control" id="treinamento" [value]="treinamento.treinamentotipo.nome"
           readonly="false">
       </div>
+      <div class="form-group col-md-10 col-sm-12">
+        <label for="complementotitulo">Complemento Título</label>
+        <input type="text" class="form-control" id="complementotitulo" [value]="treinamento.complementotitulo"
+          readonly="false">
+      </div>
+      <div class="form-group col-md-2 col-sm-12">
+        <label for="participantes">Participantes</label>
+        <input type="text" class="form-control" id="participantes" [value]="numeroparticipantes"
+          readonly="false">
+      </div>
       <div class="form-group col-md-2 col-sm-12">
         <label for="data">Data</label>
         <input type="date" class="form-control" id="data" [value]="treinamento.data" readonly>

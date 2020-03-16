@@ -40,7 +40,7 @@ export class CadtipoComponent implements OnInit {
           periodicidade: [this.treinamento.periodicidade, Validators.required],
           tipo: this.treinamento.tipo,
           conteudo: this.treinamento.conteudo,
-          complementotitulo: [this.treinamento.complementotitulo, Validators.required],
+          complementotitulo: this.treinamento.complementotitulo,
         });
     }
 

@@ -39,6 +39,8 @@ export class CadtreinamentoComponent implements OnInit {
         local: this.treinamento.local,
         cidade: this.treinamento.cidade,
         situacao: this.treinamento.situacao,
+        datavencimento: this.treinamento.datavencimento,
+        complementotitulo: this.treinamento.complementotitulo,
         treinamentotipo: this.treinamento.treinamentotipo,
         usuario: this.treinamento.usuario,
       });
@@ -53,6 +55,8 @@ export class CadtreinamentoComponent implements OnInit {
         local: [null],
         cidade: [null],
         situacao: [null],
+        datavencimento: [null],
+        complementotitulo: [null],
         treinamentotipo: [null],
         usuario: [null],
       });
@@ -70,6 +74,7 @@ export class CadtreinamentoComponent implements OnInit {
     this.treinamentotipoSelecionado = this.formulario.get('treinamentotipo').value;
     if ( this.treinamentotipoSelecionado != null ) {
       this.formulario.get('conteudo').setValue(this.treinamentotipoSelecionado.conteudo);
+      this.formulario.get('complementotitulo').setValue(this.treinamento.complementotitulo);
     }
   }
 

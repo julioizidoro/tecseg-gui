@@ -285,6 +285,12 @@ exportarSalutar() {
           this.router.navigate(['/constreinamento']);
         } 
       } 
+      if (menu === 'vencidos') {
+        if (this.authService.getUsuario().acesso.turma) {
+          permitir = true;
+          this.router.navigate(['/treinamentosvencidos']);
+        } 
+      } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
       }  
