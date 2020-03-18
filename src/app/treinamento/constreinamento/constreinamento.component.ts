@@ -121,4 +121,16 @@ pesquisarLimpar() {
   this.consultar();
 }
 
+duplicarTreinamento(treinamento: Treinamento) {
+    this.treinamentoService.duplicarTreinamento(treinamento.idtreinamento).subscribe(
+      resposta => {
+        treinamento = resposta as any;
+        if (treinamento != null) {
+          this.treinamentoService.setTreinamento(treinamento);
+          this.router.navigate([ '/cadtreinamento']);
+        }
+      }
+    ); 
+}
+
 }

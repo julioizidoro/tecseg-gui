@@ -31,6 +31,7 @@ export class ConsfuncionarioComponent implements OnInit {
   listaParticipante: Treinamentoparticipante[];
   idNaoParticipante: number;
   TaParticipando: boolean;
+  numeroColaboradores: number;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -55,6 +56,7 @@ export class ConsfuncionarioComponent implements OnInit {
       this.treinamentoService.listarParticipante(this.treinamentoService.getTreinamento().idtreinamento).subscribe(
         resposta => {
           this.listaParticipante = resposta as any;
+          
         },
         err => {
           console.log(err.error.erros.join(' '));
@@ -96,6 +98,7 @@ export class ConsfuncionarioComponent implements OnInit {
       this.funcionarioService.listar('@', '@').subscribe(
         resposta => {
           this.funcionarios = resposta as any;
+          this.numeroColaboradores = this.funcionarios.length;
         },
         err => {
           console.log(err.error.erros.join(' '));
@@ -141,6 +144,7 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.listar(nomePesquisa, situacao).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+        this.numeroColaboradores = this.funcionarios.length;
       },
       err => {
         console.log(err.error.erros.join(' '));
@@ -156,6 +160,7 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.getFuncionarioLoja(this.lojaSelecionada.idloja, nomePesquisa, situacao, sexo).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+        this.numeroColaboradores = this.funcionarios.length;
       },
       err => {
         console.log(err.error.erros.join(' '));
@@ -171,6 +176,7 @@ export class ConsfuncionarioComponent implements OnInit {
     this.funcionarioService.getFuncionarioFuncao(this.funcaoSelecionada.idfuncao, nomePesquisa, situacao, sexo).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+        this.numeroColaboradores = this.funcionarios.length;
       },
       err => {
         console.log(err.error.erros.join(' '));
@@ -187,6 +193,7 @@ export class ConsfuncionarioComponent implements OnInit {
       this.funcaoSelecionada.idfuncao, nomePesquisa, situacao, sexo ).subscribe(
       resposta => {
         this.funcionarios = resposta as any;
+        this.numeroColaboradores = this.funcionarios.length;
       },
       err => {
         console.log(err.error.erros.join(' '));
