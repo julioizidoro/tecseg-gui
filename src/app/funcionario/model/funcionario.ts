@@ -25,5 +25,7 @@ export class Funcionario {
   dataexp2: Date;
   diasexp1: number;
   diasexp2: number;
+  pcd: boolean;
+  tipopcd: string;
   participa: boolean;
 }

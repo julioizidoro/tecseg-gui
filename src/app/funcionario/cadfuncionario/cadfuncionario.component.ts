@@ -75,6 +75,8 @@ export class CadfuncionarioComponent implements OnInit {
         dataexp2: [null],
         diasexp1: [null],
         diasexp2: [null],
+        pcd: [null],
+        tipopcd: [null],
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
@@ -102,6 +104,8 @@ export class CadfuncionarioComponent implements OnInit {
         dataexp2: [this.funcionario.dataexp2],
         diasexp1: [this.funcionario.diasexp1],
         diasexp2: [this.funcionario.diasexp2],
+        pcd: [this.funcionario.pcd],
+        tipopcd: [this.funcionario.tipopcd],
       });
     }
   }
