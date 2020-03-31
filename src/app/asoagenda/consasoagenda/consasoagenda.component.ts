@@ -17,6 +17,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { Agendaexame } from '../model/agendaexame';
 import { AlertModelService } from 'src/app/share/alert-model.service';
 import { Autlaboratorio } from '../model/autlaboratorio';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-consasoagenda',
@@ -26,6 +28,7 @@ import { Autlaboratorio } from '../model/autlaboratorio';
 export class ConsasoagendaComponent implements OnInit {
 
   formulario: FormGroup;
+  formularioWhats: FormGroup;
   dataExame: Date;
   isFirstOpen = false;
   oneAtATime: true;
@@ -35,11 +38,12 @@ export class ConsasoagendaComponent implements OnInit {
   asoAgenda: Asoagenda;
   agendaExames: Agendaexame[];
   @ViewChild('Exames') public showModalDataExameOnClick: ModalDirective;
-  @ViewChild('autExames') public showModalAutExameOnClick: ModalDirective;
+  @ViewChild('mensagem') public showModalMensagemOnClick: ModalDirective;
   aso: Asocontrole;
   lastAsoControles: Asocontrole;
   listaAutLaboratorio: Autlaboratorio[];
-
+  public maskCELULAR = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+  fone: string = ' ';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,6 +56,7 @@ export class ConsasoagendaComponent implements OnInit {
     private asocontroleService: AsocontroleService,
     private funcionarioService: FuncionarioService,
     private alertService: AlertModelService,
+    public datepipe: DatePipe,
   ) { }
 
   ngOnInit() {
@@ -59,6 +64,13 @@ export class ConsasoagendaComponent implements OnInit {
       nome: [null],
       loja: [null],
       situacao: [null],
+      fone: [null],
+      mensagem: [null],
+    });
+    this.formularioWhats = this.formBuilder.group({
+      nome: [null],
+      fone: [null],
+      mensagem: [null],
     });
     this.carregarComboBox();
     this.formulario.reset();
@@ -216,7 +228,7 @@ export class ConsasoagendaComponent implements OnInit {
       this.aso.funcionario.datasituacao = this.aso.dataexame;
       salvarFunc = true;
     }
-   
+
     this.asocontroleService.getLast(this.aso.funcionario.idfuncionario, this.aso.asotipo.tipo).subscribe(resposta => {
       this.lastAsoControles = resposta as any;
       this.asocontroleService.salvar(this.aso).subscribe(resposta2 => {
@@ -271,7 +283,7 @@ export class ConsasoagendaComponent implements OnInit {
     );
   }
 
-  
+
 
   fecharModal() {
     this.showModalDataExameOnClick.hide();
@@ -291,9 +303,9 @@ export class ConsasoagendaComponent implements OnInit {
             this.listaAutLaboratorio.push(aut)
           }
         }
-        this.showModalAutExameOnClick.show();
+        //this.showModalAutExameOnClick.show();
       }
-    );  
+    );
   }
 
   GerarAsoControle(exame: Agendaexame) {
@@ -306,7 +318,7 @@ export class ConsasoagendaComponent implements OnInit {
         this.salvarAso(exame);
       }
     }
-    
+
   }
 
   autorizacaoExame(asoAgenda: Asoagenda) {
@@ -314,5 +326,46 @@ export class ConsasoagendaComponent implements OnInit {
     this.router.navigate(['/autorizacaoexame']);
   }
 
-  
+  enviarMensagem(asoAgenda: Asoagenda) {
+    this.asoAgenda = asoAgenda;
+    let data = this.datepipe.transform(this.asoAgenda.dataexame, 'dd/MM/yyyy')
+    let mensagem = 'Exame agendado para dia ' + data +
+        ' às ' + asoAgenda.hora + ' horas na clinica Salutar\b\n ' +
+        'Localização: https://goo.gl/maps/W2f6PXWeKGF3KVeU9';
+    this.formularioWhats = this.formBuilder.group({
+      nome: this.asoAgenda.funcionario.nome,
+      fone: this.asoAgenda.funcionario.fone,
+      mensagem: mensagem,
+    });
+    this.showModalMensagemOnClick.show();
+  }
+
+  sendMensagem() {
+    let fone: string= this.formularioWhats.get('fone').value;
+    let novoNumero = this.formularioWhats.get('fone').value;
+    if (fone === null) {
+      fone = ' ';
+    } else {
+
+    let mensagem = this.formularioWhats.get('mensagem').value;
+    fone = fone.replace('(', '');
+    fone = fone.replace(')', '');
+    fone = fone.replace('-', '');
+    const uri = 'whatsapp://send?phone=55' + fone + '&text='+ mensagem;
+    window.open(uri, "_blank");
+    if (novoNumero =! this.asoAgenda.funcionario.fone) {
+      this.asoAgenda.funcionario.fone = novoNumero;
+      this.funcionarioService.salvar(this.asoAgenda.funcionario).subscribe(
+        resposta => {
+          this.asoAgenda.funcionario = resposta as any;
+        },
+        err => {
+          console.log(err.error.erros.join(' '));
+        }
+      );
+    }
+    }
+  }
+
+
 }

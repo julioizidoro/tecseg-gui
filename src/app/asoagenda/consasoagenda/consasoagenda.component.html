@@ -96,18 +96,21 @@
                       <a style="color: green;margin-left: 0%;" (click)="editar(agenda)">
                         <i class="far fa-edit" title="Editar"></i>
                       </a>
-                      <a style="color: blue;margin-left: 10%;" (click)="finalizar(agenda)">
+                      <a style="color: blue;margin-left: 5%;" (click)="finalizar(agenda)">
                         <i class="fas fa-check-double" title="Finalizar"></i>
                       </a>
-                      <a style="color: red;margin-left: 10%;" (click)="cancelar(agenda)">
+                      <a style="color: red;margin-left: 5%;" (click)="cancelar(agenda)">
                         <i class="fas fa-ban" title="Cancelar"></i>
                       </a>
-                      <a style="color: purple;margin-left: 10%;" (click)="autorizacaoExame(agenda)">
+                      <a style="color: purple;margin-left: 5%;" (click)="autorizacaoExame(agenda)">
                         <i class="far fa-address-book" title="Autorização de exame"></i>
                       </a>
-                      <a style="color: green;margin-left: 10%;">
+                      <a style="color: green;margin-left: 5%;">
                         <a href="{{imprimir(agenda)}}" target="_blank">
                           <i class="fas fa-print" title="Imprimir"></i></a>
+                      </a>
+                      <a style="color: green;margin-left: 5%;" (click)="enviarMensagem(agenda)">
+                        <i class="fab fa-whatsapp" title="Enviar mensagem"></i>
                       </a>
                     </a>
                   </div>
@@ -179,68 +182,58 @@
 
 <!-- Imprimir Autorização de Exames-->
 
-<!-- Finalizar colcoar data do exame 
-<div mdbModal #autExames="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel">Autoriazação de Exames</h4>
 
-               
-            </div>
-            <div class="modal-body">
+<div mdbModal #mensagem="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: true, ignoreBackdropClick: false}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title w-100" id="myModalLabel">Autoriazação de Exames</h4>
 
-              <div class="form-group col-md-5 col-sm-12">
-                <label for="clinica">Clinica</label>
-                <select class="form-control"  [compareWith]="compararClinica"   (change)="setClinica()"> 
-                  <option *ngFor="let clinica of clinicas" [ngValue]="clinica"> {{ clinica.nome }}</option>
-                </select>
-              </div>
-              
-              <div *ngFor="let a of listaAutLaboratorio" >
-                <div class="row">
-                  <div class="form-group col-md-3 col-sm-12">
-                    <label for="datalancamento"  style="font-size: 1;" >Data do Exame</label>
-                    <input type="date" class="form-control" id="datalancamento" style="font-size: 1;" 
-                      [(ngModel)]="exame.datalancamento" >
-                  </div>
-                <div class="form-group col-md-5 col-sm-12">
-                  <label for="tipoexame"  style="font-size: 1;" >Tipo de Exme</label>
-                  <input type="text" class="form-control" id="tipoexame" style="font-size: 1;" 
-                    [(ngModel)]="exame.asotipo.nome" readonly >
-                </div>
-                <div class="form-group col-md-3 col-sm-12">
-                  <label for="datalancamento"  style="font-size: 1;" >Data do Exame</label>
-                  <input type="date" class="form-control" id="datalancamento" style="font-size: 1;" 
-                    [(ngModel)]="exame.datalancamento" >
-                </div>
-                <div class="form-group col-md-4 col-sm-12" >
-                  <label for="situacao">Situação</label>
-                  <select class="form-control"  [(ngModel)]="exame.situacao" >
-                      <option value="Agendado">Agendado</option>
-                      <option value="Cancelado">Cancelado</option>
-                      <option value="Finalizado">Finalizado</option>
-                  </select>
-              </div>
 
-              </div>
-
-            </div>
+      </div>
+      <form [formGroup]="formularioWhats">
+      <div class="modal-body">
+        <div class="form-group col-md-6 col-sm-12">
+          <label for="nome" style="font-size: 1;">Colaborador</label>
+          <input type="text" class="form-control" id="nome" style="font-size: 1;" formControlName="nome" readonly>
         </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success btn-sm waves-light" data-dismiss="modal" 
-                    (click)="salvarFinalizar()" mdbWavesEffect title="Salvar alterações">
-                    <i class="fas fa-check" aria-hidden="true"></i>Salvar
-                </button>
-                <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" 
-                    (click)="fecharModal()" mdbWavesEffect title="Cancelar alterações">
-                    <i class="fas fa-times" aria-hidden="true"></i>Cancelar
-                </button>
-            </div>
-            
+        <div class="form-group col-md-6 col-sm-12">
+
         </div>
+
+        <div class="form-group col-md-4 col-sm-12">
+          <label for="fone" style="font-size: 1;">Fone</label>
+          <input type="text" class="form-control" id="nome" style="font-size: 1;"  (focus)="true" [textMask]="{mask: maskCELULAR}" formControlName="fone" placeholder="(00)0000-0000">
+        </div>
+
+        <div class="form-group col-md-8 col-sm-12">
+
+        </div>
+
+        <div class="form-group col-md-12 col-sm-12">
+          <label for="mensagem" style="font-size: 1;">Mensagem</label>
+          <textarea class="form-control" id="mensagem"  formControlName="mensagem" rows="4"></textarea>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success btn-sm waves-light" data-dismiss="modal"
+          mdbWavesEffect title="Enviar" (click)="sendMensagem()">
+
+          <i class="far fa-share-square" aria-hidden="true" ></i>Enviar
+        </button>
+        <button type="button" class="btn btn-danger btn-sm waves-light" data-dismiss="modal" (click)="fecharModal()"
+          mdbWavesEffect title="Fechar">
+          <i class="fas fa-times" aria-hidden="true" ></i>Fechar
+        </button>
+      </div>
+    </form>
+
     </div>
-</div>
+  </div>
 
--->
+
+
+</div>

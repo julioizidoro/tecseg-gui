@@ -16,7 +16,7 @@ import { FuncionarioModule } from './funcionario/funcionario.module';
 import { AsocontroleModule } from './asocontrole/asocontrole.module';
 import { AsoagendaModule } from './asoagenda/asoagenda.module';
 import { ClinicaModule } from './clinica/clinica.module';
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, DatePipe } from '@angular/common';
 import br from '@angular/common/locales/br';
 import { AgmCoreModule } from '@agm/core';
 import { RouterModule } from '@angular/router';
@@ -88,6 +88,7 @@ registerLocaleData(br, 'pt-BR');
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     AuthService,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
