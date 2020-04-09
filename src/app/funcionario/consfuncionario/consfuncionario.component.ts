@@ -341,15 +341,18 @@ novoAso(funcionario: Funcionario) {
 }
 
 imprimir() {
-  console.log('teste')
-  let cor = this.formulario.get('cor').value;
-  let local = this.formulario.get('local').value;
-  const uri =env.baseApiUrl + 'funcionarios/tro/' + this.lojaSelecionada.idloja + "/" + local + "/" + cor;
-  return uri;
+  if (this.lojaSelecionada!=null) {
+    if (this.lojaSelecionada.idloja!=null){
+      let cor = this.formulario.get('cor').value;
+      let local = this.formulario.get('local').value;
+      const uri =env.baseApiUrl + 'funcionarios/tro/' + this.lojaSelecionada.idloja + "/" + local + "/" + cor;
+      return uri;
+    }
+  }
+  
 }
 
 abrirModal() {
-  this.lojaSelecionada = new Loja();
   this.showModalDataTermoMascaraOnClick.show();
 }
 
