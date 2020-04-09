@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Funcionario } from '../model/funcionario';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Loja } from 'src/app/loja/model/loja';
@@ -10,6 +10,8 @@ import { FuncaoService } from 'src/app/funcao/funcao.service';
 import { AsocontroleService } from 'src/app/asocontrole/asocontrole.service';
 import { TreinamentoService } from 'src/app/treinamento/treinamento.service';
 import { Treinamentoparticipante } from 'src/app/treinamento/model/treinamentoparticipante';
+import { environment as env } from '../../../environments/environment.prod';
+import { ModalDirective } from 'angular-bootstrap-md';
 
 @Component({
   selector: 'app-consfuncionario',
@@ -32,6 +34,7 @@ export class ConsfuncionarioComponent implements OnInit {
   idNaoParticipante: number;
   TaParticipando: boolean;
   numeroColaboradores: number;
+  @ViewChild('termomascara') public showModalDataTermoMascaraOnClick: ModalDirective;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -74,6 +77,8 @@ export class ConsfuncionarioComponent implements OnInit {
       funcao: [null],
       situacao: [null],
       sexo: [null],
+      cor: [null],
+      local: [null],
     });
 
   }
@@ -334,5 +339,23 @@ novoAso(funcionario: Funcionario) {
   this.funcionarioService.setRota('');
   this.router.navigate([ '/cadasocontrole']);
 }
+
+imprimir() {
+  console.log('teste')
+  let cor = this.formulario.get('cor').value;
+  let local = this.formulario.get('local').value;
+  const uri =env.baseApiUrl + 'funcionarios/tro/' + this.lojaSelecionada.idloja + "/" + local + "/" + cor;
+  return uri;
+}
+
+abrirModal() {
+  this.lojaSelecionada = new Loja();
+  this.showModalDataTermoMascaraOnClick.show();
+}
+
+fecharModal() {
+  this.showModalDataTermoMascaraOnClick.hide();
+}
+
 
 }
