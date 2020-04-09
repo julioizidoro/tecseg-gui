@@ -3,6 +3,7 @@ import { Funcionario } from './model/funcionario';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../environments/environment.prod';
+import { Contratoexp } from './model/Contratoexp';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +79,8 @@ export class FuncionarioService {
     return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/aniversariantes');
   }
 
-  findcontrato(): Observable<Funcionario> {
-    return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/contratos');
+  findcontrato(): Observable<Contratoexp> {
+    return this.httpClient.get<Contratoexp>(env.baseApiUrl + 'funcionarios/contratos');
   }
 
 }

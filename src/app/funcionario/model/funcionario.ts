@@ -27,5 +27,6 @@ export class Funcionario {
   diasexp2: number;
   pcd: boolean;
   tipopcd: string;
+  fone: string;
   participa: boolean;
 }

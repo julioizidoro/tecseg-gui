@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { Treinamentoparticipante } from '../treinamento/model/treinamentoparticipante';
 import { Funcionario } from '../funcionario/model/funcionario';
 import { FuncionarioService } from '../funcionario/funcionario.service';
+import { Contratoexp } from '../funcionario/model/Contratoexp';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
   listaClientes: Clientes[];
   master:boolean;
   comercial: boolean;
-  listaFuncionarios: Funcionario[];
+  listaContratoExp: Contratoexp[];
   listaAniversario: Funcionario[]; 
 
   constructor(
@@ -96,7 +97,7 @@ export class DashboardComponent implements OnInit {
   listarFuncionariosContratos() {
     this.funcionarioService.findcontrato().subscribe(
       resposta => {
-        this.listaFuncionarios = resposta as any;
+        this.listaContratoExp = resposta as any;
       },
       err => {
         console.log(err.error.erros.join(' '));
