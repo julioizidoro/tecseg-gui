@@ -16,7 +16,7 @@
   <form [formGroup]="formulario">
   <div class="row">
       <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('nome')" >
-          <label for="nome">Nome</label>
+          <label for="nome">Nome *</label>
           <input type="text" class="form-control" id="nome" placeholder="Nome"
             formControlName="nome">
             <app-campo-control-erro
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('matricula')">
-          <label for="matricula">Matrícula</label>
+          <label for="matricula">Matrícula *</label>
           <input type="text" class="form-control" id="matricula" placeholder="Matrícula"
             formControlName="matricula">
             <app-campo-control-erro
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group col-md-2 col-sm-12" [ngClass]="aplicaCssErro('cpf')">
-          <label for="cpf">CPF</label>
+          <label for="cpf">CPF *</label>
           <input type="text" class="form-control" id="cpf" placeholder="CPF" [textMask]="{mask: maskCPF}" placeholder="000.000.000-00"  
           (blur)="consultarCPF()" formControlName="cpf">
             <app-campo-control-erro
@@ -110,7 +110,7 @@
 
 
         <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('dataadmissao')">
-          <label for="dataadmissao">Data Admissão</label>
+          <label for="dataadmissao">Data Admissão *</label>
           <input type="date" class="form-control" id="dataadmissao" placeholder="Data Admissao"
             formControlName="dataadmissao" >
             <app-campo-control-erro
@@ -122,7 +122,7 @@
         
 
         <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('funcao')">
-            <label for="funcao">Função</label>
+            <label for="funcao">Função *</label>
             <select class="form-control" formControlName="funcao"  [compareWith]="compararFuncao" (change)="setFuncao()">
                 <option *ngFor="let funcao of funcoes" [ngValue]="funcao"> {{ funcao.nome }}</option>
              </select>
@@ -140,7 +140,7 @@
 
         
         <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('loja')">
-          <label for="loja">Loja</label>
+          <label for="loja">Loja *</label>
           <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
               <option *ngFor="let loja of lojas" [ngValue]="loja"> {{ loja.nome }}</option>
            </select>
@@ -152,7 +152,7 @@
 
 
         <div class="form-group col-md-7 col-sm-12" [ngClass]="aplicaCssErro('setor')">
-            <label for="setor">Setor</label>
+            <label for="setor">Setor *</label>
             <select class="form-control" formControlName="setor"  [compareWith]="compararSetor" (change)="setSetor()">
                 <option *ngFor="let setor of setores" [ngValue]="setor"> {{ setor.nome }}</option>
              </select>
@@ -163,7 +163,7 @@
         </div>
 
         <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
-          <label for="sexo">Sexo</label>
+          <label for="sexo">Sexo *</label>
           <select class="form-control" formControlName="sexo">
               <option value="M">Masculino</option>
               <option value="F">Feminino</option>
@@ -175,7 +175,7 @@
       </div>
 
       <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
-        <label for="situacao">Situação</label>
+        <label for="situacao">Situação *</label>
         <select class="form-control" formControlName="situacao">
             <option value="Ativo">Ativo</option>
             <option value="Afastado">Afastado</option>

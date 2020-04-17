@@ -34,17 +34,24 @@
           <accordion-group heading="Pesquisar" [isOpen]="isFirstOpen">
             <div class="row">
               
-              <div class="form-group col-md-5">
+              <div class="form-group col-md-4">
                 <label for="pesquisanome">Nome</label>
                 <input type="text" class="form-control" id="pesquisanome" placeholder="Nome" formControlName="nome">
               </div>
 
 
-              <div class="form-group col-md-7">
+              <div class="form-group col-md-4">
                 <label for="funcao">Função</label>
                 <select class="form-control" formControlName="funcao" [compareWith]="compararFuncao"
                   (change)="setFuncao()">
                   <option *ngFor="let funcao of funcoes" [ngValue]="funcao"> {{ funcao.nome }}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="setor">Setor</label>
+                <select class="form-control" formControlName="setor" [compareWith]="compararSetor"
+                  (change)="setSetor()">
+                  <option *ngFor="let setor of setores" [ngValue]="setor"> {{ setor.nome }}</option>
                 </select>
               </div>
               <div class="form-group col-md-5">
@@ -72,12 +79,12 @@
 
 
               <div class="form-group col-md-12 text-right">
-                <button type="button" class="btn btn-primary" (click)="pesquisar()">
+                <button type="button" class="btn btn-primary" (click)="pesquisarNovo()">
                     <i class="fa fa-search" aria-hidden="true"></i>
                     Pesquisar
                 </button>
                 <button type="submit" class="btn btn-danger" style="margin-left:1%;"
-                    (click)="pesquisarLimpar()">
+                    (click)="limparNovo()">
                     <i class="fa fa-refresh" aria-hidden="true"></i>
                     Limpar
                 </button>
@@ -99,12 +106,18 @@
             <thead>
                 <tr
                     class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Admissão</th>
-                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Função</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">CBO</th>
-                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Loja</th>
-                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Situação</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderByNome()">Nome</a></th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderBySetor()">Setor</a></th>
+                    <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderByFuncao()">Função</a></th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderByCBO()">CBO</a></th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderByLoja()">Loja</a></th>
+                    <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">
+                    <a (click)="orderBySituacao()">Situação</a></th>
                     <th class="col-lg-1 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
                         style="text-align: center;">Ações</th>
                 </tr>
@@ -115,7 +128,7 @@
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
                         {{f.nome}}</td>
                     <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                      {{ f.dataadmissao | date: 'dd/MM/yyyy' }}</td>
+                      {{ f.setor.nome }}</td>
                     <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
                         style="border: none;">{{f.funcao.nome}}</td>
                     <td class="col-lg-1 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
@@ -141,6 +154,9 @@
                         </a>
                         <a *ngIf="verificarParticipante()" style="color: red; margin-left: 5%;" (click)="removerTreinamentoFuncionario(f)">
                           <i class="fas fa-user-times" title="Remover do Treinamento"></i>
+                        </a>
+                        <a  style="color: green; margin-left: 5%;" (click)="verFuncionario(f)">
+                          <i class="fas fa-search" title="Ver dados"></i>
                         </a>
                     </td>
                 </tr>

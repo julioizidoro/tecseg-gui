@@ -12,9 +12,10 @@ import { FuncionarioService } from './funcionario.service';
 import { FuncaoService } from '../funcao/funcao.service';
 import { AccordionModule } from 'ngx-bootstrap';
 import { routing } from '../app.routing';
+import { VerfuncionarioComponent } from './verfuncionario/verfuncionario.component';
 
 @NgModule({
-  declarations: [CadfuncionarioComponent, ConsfuncionarioComponent],
+  declarations: [CadfuncionarioComponent, ConsfuncionarioComponent, VerfuncionarioComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -31,7 +32,7 @@ import { routing } from '../app.routing';
     LojaService,
     SetorService,
   ],
-  exports: [CadfuncionarioComponent, ConsfuncionarioComponent],
+  exports: [CadfuncionarioComponent, ConsfuncionarioComponent, VerfuncionarioComponent],
   schemas: [ NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FuncionarioModule { }

@@ -12,6 +12,8 @@ import { TreinamentoService } from 'src/app/treinamento/treinamento.service';
 import { Treinamentoparticipante } from 'src/app/treinamento/model/treinamentoparticipante';
 import { environment as env } from '../../../environments/environment.prod';
 import { ModalDirective } from 'angular-bootstrap-md';
+import { Setor } from 'src/app/setor/model/setor';
+import { SetorService } from 'src/app/setor/setor.service';
 
 @Component({
   selector: 'app-consfuncionario',
@@ -34,6 +36,8 @@ export class ConsfuncionarioComponent implements OnInit {
   idNaoParticipante: number;
   TaParticipando: boolean;
   numeroColaboradores: number;
+  setores: Setor[];
+  setorSelecionado: Setor;
   @ViewChild('termomascara') public showModalDataTermoMascaraOnClick: ModalDirective;
 
   constructor(
@@ -44,14 +48,16 @@ export class ConsfuncionarioComponent implements OnInit {
     private funcaoService: FuncaoService,
     private asoControleService: AsocontroleService,
     private treinamentoService: TreinamentoService,
+    private setorService: SetorService,
     ) {
-      this.consultar();
+      
     }
 
     funcionarios: Funcionario[];
 
 
   ngOnInit() {
+    this.carregarComboBox();
     this.listaParticipante = [];
     if (this.funcionarioService.getRota() === 'treinamento' || this.funcionarioService.getRota() === 'listatreinamento') {
       this.idNaoParticipante = 0;
@@ -70,7 +76,6 @@ export class ConsfuncionarioComponent implements OnInit {
       this.habilitarTreinamento = false;
     }
     this.habilitarConsulta = true;
-    this.carregarComboBox();
     this.formulario = this.formBuilder.group({
       nome: [null],
       loja: [null],
@@ -79,7 +84,9 @@ export class ConsfuncionarioComponent implements OnInit {
       sexo: [null],
       cor: [null],
       local: [null],
+      setor: [null],
     });
+    this.pesquisarNovo();
 
   }
 
@@ -98,6 +105,15 @@ export class ConsfuncionarioComponent implements OnInit {
       console.log(err.error.erros.join(' '));
     }
     );
+    this.setorService.listar().subscribe(
+      resposta => {
+        this.setores = resposta as any;
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+    );
+
   }
     consultar() {
       this.funcionarioService.listar('@', '@').subscribe(
@@ -220,6 +236,14 @@ export class ConsfuncionarioComponent implements OnInit {
 
   setFuncao() {
     this.funcaoSelecionada = this.formulario.get('funcao').value;
+  }
+
+  compararSetor(obj1, obj2) {
+    return obj1 && obj2 ? obj1.idloja === obj2.idloja : obj1 === obj2;
+  }
+
+  setSetor() {
+    this.setorSelecionado = this.formulario.get('setor').value;
   }
 
   pesquisarLimpar() {
@@ -359,6 +383,84 @@ abrirModal() {
 fecharModal() {
   this.showModalDataTermoMascaraOnClick.hide();
 }
+
+pesquisarNovo() {
+  let nome = this.formulario.get('nome').value;
+  let situacao = this.formulario.get('situacao').value;
+  let sexo = this.formulario.get('sexo').value;
+  if (nome === null) {
+    nome = '@';
+  }
+  if (situacao === null) {
+    situacao = '@';
+  }
+  if (sexo === null) {
+    sexo = '@';
+  }
+  let funcao;
+  if (this.funcaoSelecionada != null) {
+    funcao = this.funcaoSelecionada.nome;
+  }else funcao = '@';
+  let loja;
+  if (this.lojaSelecionada != null) {
+    loja = this.lojaSelecionada.nome;
+  } else loja = '@';
+  let setor;
+  if (this.setorSelecionado != null){
+    setor = this.setorSelecionado.nome;
+  }else setor = '@';
+  this.funcionarioService.findByOrderNome(nome, funcao, loja, situacao, sexo, setor).subscribe(
+    resposta => {
+      this.funcionarios = resposta as any;
+      this.numeroColaboradores = this.funcionarios.length;
+      this.funcionarios.sort((a,b) => a.nome.localeCompare(b.nome));  
+    },
+    err => {
+      console.log(err.error.erros.join(' '));
+    }
+  );
+}
+
+limparNovo() {
+  this.formulario.reset;
+  this.funcaoSelecionada = null;
+  this.setorSelecionado = null;
+  this.lojaSelecionada = null;
+  this.pesquisarNovo();
+}
+
+orderByNome(){
+  console.log('nome');
+  this.funcionarios.sort((a,b) => a.nome.localeCompare(b.nome));   
+}
+
+orderBySetor(){
+  console.log('setor');
+  this.funcionarios.sort((a,b) => a.setor.nome.localeCompare(b.setor.nome));   
+}
+
+orderByLoja(){
+  this.funcionarios.sort((a,b) => a.loja.nome.localeCompare(b.loja.nome));  
+}
+
+orderByFuncao(){
+  this.funcionarios.sort((a,b) => a.funcao.nome.localeCompare(b.funcao.nome));  
+}
+
+orderByCBO(){
+  this.funcionarios.sort((a,b) => a.funcao.cbo.localeCompare(b.funcao.cbo));  
+}
+
+orderBySituacao(){
+  this.funcionarios.sort((a,b) => a.situacao.localeCompare(b.situacao));  
+}
+
+verFuncionario(f: Funcionario) {
+  this.funcionarioService.setFuncionario(f);
+  this.router.navigate(['/verfuncionario']);
+}
+
+
 
 
 }

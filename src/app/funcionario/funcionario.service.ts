@@ -83,5 +83,10 @@ export class FuncionarioService {
     return this.httpClient.get<Contratoexp>(env.baseApiUrl + 'funcionarios/contratos');
   }
 
+  findByOrderNome(nome: string, funcao: string, loja: string, situacao: string, sexo: string, setor: string): Observable<Funcionario> {
+    return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/listar/' + nome + "/" +
+    loja + "/" + sexo + "/" + situacao + "/" + funcao + "/" + setor);
+  }
+
 }
 

@@ -36,6 +36,7 @@ import { CaditemComponent } from './relatorioseguranca/item/caditem/caditem.comp
 import { CadrelatorioComponent } from './relatorioseguranca/relatorio/cadrelatorio/cadrelatorio.component';
 import { AutorizacaolaboratorioComponent } from './asoagenda/autorizacaolaboratorio/autorizacaolaboratorio.component';
 import { VencidosComponent } from './treinamento/vencidos/vencidos.component';
+import { VerfuncionarioComponent } from './funcionario/verfuncionario/verfuncionario.component';
 
 
 const APP_ROUTER: Routes = [
@@ -43,6 +44,7 @@ const APP_ROUTER: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'consfuncionario', component: ConsfuncionarioComponent },
   { path: 'cadfuncionario', component: CadfuncionarioComponent },
+  { path: 'verfuncionario', component: VerfuncionarioComponent },
   { path: 'consasocontrole', component: ConsasocontroleComponent },
   { path: 'listaaso', component: ListaasofuncionarioComponent },
   { path: 'cadasocontrole', component: CadasocontroleComponent },
