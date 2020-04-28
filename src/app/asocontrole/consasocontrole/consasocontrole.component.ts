@@ -11,6 +11,13 @@ import { FuncaoService } from 'src/app/funcao/funcao.service';
 import { AsocontroleService } from '../asocontrole.service';
 import { AsotipoService } from '../asotipo.service';
 import { Router } from '@angular/router';
+import { Exportaraso } from '../model/exportaraso';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+
+const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+const EXCEL_EXTENSION = '.xlsx';
 
 @Component({
   selector: 'app-consasocontrole',
@@ -344,5 +351,47 @@ agendar(aso: Asocontrole) {
   this.asocontroleService.setAso(aso);
   this.router.navigate(['/cadasoagenda']);
 }
+
+exportarExcel() {
+  let listaExpotarAso: Exportaraso[];;
+  listaExpotarAso = [];
+  for (let aso of this.asoControles) {
+      let exportar = new Exportaraso;
+      exportar.situacao = this.getSituacao(aso.situacao);
+      exportar.nome = aso.funcionario.nome;
+      exportar.cbo = aso.funcionario.funcao.cbo;
+      exportar.funcao = aso.funcionario.funcao.nome
+      exportar.loja = aso.funcionario.loja.nome;
+      exportar.tipoexame = aso.asotipo.nome;
+      exportar.vencimento = aso.datavencimento;
+      listaExpotarAso.push(exportar);
+  }
+  if (listaExpotarAso.length>0) {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(listaExpotarAso);
+      const workbook: XLSX.WorkBook = { Sheets: { 'data' : worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+      XLSX.writeFile(workbook, this.toExportFileName('asocontrole'));
+  }
+}
+
+
+toExportFileName(excelFileName: string): string {
+  return `${excelFileName}.xlsx`;
+}
+
+getSituacao(situacao: string) {
+  if (situacao==="https://tecseg-img.s3.us-east-2.amazonaws.com/atestadovencido.png") {
+    return "Vencido";
+  } else if (situacao==="https://tecseg-img.s3.us-east-2.amazonaws.com/agendado.png") {
+    return "Agendado";
+  } else if (situacao === "https://tecseg-img.s3.us-east-2.amazonaws.com/atestadovencer1.png") {
+    return "Vencendo 30 dias"
+  } else if (situacao === "https://tecseg-img.s3.us-east-2.amazonaws.com/atestadovencer2.png") {
+    return "Vencendo 45 dias"
+  } else if (situacao === "https://tecseg-img.s3.us-east-2.amazonaws.com/atestadodia.png") {
+    return "Em dia";
+  }
+}
+
 
 }

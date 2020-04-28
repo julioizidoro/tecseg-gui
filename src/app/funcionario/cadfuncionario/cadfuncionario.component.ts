@@ -149,6 +149,7 @@ export class CadfuncionarioComponent implements OnInit {
   salvar() {
     this.funcionario = this.formulario.value;
     if (this.funcionario.idfuncionario == null) {
+      this.funcionario.datasituacao = this.funcionario.dataadmissao;
       this.funcionarioService.salvar(this.funcionario).subscribe(resposta => {
         this.funcionario = resposta as any;
       });

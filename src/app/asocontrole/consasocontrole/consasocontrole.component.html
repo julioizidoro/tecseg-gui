@@ -56,13 +56,17 @@
 
 
               <div class="form-group col-md-12 text-right">
-                <button type="button" class="btn btn-primary" (click)="pesquisar()">
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                <button type="button" class="btn btn-success" (click)="exportarExcel()" >
+                  <i  class="far fa-file-excel" title="Exporta para excel" aria-hidden="true"></i>
+                  Excel
+                </button>
+                <button type="button" class="btn btn-primary" (click)="pesquisar()" style="margin-left:1%;">
+                    <i class="fa fa-search" title="Executar pesquisa" aria-hidden="true"></i>
                     Pesquisar
                 </button>
                 <button type="submit" class="btn btn-danger" style="margin-left:1%;"
                     (click)="pesquisarLimpar()">
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                    <i class="fa fa-refresh" aria-hidden="true" title="Limpar pesquisa"></i>
                     Limpar
                 </button>
             </div>
