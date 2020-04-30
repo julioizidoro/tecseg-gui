@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit {
       fonecelular: [null],
       situacao: [null],
       acesso: [null],
+      urlfoto: [null],
+      urlassinatura: [null],
+      registromte: [null],
+      funcao: [null],
     });
 
   }

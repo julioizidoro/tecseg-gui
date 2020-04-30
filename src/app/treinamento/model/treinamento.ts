@@ -14,6 +14,7 @@ export class Treinamento {
     situacao: string;
     datavencimento: Date;
     complementotitulo: string;
+    assinstrutor: boolean;
     treinamentotipo: Treinamentotipo;
     usuario: Usuario;
 

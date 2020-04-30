@@ -52,6 +52,10 @@ export class CadusuarioComponent implements OnInit {
         fonecelular: usuario.fonecelular,
         situacao: usuario.situacao,
         acesso: usuario.acesso,
+        urlfoto: usuario.urlfoto,
+        urlassinatura: usuario.urlassinatura,
+        registromte: usuario.registromte,
+        funcao: usuario.funcao,
       });
       this.acessoSelecionado = usuario.acesso;
     } else {
@@ -66,7 +70,11 @@ export class CadusuarioComponent implements OnInit {
         email: [null],
         fonecelular: [null],
         situacao: ['Ativo'],
-        acesso: this.acessoSelecionado
+        acesso: this.acessoSelecionado,
+        urlfoto: [null],
+        urlassinatura: [null],
+        registromte: [null],
+        funcao: [null],
       });
     }
   }

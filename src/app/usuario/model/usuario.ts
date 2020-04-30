@@ -1,4 +1,5 @@
 import { Acesso } from 'src/app/acesso/model/acesso';
+import { Funcao } from 'src/app/funcao/model/funcao';
 
 
 export class Usuario {
@@ -13,4 +14,8 @@ export class Usuario {
     situacao: boolean;
     acesso: Acesso;
     urlfoto: string;
+    urlassinatura: string;
+    registromte: string;
+    funcao: Funcao;
+
 }

@@ -46,6 +46,7 @@ export class CadfuncionarioComponent implements OnInit {
 
   ngOnInit() {
     this.funcionario = this.funcionarioService.getFuncionario();
+    console.log(this.funcionario.setor);
     this.carregarComboBox();
     if ( this.funcionario ==  null) {
       this.setorSelecionado = new Setor();
@@ -80,6 +81,7 @@ export class CadfuncionarioComponent implements OnInit {
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
+      console.log(this.setorSelecionado);
       this.funcaoSelecionada = this.funcionario.funcao;
       this.lojaSelecionada = this.funcionario.loja;
       this.formulario = this.formBuilder.group({
@@ -108,17 +110,18 @@ export class CadfuncionarioComponent implements OnInit {
         tipopcd: [this.funcionario.tipopcd],
       });
     }
+    console.log(this.formulario.get('setor').value);
   }
 
   carregarComboBox() {
+    this.setorService.listar().subscribe(resposta => {
+      this.setores = resposta as any;
+    });
     this.funcaoService.listar().subscribe(resposta => {
       this.funcoes = resposta as any;
     });
     this.lojaService.listar().subscribe(resposta => {
       this.lojas = resposta as any;
-    });
-    this.setorService.listar().subscribe(resposta => {
-      this.setores = resposta as any;
     });
   }
 

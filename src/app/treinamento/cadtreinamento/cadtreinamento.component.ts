@@ -41,6 +41,7 @@ export class CadtreinamentoComponent implements OnInit {
         situacao: this.treinamento.situacao,
         datavencimento: this.treinamento.datavencimento,
         complementotitulo: this.treinamento.complementotitulo,
+        assinstrutor: this.treinamento.assinstrutor,
         treinamentotipo: this.treinamento.treinamentotipo,
         usuario: this.treinamento.usuario,
       });
@@ -57,6 +58,7 @@ export class CadtreinamentoComponent implements OnInit {
         situacao: [null],
         datavencimento: [null],
         complementotitulo: [null],
+        assinstrutor: [false],
         treinamentotipo: [null],
         usuario: [null],
       });
