@@ -28,5 +28,6 @@ export class Funcionario {
   pcd: boolean;
   tipopcd: string;
   fone: string;
+  nacionalidade: string;
   participa: boolean;
 }

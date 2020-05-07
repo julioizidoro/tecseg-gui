@@ -34,6 +34,8 @@ export class CadfuncionarioComponent implements OnInit {
   validateBrService: ValidateBrService;
   public maskCPF = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, '-', /[0-9]/, /[0-9]/];
   public maskPIS = [/[0-9]/, /[0-9]/, /[0-9]/, '.', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '.' , /[0-9]/, /[0-9]/, '.', /[0-9]/];
+  public maskCelular = ['(', /[0-9]/, /[0-9]/, ')', /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/, '-' , /[0-9]/, /[0-9]/, /[0-9]/, /[0-9]/];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,7 +48,6 @@ export class CadfuncionarioComponent implements OnInit {
 
   ngOnInit() {
     this.funcionario = this.funcionarioService.getFuncionario();
-    console.log(this.funcionario.setor);
     this.carregarComboBox();
     if ( this.funcionario ==  null) {
       this.setorSelecionado = new Setor();
@@ -78,6 +79,8 @@ export class CadfuncionarioComponent implements OnInit {
         diasexp2: [null],
         pcd: [null],
         tipopcd: [null],
+        fone: [null],
+        nacionalidade: [null],
       });
     } else {
       this.setorSelecionado = this.funcionario.setor;
@@ -108,6 +111,8 @@ export class CadfuncionarioComponent implements OnInit {
         diasexp2: [this.funcionario.diasexp2],
         pcd: [this.funcionario.pcd],
         tipopcd: [this.funcionario.tipopcd],
+        fone: [this.funcionario.fone],
+        nacionalidade: [this.funcionario.nacionalidade],
       });
     }
     console.log(this.formulario.get('setor').value);
@@ -200,7 +205,7 @@ export class CadfuncionarioComponent implements OnInit {
     let diasExp2 = this.formulario.get('diasexp2').value;
     let novaData = new Date();
     novaData.setDate(data.getDate + diasExp2);
-    this.formulario.get('dataexp2').setValue(novaData); 
+    this.formulario.get('dataexp2').setValue(novaData);
   }
 
   calcularDataExp1() {
@@ -211,6 +216,6 @@ export class CadfuncionarioComponent implements OnInit {
     this.formulario.patchValue({
       dataexp1: [this.data.getDate()],
     });
-   // this.formulario.get('dataexp1').setValue(novaData); 
+   // this.formulario.get('dataexp1').setValue(novaData);
   }
 }

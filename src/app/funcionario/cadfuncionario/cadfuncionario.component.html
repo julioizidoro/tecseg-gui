@@ -43,7 +43,7 @@
 
         <div class="form-group col-md-2 col-sm-12" [ngClass]="aplicaCssErro('cpf')">
           <label for="cpf">CPF *</label>
-          <input type="text" class="form-control" id="cpf" placeholder="CPF" [textMask]="{mask: maskCPF}" placeholder="000.000.000-00"  
+          <input type="text" class="form-control" id="cpf" placeholder="CPF" [textMask]="{mask: maskCPF}" placeholder="000.000.000-00"
           (blur)="consultarCPF()" formControlName="cpf">
             <app-campo-control-erro
               [mostrarErro]="verificarValidTouched('cpf')"
@@ -119,7 +119,7 @@
           </app-campo-control-erro>
         </div>
 
-        
+
 
         <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('funcao')">
             <label for="funcao">Função *</label>
@@ -138,7 +138,7 @@
               [value]="funcaoSelecionada.cbo">
         </div>
 
-        
+
         <div class="form-group col-md-5 col-sm-12" [ngClass]="aplicaCssErro('loja')">
           <label for="loja">Loja *</label>
           <select class="form-control" formControlName="loja"  [compareWith]="compararLoja" (change)="setLoja()">
@@ -158,7 +158,7 @@
            </select>
         </div>
 
-        <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
+        <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('sexo')">
           <label for="sexo">Sexo *</label>
           <select class="form-control" formControlName="sexo">
               <option value="M">Masculino</option>
@@ -170,7 +170,19 @@
         </app-campo-control-erro>
       </div>
 
-      <div class="form-group col-md-6 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
+      <div class="form-group col-md-3 col-sm-12" >
+        <label for="fone">Fone Celular</label>
+        <input type="text" class="form-control" id="fone"  formControlName="fone" [textMask]="{mask: maskCelular}">
+      </div>
+
+      <div class="form-group col-md-3 col-sm-12" >
+        <label for="nacionalidade">Nacionalidade</label>
+        <input type="text" class="form-control" id="nacionalidade"  formControlName="nacionalidade" >
+      </div>
+
+
+
+      <div class="form-group col-md-3 col-sm-12" [ngClass]="aplicaCssErro('situacao')">
         <label for="situacao">Situação *</label>
         <select class="form-control" formControlName="situacao">
             <option value="Ativo">Ativo</option>
@@ -216,8 +228,8 @@
         <label for="tipopcd">Descrição da deficiência</label>
         <input type="text" class="form-control" id="tipopcd" formControlName="tipopcd"   >
       </div>
-  
-       
+
+
 
 
 
