@@ -1,0 +1,63 @@
+<br /><br />
+<div class="page-header">
+  <div class="container-fluid">
+    <h3>
+      Consulta de Setores
+    </h3>
+    <hr />
+  </div>
+  <form [formGroup]="formulario">
+    <div class="container-fluid" style="width:100%;">
+      <div class="w-100">
+        <button type="button" style="float:right;" class="btn btn-success font-weight-light" 
+          routerLink="/cadsetor" >
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          <a class="ml-2">Adicionar</a>
+        </button>
+      </div>
+      <br><br>
+      
+      <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr
+                    class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
+                    <th class="col-lg-6 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
+                    <th class="col-lg-4 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Líder</th>
+                    <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm"
+                        style="text-align: center;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let setor of setores"
+                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
+                    <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                        {{setor.nome}}</td>
+                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
+                        style="border: none;">{{setor.funcionario.nome}}</td>
+                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
+                      <a style="color: green;margin-left: 10%;" (click)="editar(setor)">
+                        <i class="far fa-edit" title="Editar"></i>
+                    </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

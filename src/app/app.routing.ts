@@ -37,6 +37,8 @@ import { CadrelatorioComponent } from './relatorioseguranca/relatorio/cadrelator
 import { AutorizacaolaboratorioComponent } from './asoagenda/autorizacaolaboratorio/autorizacaolaboratorio.component';
 import { VencidosComponent } from './treinamento/vencidos/vencidos.component';
 import { VerfuncionarioComponent } from './funcionario/verfuncionario/verfuncionario.component';
+import { CadsetorComponent } from './setor/cadsetor/cadsetor.component';
+import { ConssetorComponent } from './setor/conssetor/conssetor.component';
 
 
 const APP_ROUTER: Routes = [
@@ -65,6 +67,8 @@ const APP_ROUTER: Routes = [
   { path: 'consclientes', component: ConsclienteComponent },
   { path: 'cadfornecedor', component: CadfornecedorComponent },
   { path: 'consfornecedor', component: ConsfornecedorComponent },
+  { path: 'cadsetor', component: CadsetorComponent },
+  { path: 'conssetor', component: ConssetorComponent },
   { path: 'consproduto', component: ConsprodutoComponent },
   { path: 'cadproduto', component: CadprodutoComponent },
   { path: 'consreceber', component: ConscontasComponent },

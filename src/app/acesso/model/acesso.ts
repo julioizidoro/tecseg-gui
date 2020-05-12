@@ -30,4 +30,5 @@ export class Acesso {
     contausuario: boolean;
     calculosalutar: boolean;
     relseguranca: boolean;
+    setor: boolean;
 }

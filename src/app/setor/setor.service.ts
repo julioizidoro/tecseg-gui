@@ -9,10 +9,24 @@ import { environment as env } from '../../environments/environment.prod';
 })
 export class SetorService {
 
+  private setor: Setor;
+
   constructor( private httpClient: HttpClient ) { }
+
+  setSetor(setor: Setor) {
+    this.setor = setor;
+  }
+
+  getSetor() {
+    return this.setor;
+  }
 
   listar(): Observable<Setor> {
     return this.httpClient.get<Setor>(env.baseApiUrl + 'setor');
+  }
+
+  salvar(setor: Setor): Observable<any> {
+    return this.httpClient.post<any>(env.baseApiUrl + 'setor/salvar', setor);
   }
   
 }

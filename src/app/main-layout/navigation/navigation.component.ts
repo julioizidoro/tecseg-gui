@@ -180,6 +180,12 @@ exportarSalutar() {
           permitir = true;
           this.router.navigate(['/consfuncao']);
         } 
+      }else if (menu === 'setor') {
+        console.log(this.authService.getUsuario().acesso.setor);
+        if (this.authService.getUsuario().acesso.setor) {
+          permitir = true;
+          this.router.navigate(['/conssetor']);
+        } 
       } else if (menu === 'loja') {
         if (this.authService.getUsuario().acesso.loja) {
           permitir = true;

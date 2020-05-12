@@ -51,6 +51,8 @@ export class VerfuncionarioComponent implements OnInit {
         diasexp2: [this.funcionario.diasexp2],
         pcd: [this.funcionario.pcd],
         tipopcd: [this.funcionario.tipopcd],
+        fone: [this.funcionario.fone],
+        nacionalidade: [this.funcionario.nacionalidade],
       });
       let pcd;
       if (this.funcionario.pcd === true) {

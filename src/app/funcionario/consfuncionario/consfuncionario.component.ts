@@ -271,6 +271,9 @@ export class ConsfuncionarioComponent implements OnInit {
     }else if ( this.funcionarioService.getRota() === 'cadafastamento') {
       this.funcionarioService.setRota('');
       this.router.navigate([ '/cadafastamento']);
+    }else if ( this.funcionarioService.getRota() === 'cadsetor') {
+      this.funcionarioService.setRota('');
+      this.router.navigate([ '/cadsetor']);
     }
   }
 
