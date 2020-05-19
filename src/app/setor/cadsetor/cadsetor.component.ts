@@ -29,18 +29,23 @@ export class CadsetorComponent implements OnInit {
     private funcionarioService: FuncionarioService,
     private router: Router,
     private setorService: SetorService,
-  ) { }
+
+  ) {
+    this.funcionarioSelecionado = new Funcionario();
+    this.funcionarioSelecionado.nome = 'Nome do funcioário';
+  }
 
 
   ngOnInit() {
+
     this.setor = this.setorService.getSetor();
-    this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
-      if (this.funcionarioSelecionado===null) {
-        this.funcionarioSelecionado = new Funcionario();
-        this.funcionarioSelecionado.nome = 'Nome do funcioário';
-      } 
+    if (this.funcionarioService.getFuncionario()!=null) {
+      this.funcionarioSelecionado = this.funcionarioService.getFuncionario();
+    }
     if (this.setor!=null) {
-      if (this.funcionarioSelecionado === null) {
+      console.log(this.setor);
+      if (this.funcionarioService.getFuncionario()==null) {
+        console.log(this.setor.funcionario);
         this.funcionarioSelecionado = this.setor.funcionario;
       }
       this.formulario = this.formBuilder.group({
@@ -49,7 +54,7 @@ export class CadsetorComponent implements OnInit {
         funcionario: this.funcionarioSelecionado,
       });
     } else {
-      
+
       this.formulario = this.formBuilder.group({
         idsetor: [null],
         nome: [null],
@@ -59,7 +64,7 @@ export class CadsetorComponent implements OnInit {
   }
 
 
-  
+
   novo() {
     const setor = this.setorService.getSetor();
     if (setor != null) {
@@ -80,9 +85,9 @@ export class CadsetorComponent implements OnInit {
     }
   }
 
-  
-  
-  
+
+
+
   salvar() {
     this.setorService.setSetor(null);
     this.funcionarioService.setFuncionario(null);
@@ -107,12 +112,12 @@ export class CadsetorComponent implements OnInit {
     this.router.navigate(['/conssetor']);
   }
 
-  
+
   consultaFuncionario() {
     this.funcionarioService.setFuncionario(null);
     this.funcionarioService.setRota('cadsetor');
     this.router.navigate(['/consfuncionario']);
   }
 
-  
+
 }

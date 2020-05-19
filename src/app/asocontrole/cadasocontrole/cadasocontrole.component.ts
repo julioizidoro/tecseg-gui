@@ -143,7 +143,7 @@ export class CadasocontroleComponent implements OnInit {
         }
       });
     });
-    
+
   }
 
   compararTipo(obj1, obj2) {
@@ -181,7 +181,7 @@ export class CadasocontroleComponent implements OnInit {
       this.lastAsoControles = resposta as any;
       if (this.aso.funcionario.funcao.idfuncao !== idfuncao) {
         this.aso.funcionario.funcao = this.funcaoSelecionada;
-        this.funcionarioService.atualizar(this.aso.funcionario).subscribe(resposta1 => {
+        this.funcionarioService.salvar(this.aso.funcionario).subscribe(resposta1 => {
           this.aso.funcionario = resposta1 as any;
         });
       }
@@ -255,7 +255,7 @@ export class CadasocontroleComponent implements OnInit {
     this.router.navigate(['/consfuncionario']);
   }
 
- 
+
 
 
 }
