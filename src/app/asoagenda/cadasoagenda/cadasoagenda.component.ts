@@ -192,6 +192,7 @@ export class CadasoagendaComponent implements OnInit {
   }
 
   salvar() {
+    console.log('salvar');
     if (this.agendaExames.length > 0) {
       this.asoAgenda = this.formulario.value;
       this.asoAgenda.funcionario = this.funcionarioSelecionado;
@@ -213,6 +214,9 @@ export class CadasoagendaComponent implements OnInit {
         this.asoagendaService.salvarListaAgendaExame(this.agendaExames).subscribe(
           resposta3 => {
             this.agendaExames = resposta3 as any;
+          },
+          err => {
+            console.log(err.error.erros.join(' '));
           }
         );
         if (this.asoAgenda.situacao === 'Agendado') {
@@ -222,10 +226,18 @@ export class CadasoagendaComponent implements OnInit {
             this.asoControle.agendado = true;
             this.asocontroleService.atualizar(this.asoControle).subscribe(resposta2 => {
               this.asoControle = resposta2 as any;
-            });
+            },
+            err => {
+              console.log(err.error.erros.join(' '));
+            }
+            );
           }
         }
-      });
+      },
+      err => {
+        console.log(err.error.erros.join(' '));
+      }
+      );
       this.cancelar();
     }
   }
