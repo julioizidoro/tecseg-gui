@@ -39,9 +39,9 @@ export class FuncionarioService {
     return this.httpClient.post<any>(env.baseApiUrl + 'funcionarios/salvar', funcionario);
   }
 
-  atualizar(funcionario: Funcionario): Observable<any> {
-    return this.httpClient.put<any>(env.baseApiUrl + 'funcionarios/atualizar', funcionario);
-  }
+  //atualizar(funcionario: Funcionario): Observable<any> {
+   // return this.httpClient.put<any>(env.baseApiUrl + 'funcionarios/atualizar', funcionario);
+ // }
 
   getFuncionarioId(id: number): Observable<Funcionario> {
     return this.httpClient.get<Funcionario>(env.baseApiUrl + 'funcionarios/id/' +  id);

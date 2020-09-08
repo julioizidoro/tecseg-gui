@@ -26,6 +26,7 @@ export class CadtreinamentoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.carregarComboBox();
     this.treinamento = this.treinamentoService.getTreinamento();
     if (this.treinamento != null) {
       this.treinamentotipoSelecionado = this.treinamento.treinamentotipo;
@@ -63,7 +64,6 @@ export class CadtreinamentoComponent implements OnInit {
         usuario: [null],
       });
     }
-    this.carregarComboBox();
   }
 
   carregarComboBox() {
