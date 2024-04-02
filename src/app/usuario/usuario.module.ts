@@ -1,7 +1,5 @@
 import { NgModule, NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CadusuarioComponent } from './cadusuario/cadusuario.component';
-import { ConsusuarioComponent } from './consusuario/consusuario.component';
 import { LoginComponent } from './login/login.component';
 import { TextMaskModule } from 'angular2-text-mask';
 import {DropdownModule} from 'primeng/dropdown';
@@ -13,7 +11,7 @@ import { AccordionModule } from 'ngx-bootstrap';
 
 
 @NgModule({
-  declarations: [CadusuarioComponent, ConsusuarioComponent, LoginComponent],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     MDBBootstrapModule.forRoot(),
@@ -23,7 +21,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     TextMaskModule,
     AccordionModule.forRoot(),
   ],
-  exports:[CadusuarioComponent, ConsusuarioComponent, LoginComponent], 
+  exports:[LoginComponent], 
   providers:[
     UsuarioService, 
     AuthService,

@@ -1,4 +1,3 @@
-import { FuncionarioService } from './../../funcionario/funcionario.service';
 import { UsuarioService } from './../../usuario/usuario.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Usuario } from 'src/app/usuario/model/usuario';
@@ -31,7 +30,6 @@ export class NavigationComponent implements OnInit {
       private router: Router,
       private formBuilder: FormBuilder,
       private usuarioService: UsuarioService,
-      private funcionarioService: FuncionarioService,
       private alertService: AlertModelService,
   ) {
     this.clicked = this.clicked === undefined ? false : true;
@@ -39,7 +37,10 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
     this.setFormulario();
-    this.usuario = this.authService.getUsuario();
+    //this.usuario = this.authService.getUsuario();
+    this.usuario = new Usuario();
+    this.usuario.nome = 'Julio Testes';
+
   }
 
   setClicked(val: boolean): void {
@@ -150,7 +151,7 @@ export class NavigationComponent implements OnInit {
 }
 
 exportarSalutar() {
-  this.funcionarioService.exportarSalutar().subscribe(
+ /* this.funcionarioService.exportarSalutar().subscribe(
     reposta => {
       const uri = reposta as any;
       const url = 'https://tecseg-img.s3.us-east-2.amazonaws.com/Formulario+Funcionarios.xls';
@@ -160,12 +161,12 @@ exportarSalutar() {
       err => {
         console.log(err.error.erros.join(' '));
       }
-    );
+    );*/
   }
 
   menuCadastro(menu: string) {
     let permitir = false;
-      if (menu === 'clientes') {
+    /*  if (menu === 'clientes') {
         if (this.authService.getUsuario().acesso.clientes) {
           permitir = true;
           this.router.navigate(['/consclientes']);
@@ -229,12 +230,12 @@ exportarSalutar() {
       }
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }
+      }*/
   }
 
   menuAso(menu: string) {
     let permitir = false;
-      if (menu === 'agendamento') {
+   /*   if (menu === 'agendamento') {
         if (this.authService.getUsuario().acesso.agendamento) {
           permitir = true;
           this.router.navigate(['/consasoagenda']);
@@ -252,12 +253,12 @@ exportarSalutar() {
       }
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }  
+      }  */
   }
 
   menuMovimento(menu: string) {
     let permitir = false;
-      if (menu === 'afastamento') {
+   /*   if (menu === 'afastamento') {
         if (this.authService.getUsuario().acesso.afastamento) {
           permitir = true;
           this.router.navigate(['/consafastamento']);
@@ -280,12 +281,12 @@ exportarSalutar() {
       } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }  
+      }  */
   }
 
   menuAcademia(menu: string) {
     let permitir = false;
-      if (menu === 'turma') {
+ /*     if (menu === 'turma') {
         if (this.authService.getUsuario().acesso.turma) {
           permitir = true;
           this.router.navigate(['/constreinamento']);
@@ -299,12 +300,12 @@ exportarSalutar() {
       } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }  
+      }  */
   }
 
   menuFinanceiro(menu: string) {
     let permitir = false;
-      if (menu === 'cr') {
+  /*    if (menu === 'cr') {
         if (this.authService.getUsuario().acesso.contas) {
           permitir = true;
           this.router.navigate(['/consreceber']);
@@ -312,12 +313,12 @@ exportarSalutar() {
       } 
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }  
+      }  */
   }
 
   menuEPI(menu: string) {
     let permitir = false;
-      if (menu === 'epi') {
+  /*    if (menu === 'epi') {
         if (this.authService.getUsuario().acesso.epi) {
           permitir = true;
           //this.router.navigate(['/constreinamento']);
@@ -345,7 +346,7 @@ exportarSalutar() {
       }
       if (!permitir) {
         this.alertService.showAlertDanger("Acesso negado.");
-      }  
+      }  */
   }
 
 

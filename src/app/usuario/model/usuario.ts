@@ -1,5 +1,3 @@
-import { Acesso } from 'src/app/acesso/model/acesso';
-import { Funcao } from 'src/app/funcao/model/funcao';
 
 
 export class Usuario {
@@ -12,10 +10,10 @@ export class Usuario {
     email: string;
     fonecelular: string;
     situacao: boolean;
-    acesso: Acesso;
+    //acesso: Acesso;
     urlfoto: string;
     urlassinatura: string;
     registromte: string;
-    funcao: Funcao;
+    //funcao: Funcao;
 
 }

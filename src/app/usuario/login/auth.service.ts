@@ -34,23 +34,23 @@ export class AuthService {
   }
 
   fazerLogin(usuario: Usuario) {
-    this.usuarioService.logar(usuario.login, usuario.senha).subscribe(
-      resposta => {
-        this.usuario = resposta as Usuario;
-        if (this.usuario != null) {
+  //  this.usuarioService.logar(usuario.login, usuario.senha).subscribe(
+    //  resposta => {
+      //  this.usuario = resposta as Usuario;
+      //  if (this.usuario != null) {
           this.router.navigate(['/']);
           this.mostrarMenuEmitter.emit(true);
-        } else {
-          this.usuairoAutenticado = false;
-          this.mostrarMenuEmitter.emit(false);
-          this.handleError('Usário e/ou senha inválidos.', 'danger');
-        }
-      },
-      err => {
-        console.error(err);
-        this.handleError('Usário e/ou senha inválidos.', 'danger');
-      }
-    );
+        //} else {
+        //  this.usuairoAutenticado = false;
+       ///   this.mostrarMenuEmitter.emit(false);
+      //    this.handleError('Usário e/ou senha inválidos.', 'danger');
+     //   }
+    //  },
+    ///  err => {
+     ///   console.error(err);
+      //  this.handleError('Usário e/ou senha inválidos.', 'danger');
+    //  }
+   // );
   }
 
   fazerLogof() {

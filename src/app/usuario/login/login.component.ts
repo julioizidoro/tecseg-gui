@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Usuario } from '../model/usuario';
 import { AuthService } from './auth.service';
-import { InputsModule, WavesModule } from 'angular-bootstrap-md'
 
 @Component({
   selector: 'app-login',

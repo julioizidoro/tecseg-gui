@@ -68,21 +68,7 @@
                     </thead>
                     <!-- Table head -->
 
-                    <!-- Table body -->
-                    <tbody>
-                        <tr *ngFor="let agenda of asoAgendas" 
-                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                    {{agenda.funcionario.nome}}</td>
-                    <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ agenda.dataexame | date: 'dd/MM/yyyy' }}</td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ agenda.hora }}</td>
-                    
-                  
-                </tr>
-                    </tbody>
-                    <!-- Table body -->
+                 
                 </table>
                 <!-- Table  -->
 
@@ -92,53 +78,6 @@
         <!--/.Card-->
 
     </div>
-
-<!--Grid column-->
-<div  class="col-md-6 mb-4">
-
-    <!--Card-->
-    <mdb-card>
-        <div class="card-header" style="background-color: green; color: white;">Próximas Turmas</div>
-        <!--Card content-->
-        <mdb-card-body>
-           <!-- Table  -->
-           <table class="table table-hover">
-            <!-- Table head -->
-            <thead class="blue-grey lighten-4">
-            <tr
-                class="pb-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center row">
-                <th class="col-lg-7 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Nome</th>
-                <th class="col-lg-3 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Data</th>
-                <th class="col-lg-2 mb-1 text-muted text-small w-sm-100 hidden-xs hidden-sm">Hora</th>
-            </tr>
-            </thead>
-            <!-- Table head -->
-
-            <!-- Table body -->
-            <tbody>
-                <tr *ngFor="let t of treinamentos" 
-            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-            <td class="col-lg-7 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-            {{t.treinamentotipo.nome}}</td>
-            <td class="col-lg-4 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                style="border: none;">{{ t.data |  date: 'dd/MM/yyyy' }}</td>
-            <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                style="border: none;">{{ t.hora }}</td>
-            
-          
-        </tr>
-            </tbody>
-            <!-- Table body -->
-        </table>
-        <!-- Table  -->
-
-        </mdb-card-body>
-
-    </mdb-card>
-    <!--/.Card-->
-
-</div>
-<!--Grid column-->
 
 </div>
 <!--Grid row-->
@@ -173,20 +112,7 @@
                     <!-- Table head -->
 
                     <!-- Table body -->
-                    <tbody>
-                        <tr *ngFor="let f of listaContratoExp" 
-                    class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                    <td class="col-lg-5 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                        {{f.funcionario.nome}}</td>
-                    <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                        style="border: none;">{{ f.datavencendo | date: 'dd/MM/yyyy' }}</td>
-                    <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                        {{f.diasvencendo}}</td>
-                    <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                        {{f.tipovencimento}}</td>
-                  
-                </tr>
-                    </tbody>
+                    
                     <!-- Table body -->
                 </table>
                 <!-- Table  -->
@@ -219,20 +145,7 @@
             </thead>
             <!-- Table head -->
 
-            <!-- Table body -->
-            <tbody>
-                <tr *ngFor="let f of listaAniversario" 
-            class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-            <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-            {{f.nome}}</td>
-            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                style="border: none;">{{ f.datanascimento |  date: 'dd/MM/yyyy' }}</td>
-            <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                style="border: none;">{{ f.loja.nome }}</td>
-            
-          
-        </tr>
-            </tbody>
+         
             <!-- Table body -->
         </table>
         <!-- Table  -->
@@ -276,19 +189,7 @@
                         <!-- Table head -->
     
                         <!-- Table body -->
-                        <tbody>
-                            <tr *ngFor="let cliente of listaClientes" 
-                        class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                        <td class="col-lg-6 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                        {{cliente.nome}}</td>
-                        <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                            style="border: none;">{{ cliente.datanascimento | date: 'dd/MM/yyyy' }}</td>
-                        <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                            style="border: none;">{{ cliente.fonecelular }}</td>
-                        
-                      
-                    </tr>
-                        </tbody>
+                   
                         <!-- Table body -->
                     </table>
                     <!-- Table  -->
@@ -324,21 +225,7 @@
                 <!-- Table head -->
 
                 <!-- Table body -->
-                <tbody>
-                    <tr *ngFor="let conta of listaContas" 
-                class="pb-0 pt-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                <td class="col-lg-5 col-xs mb-1 mt-1 text-muted text-small w-sm-100 p-0" style="border: none;">
-                {{conta.clientes.nome}}</td>
-                <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                    style="border: none;">{{ conta.datacompra |  date: 'dd/MM/yyyy' }}</td>
-                <td class="col-lg-3 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                    style="border: none; text-align: right;">{{conta.valorcompra | currency: ' '}}</td>
-                <td class="col-lg-2 col-xs mb-1 mt-1 text-muted text-small w-sm-100 hidden-xs p-0"
-                    style="border: none;"></td>
                 
-              
-            </tr>
-                </tbody>
                 <!-- Table body -->
             </table>
             <!-- Table  -->
